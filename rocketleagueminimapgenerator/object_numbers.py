@@ -6,7 +6,7 @@ player_info = {}
 
 
 def parse_ball_obj_nums():
-    from rocketleaguereplayparser.actor_data import get_actor_data
+    from rocketleagueminimapgenerator.actor_data import get_actor_data
 
     global ball_objects
 
@@ -22,7 +22,7 @@ def get_ball_obj_nums():
 
 
 def parse_car_obj_nums():
-    from rocketleaguereplayparser.data import get_data
+    from rocketleagueminimapgenerator.data import get_data
 
     global car_objects
 
@@ -49,7 +49,7 @@ def get_car_obj_nums():
 
 
 def parse_player_info():
-    from rocketleaguereplayparser.data import get_data, get_data_end
+    from rocketleagueminimapgenerator.data import get_data, get_data_end
 
     global player_info
 

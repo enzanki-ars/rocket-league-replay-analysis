@@ -1,2 +1,2 @@
-python -m rocketleaguereplayparser.main
+python -m rocketleagueminimapgenerator.main
 pause

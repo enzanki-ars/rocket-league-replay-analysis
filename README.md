@@ -1,4 +1,4 @@
-# Rocket League Replay Parser
+# Rocket League Minimap Generator
 
 **Version:** v1.0.0
 

@@ -1,3 +1,3 @@
 #!/bin/sh
 
-python3 -m rocketleaguereplayparser.main
+python3 -m rocketleagueminimapgenerator.main

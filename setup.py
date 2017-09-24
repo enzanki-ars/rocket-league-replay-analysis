@@ -1,14 +1,14 @@
 from distutils.core import setup
 
 setup(
-        name='rocketleaguereplayparser',
+        name='rocketleagueminimapgenerator',
         version='1.0.0',
-        url='https://enzanki-ars.github.io/rocketleaguereplayparser',
+        url='https://enzanki-ars.github.io/rocket-league-minimap-generator',
         license='GNU AGPLv3',
         author='Alex Shafer',
         author_email='enzanki.ars@gmail.com',
         description='Parses Rocket League replay json files and '
-                    'creates a map video',
+                    'creates a minimap video',
         requires=['cairosvg',
                   'tqdm']
 )

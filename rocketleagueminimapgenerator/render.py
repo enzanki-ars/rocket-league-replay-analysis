@@ -9,12 +9,12 @@ from tqdm import tqdm
 
 
 def render_field(out_prefix):
-    from rocketleaguereplayparser.frames import get_frames
-    from rocketleaguereplayparser.main import frame_num_format, car_template, \
+    from rocketleagueminimapgenerator.frames import get_frames
+    from rocketleagueminimapgenerator.main import frame_num_format, car_template, \
         field_template
-    from rocketleaguereplayparser.data import get_data_end
-    from rocketleaguereplayparser.data import get_data
-    from rocketleaguereplayparser.object_numbers import get_player_info
+    from rocketleagueminimapgenerator.data import get_data_end
+    from rocketleagueminimapgenerator.data import get_data
+    from rocketleagueminimapgenerator.object_numbers import get_player_info
 
     frames = get_frames()
 
@@ -95,9 +95,9 @@ def render_field(out_prefix):
 
 
 def render_video(out_prefix, out_frame_rate=30):
-    from rocketleaguereplayparser.frames import get_frames
-    from rocketleaguereplayparser.main import frame_num_format
-    from rocketleaguereplayparser.data import get_data_end
+    from rocketleagueminimapgenerator.frames import get_frames
+    from rocketleagueminimapgenerator.main import frame_num_format
+    from rocketleagueminimapgenerator.data import get_data_end
 
     Path(out_prefix + '-frames.txt').touch()
 

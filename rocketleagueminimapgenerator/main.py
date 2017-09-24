@@ -1,11 +1,11 @@
 import os
 
-from rocketleaguereplayparser.actor_data import parse_actor_data
-from rocketleaguereplayparser.data import load_data
-from rocketleaguereplayparser.frames import load_frames
-from rocketleaguereplayparser.object_numbers import parse_ball_obj_nums, \
+from rocketleagueminimapgenerator.actor_data import parse_actor_data
+from rocketleagueminimapgenerator.data import load_data
+from rocketleagueminimapgenerator.frames import load_frames
+from rocketleagueminimapgenerator.object_numbers import parse_ball_obj_nums, \
     parse_car_obj_nums, parse_player_info
-from rocketleaguereplayparser.render import render_field, render_video
+from rocketleagueminimapgenerator.render import render_field, render_video
 
 with open('field-template.svg', 'r') as svg_file:
     field_template = svg_file.read()
