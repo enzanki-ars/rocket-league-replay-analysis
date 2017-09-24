@@ -4,6 +4,8 @@
 
 ## Installation
 
+* Ensure [FFMPEG](http://ffmpeg.org/download.html) is installed and on the `PATH`
+
 * `pip install -r requirements.txt --upgrade`
 (A virtualenv type setup may be of value.)
 **OR** download a precompiled version.
