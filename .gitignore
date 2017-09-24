@@ -1,6 +1,8 @@
 # Project Specific Ignores
 /renders/
 *.json
+*.exe
+*.zip
 
 # Created by .ignore support plugin (hsz.mobi)
 ### VirtualEnv template
