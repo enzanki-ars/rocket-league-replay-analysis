@@ -54,6 +54,7 @@ def render_field(out_prefix):
 
 def render_frame(ball_loc, frames, frame_num,
                  min_x, min_y, x_size, y_size, out_prefix):
+    import math
     from rocketleagueminimapgenerator.main import frame_num_format, \
         car_template, field_template
     from rocketleagueminimapgenerator.object_numbers import \
@@ -66,14 +67,38 @@ def render_frame(ball_loc, frames, frame_num,
               'wb') as file_out:
         car_placement = ''
 
+        car_size = get_config('car_size')
+
+        r = car_size / 2
+
+        tri_pt_x_const = r / 2 * math.sqrt(3)
+        tri_pt_y_const = r / math.sqrt(3)
+
         for car_id in frames[frame_num]['cars'].keys():
+            car_x = ((frames[frame_num]['cars'][car_id]['loc']['x']
+                      - min_x) / get_config('size_modifier'))
+            car_y = ((frames[frame_num]['cars'][car_id]['loc']['y']
+                      - min_y) / get_config('size_modifier'))
+
             car_placement += car_template.format(
                     team_id=get_player_info()[car_id]['team'],
-                    car_pos_x=((frames[frame_num]['cars'][car_id]['loc']['x']
-                                - min_x) / get_config('size_modifier')),
-                    car_pos_y=((frames[frame_num]['cars'][car_id]['loc']['y']
-                                - min_y) / get_config('size_modifier')),
-                    car_size=get_config('car_size')
+                    car_pos_x=car_x,
+                    car_pos_y=car_y,
+
+                    car_triangle_pt1_x=car_x,
+                    car_triangle_pt1_y=car_y - r,
+
+                    car_triangle_pt2_x=car_x - tri_pt_x_const,
+                    car_triangle_pt2_y=car_y + tri_pt_y_const,
+
+                    car_triangle_pt3_x=car_x + tri_pt_x_const,
+                    car_triangle_pt3_y=car_y + tri_pt_y_const,
+
+                    car_angle=frames[frame_num]['cars'][car_id]['rot']['y'] + \
+                              90,
+
+                    car_size=car_size,
+                    arrow_move=car_size * 1.5
             )
 
         cairosvg.svg2png(bytestring=bytes(

@@ -12,7 +12,14 @@ with open('field-template.svg', 'r') as svg_file:
     field_template = svg_file.read()
 
 car_template = '<circle class="team{team_id} stroke-black" ' \
-               'cx="{car_pos_y}" cy="{car_pos_x}" r="{car_size}"/>'
+               'cx="{car_pos_x}" cy="{car_pos_y}" r="{car_size}"/>' \
+               '<polygon class="team{team_id} stroke-black" ' \
+               'points="' \
+               '{car_triangle_pt1_x},{car_triangle_pt1_y} ' \
+               '{car_triangle_pt2_x},{car_triangle_pt2_y} ' \
+               '{car_triangle_pt3_x},{car_triangle_pt3_y} " ' \
+               'transform="rotate({car_angle} {car_pos_x} {car_pos_y})' \
+               'translate(0 -{arrow_move})"/>'
 frame_num_format = '{0:04d}'
 
 
