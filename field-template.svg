@@ -17,7 +17,6 @@
                 .team2 {{fill:blue}}
                 .team3 {{fill:orange}}
                 .fill-black {{fill:black}}
-                .font {{font-weight:normal;font-size:{time_size}px;font-family:'Arial'}}
             ]]>
         </style>
     </defs>
