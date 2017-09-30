@@ -2,7 +2,8 @@ import argparse
 import os
 
 from rocketleagueminimapgenerator.actor_data import parse_actor_data
-from rocketleagueminimapgenerator.data import load_data, set_data_end
+from rocketleagueminimapgenerator.data import load_data, \
+    set_data_start, set_data_end
 from rocketleagueminimapgenerator.frames import load_frames
 from rocketleagueminimapgenerator.object_numbers import parse_ball_obj_nums, \
     parse_car_obj_nums, parse_player_info
