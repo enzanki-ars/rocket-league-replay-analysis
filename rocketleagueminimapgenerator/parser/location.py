@@ -98,4 +98,3 @@ def parse_sleep_update(updated_data):
 
     if 'sleeping' in update:
         return update['sleeping']
-

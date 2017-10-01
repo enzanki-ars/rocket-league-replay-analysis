@@ -13,11 +13,11 @@ def load_frames():
 
     from tqdm import tqdm
 
-    from rocketleagueminimapgenerator.data import get_data, get_data_end
-    from rocketleagueminimapgenerator.object_numbers import \
+    from rocketleagueminimapgenerator.data.data import get_data, get_data_end
+    from rocketleagueminimapgenerator.data.object_numbers import \
         get_ball_obj_nums, get_car_obj_nums, get_player_info, \
         get_game_event_num
-    from rocketleagueminimapgenerator.location import \
+    from rocketleagueminimapgenerator.parser.location import \
         parse_loc_spawn, parse_rot_spawn, \
         parse_sleep_update, \
         parse_loc_update, parse_rot_update, \
@@ -51,6 +51,7 @@ def load_frames():
             'throttle': 0,
             'steer': 0,
             'ping': 0,
+            'boost': 0,
             'sleep': True,
             'scoreboard': {
                 'score': 0,

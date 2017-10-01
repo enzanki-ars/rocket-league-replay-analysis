@@ -2,16 +2,17 @@ import argparse
 import os
 import time
 
-from rocketleagueminimapgenerator.actor_data import parse_actor_data
-from rocketleagueminimapgenerator.data import load_data, \
+from rocketleagueminimapgenerator.data.actor_data import parse_actor_data
+from rocketleagueminimapgenerator.data.data import load_data, \
     set_data_start, set_data_end
-from rocketleagueminimapgenerator.data_explorer import data_explorer_cli
-from rocketleagueminimapgenerator.frames import load_frames
-from rocketleagueminimapgenerator.object_numbers import parse_ball_obj_nums, \
-    parse_car_obj_nums, parse_player_info
-from rocketleagueminimapgenerator.render import render_field, render_video
+from rocketleagueminimapgenerator.data.object_numbers import \
+    parse_ball_obj_nums, parse_car_obj_nums, parse_player_info
+from rocketleagueminimapgenerator.parser.frames import load_frames
+from rocketleagueminimapgenerator.render.minimap import render_field
+from rocketleagueminimapgenerator.render.transcode import render_video
+from rocketleagueminimapgenerator.util.data_explorer import data_explorer_cli
 
-with open('field-template.svg', 'r') as svg_file:
+with open(os.path.join('assets', 'field-template.svg'), 'r') as svg_file:
     field_template = svg_file.read()
 
 car_template = '<circle class="team{team_id} stroke-black" ' \
@@ -68,7 +69,7 @@ def main():
 
         video_prefix = os.path.join('renders', out_prefix.split('.')[0])
         render_field(video_prefix)
-        render_video(video_prefix)
+        render_video(video_prefix, 'minimap')
     elif args.process_type == 'video_stats':
         print('Not implemented yet.')
     elif args.process_type == 'data_explorer':

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+        "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
+     width="360px" height="200px" version="1.1"
+     style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+     viewBox="0 0 241 134">
+    <defs>
+        <style type="text/css">
+            <![CDATA[
+                .stroke-black-5 {{stroke:black;stroke-width:5}}
+                .stroke-black-0-5 {{stroke:black;stroke-width:0.444747}}
+                .fill-none {{fill:none}}
+                .fill-black {{fill:black}}
+                .fill-grey {{fill:gray}}
+                .fill-10-grey {{fill:#E6E6E6}}
+                .fill-white {{fill:white}}
+                .team2 {{fill:blue;fill-opacity:0.5}}
+                .team3 {{fill:orange;fill-opacity:0.5}}
+                .font-10 {{font-weight:normal;font-size:10.6729px;font-family:'Arial'}}
+                .font-16 {{font-weight:normal;font-size:16.0096px;font-family:'Arial'}}
+                .font-21 {{font-weight:normal;font-size:21.3463px;font-family:'Arial'}}
+               ]]>
+        </style>
+    </defs>
+    <g id="MainLayer">
+        <g>
+            <polygon class="fill-white" points="0,134 0,0 240,0 240,134 "/>
+            <polygon id="1" class="fill-none stroke-black-0-5" points="0,134 0,0 240,0 240,134 "/>
+        </g>
+        <g>
+            <polygon class="team{team}" points="0,134 0,0 240,0 240,134 "/>
+            <polygon id="2" class="fill-none stroke-black-0-5" points="0,134 0,0 240,0 240,134 "/>
+        </g>
+        <rect class="fill-10-grey stroke-black-0-5" width="240.148" height="31.1996"/>
+        <g transform="matrix(1.01875 0 0 1 -177.413 47.8539)">
+            <text x="180" y="-27" class="fill-black font-21">{player_name}</text>
+        </g>
+        <rect class="fill-white stroke-black-0-5" y="42" width="48.0297" height="15.7152"/>
+        <rect class="fill-white stroke-black-0-5" x="48" y="42" width="48.0297" height="15.7152"/>
+        <rect class="fill-white stroke-black-0-5" x="96" y="42" width="48.0297" height="15.7152"/>
+        <rect class="fill-white stroke-black-0-5" x="144" y="42" width="48.0297" height="15.7152"/>
+        <rect class="fill-white stroke-black-0-5" x="192" y="42" width="48.0297" height="15.7152"/>
+        <g transform="matrix(1.01875 0 0 1 -159.158 80.2267)">
+            <text x="166" y="-27" class="fill-black font-10">Score</text>
+        </g>
+        <g transform="matrix(1.01875 0 0 1 -111.188 80.2267)">
+            <text x="166" y="-27" class="fill-black font-10">Goals</text>
+        </g>
+        <g transform="matrix(1.01875 0 0 1 -62.8674 80.1691)">
+            <text x="163" y="-27" class="fill-black font-10">Assists</text>
+        </g>
+        <g transform="matrix(1.01875 0 0 1 -15.0912 80.2267)">
+            <text x="165" y="-27" class="fill-black font-10">Saves</text>
+        </g>
+        <g transform="matrix(1.01875 0 0 1 32.9388 80.2267)">
+            <text x="166" y="-27" class="fill-black font-10">Shots</text>
+        </g>
+        <rect class="fill-white stroke-black-0-5" y="58" width="48.0297" height="23.5729"/>
+        <rect class="fill-white stroke-black-0-5" x="48" y="58" width="48.0297" height="23.5729"/>
+        <rect class="fill-white stroke-black-0-5" x="96" y="58" width="48.0297" height="23.5729"/>
+        <rect class="fill-white stroke-black-0-5" x="144" y="58" width="48.0297" height="23.5729"/>
+        <rect class="fill-white stroke-black-0-5" x="192" y="58" width="48.0297" height="23.5729"/>
+        <g transform="matrix(1.01875 0 0 1 -159.617 101.675)">
+            <text x="162" y="-27" class="fill-black font-16">{score}</text>
+        </g>
+        <g transform="matrix(1.01875 0 0 1 -110.498 101.77)">
+            <text x="176" y="-27" class="fill-black font-16">{goals}</text>
+        </g>
+        <g transform="matrix(1.01875 0 0 1 -62.8793 101.77)">
+            <text x="176" y="-27" class="fill-black font-16">{assists}</text>
+        </g>
+        <g transform="matrix(1.01875 0 0 1 -15.0231 101.675)">
+            <text x="176" y="-27" class="fill-black font-16">{saves}</text>
+        </g>
+        <g transform="matrix(1.01875 0 0 1 33.2708 101.746)">
+            <text x="176" y="-27" class="fill-black font-16">{shots}</text>
+        </g>
+        <rect class="fill-white stroke-black-0-5" y="94" width="48.0297" height="13.096"/>
+        <rect class="fill-white stroke-black-0-5" y="107.5" width="48.0297" height="13.096"/>
+        <rect class="fill-white stroke-black-0-5" y="121" width="48.0297" height="13.096"/>
+        <g transform="matrix(1.01875 0 0 1 -159.457 157.445)">
+            <text x="166" y="-27" class="fill-black font-10">Boost</text>
+        </g>
+        <g transform="matrix(1.01875 0 0 1 -159.035 131.195)">
+            <text x="162" y="-27" class="fill-black font-10">Throttle</text>
+        </g>
+        <g transform="matrix(1.01875 0 0 1 -159.457 144.349)">
+            <text x="167" y="-27" class="fill-black font-10">Steer</text>
+        </g>
+        <rect class="fill-white stroke-black-0-5" x="192" y="94" width="48.0297" height="15.7153"/>
+        <rect class="fill-white stroke-black-0-5" x="192" y="110" width="48.0297" height="23.5729"/>
+        <g transform="matrix(1.01875 0 0 1 32.9385 132.563)">
+            <text x="169" y="-27" class="fill-black font-10">Ping</text>
+        </g>
+        <g transform="matrix(1.01875 0 0 1 33.0066 154.012)">
+            <text x="176" y="-27" class="fill-black font-16">{ping}</text>
+        </g>
+        <rect class="fill-white stroke-black-0-5" x="48" y="94" width="{moving_data_width}" height="13.096"/>
+        <rect class="fill-white stroke-black-0-5" x="48" y="107.5" width="{moving_data_width}" height="13.096"/>
+        <rect class="fill-white stroke-black-0-5" x="48" y="121" width="{moving_data_width}" height="13.096"/>
+        <rect class="fill-grey stroke-black-0-5" x="48" y="123" width="{throttle}" height="7.85761"/>
+        <line class="fill-none stroke-black-5" x1="{steer}" y1="110" x2="{steer}" y2="118"/>
+        <rect class="fill-grey stroke-black-0-5" x="48" y="97" width="{boost}" height="7.85761"/>
+    </g>
+</svg>
