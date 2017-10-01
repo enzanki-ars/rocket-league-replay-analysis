@@ -1,2 +1,0 @@
-python -m rocketleagueminimapgenerator.main
-pause
