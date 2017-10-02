@@ -99,8 +99,8 @@
         <rect class="fill-white stroke-black-0-5" x="48" y="94" width="{moving_data_width}" height="13.096"/>
         <rect class="fill-white stroke-black-0-5" x="48" y="107.5" width="{moving_data_width}" height="13.096"/>
         <rect class="fill-white stroke-black-0-5" x="48" y="121" width="{moving_data_width}" height="13.096"/>
-        <rect class="fill-grey stroke-black-0-5" x="48" y="123" width="{throttle}" height="7.85761"/>
+        <rect class="fill-grey stroke-black-0-5" x="48" y="97" width="{throttle}" height="7.85761"/>
         <line class="fill-none stroke-black-5" x1="{steer}" y1="110" x2="{steer}" y2="118"/>
-        <rect class="fill-grey stroke-black-0-5" x="48" y="97" width="{boost}" height="7.85761"/>
+        <rect class="fill-grey stroke-black-0-5" x="48" y="123" width="{boost}" height="7.85761"/>
     </g>
 </svg>

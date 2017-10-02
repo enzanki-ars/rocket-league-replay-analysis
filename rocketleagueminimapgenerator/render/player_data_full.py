@@ -1,4 +1,4 @@
-def render_player_data(out_prefix):
+def render_player_data_full(out_prefix):
     import os
     import shutil
     from pathlib import Path
@@ -26,16 +26,16 @@ def render_player_data(out_prefix):
     for i in tqdm(range(get_data_start(), get_data_end()),
                   desc='Video Frame Out',
                   ascii=True):
-        render_player(frames=frames, frame_num=i, out_prefix=out_prefix)
+        render_player_full(frames=frames, frame_num=i, out_prefix=out_prefix)
 
 
-def render_player(frames, frame_num, out_prefix):
+def render_player_full(frames, frame_num, out_prefix):
     import os
 
     import cairosvg
 
     from rocketleagueminimapgenerator.main import frame_num_format, \
-        player_data_template
+        player_data_full_template
     from rocketleagueminimapgenerator.data.object_numbers import \
         get_player_info
 
@@ -51,7 +51,7 @@ def render_player(frames, frame_num, out_prefix):
             player_team = get_player_info()[player_id]['team']
 
             cairosvg.svg2png(bytestring=bytes(
-                    player_data_template.format(
+                    player_data_full_template.format(
                             player_name=player_name,
                             team=player_team,
                             score='{0:04d}'.format(player_scoreboard['score']),
@@ -64,7 +64,7 @@ def render_player(frames, frame_num, out_prefix):
                             throttle=(player_frame_info['throttle'] *
                                       moving_data_width),
                             steer=(player_frame_info['steer'] *
-                                   (moving_data_width - 2.5)) + (48 + 2.5),
+                                   (moving_data_width - 5)) + (48 + 2.5),
                             boost=(player_frame_info['boost'] *
                                    moving_data_width),
                             moving_data_width=moving_data_width
