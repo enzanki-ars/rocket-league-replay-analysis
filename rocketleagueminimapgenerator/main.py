@@ -3,7 +3,7 @@ import os
 import time
 
 from rocketleagueminimapgenerator.data.actor_data import parse_actor_data
-from rocketleagueminimapgenerator.data.data import load_data, \
+from rocketleagueminimapgenerator.data.data_loader import load_data, \
     set_data_start, set_data_end
 from rocketleagueminimapgenerator.data.object_numbers import \
     parse_ball_obj_nums, parse_car_obj_nums, parse_player_info, get_player_info

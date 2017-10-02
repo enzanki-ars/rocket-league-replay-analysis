@@ -38,7 +38,7 @@ def get_game_event_num():
 
 
 def parse_car_obj_nums():
-    from rocketleagueminimapgenerator.data.data import get_data, get_data_end
+    from rocketleagueminimapgenerator.data.data_loader import get_data, get_data_end
 
     global car_objects
 
@@ -66,7 +66,7 @@ def get_car_obj_nums():
 
 def parse_player_info():
     from tqdm import tqdm
-    from rocketleagueminimapgenerator.data.data import get_data, get_data_end
+    from rocketleagueminimapgenerator.data.data_loader import get_data, get_data_end
 
     global player_info
 

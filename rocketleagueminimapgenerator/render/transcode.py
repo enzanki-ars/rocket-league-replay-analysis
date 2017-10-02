@@ -5,7 +5,7 @@ def render_video(out_prefix, type, out_frame_rate=30):
 
     from rocketleagueminimapgenerator.parser.frames import get_frames
     from rocketleagueminimapgenerator.main import frame_num_format
-    from rocketleagueminimapgenerator.data.data import get_data_start, \
+    from rocketleagueminimapgenerator.data.data_loader import get_data_start, \
         get_data_end
 
     Path(os.path.join(out_prefix, type + '-frames.txt')).touch()

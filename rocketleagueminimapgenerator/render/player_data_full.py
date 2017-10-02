@@ -6,7 +6,7 @@ def render_player_data_full(out_prefix):
     from tqdm import tqdm
 
     from rocketleagueminimapgenerator.parser.frames import get_frames
-    from rocketleagueminimapgenerator.data.data import get_data_start, \
+    from rocketleagueminimapgenerator.data.data_loader import get_data_start, \
         get_data_end
 
     frames = get_frames()

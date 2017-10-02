@@ -6,7 +6,7 @@ def render_field(out_prefix):
     from tqdm import tqdm
 
     from rocketleagueminimapgenerator.parser.frames import get_frames
-    from rocketleagueminimapgenerator.data.data import get_data_start, \
+    from rocketleagueminimapgenerator.data.data_loader import get_data_start, \
         get_data_end
     from rocketleagueminimapgenerator.util.config import get_config
 

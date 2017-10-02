@@ -1,6 +1,6 @@
 def data_explorer_cli():
     from pprint import pprint
-    from rocketleagueminimapgenerator.data import get_data
+    from rocketleagueminimapgenerator.data.data_loader import get_data
     from rocketleagueminimapgenerator.data.actor_data import get_actor_data
     from rocketleagueminimapgenerator.data.object_numbers import \
         get_ball_obj_nums, get_car_obj_nums, get_player_info
@@ -77,7 +77,7 @@ def data_explorer_cli():
 
 def loop_mode():
     from pprint import pprint
-    from rocketleagueminimapgenerator.data import get_data
+    from rocketleagueminimapgenerator.data.data_loader import get_data
     from rocketleagueminimapgenerator.data.object_numbers import \
         get_ball_obj_nums, get_car_obj_nums, get_player_info
 
