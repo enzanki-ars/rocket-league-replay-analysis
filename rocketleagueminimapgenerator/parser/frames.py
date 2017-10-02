@@ -17,11 +17,8 @@ def load_frames():
     from rocketleagueminimapgenerator.data.object_numbers import \
         get_ball_obj_nums, get_car_obj_nums, get_player_info, \
         get_game_event_num
-    from rocketleagueminimapgenerator.parser.location import \
-        parse_loc_spawn, parse_rot_spawn, \
-        parse_sleep_update, \
-        parse_loc_update, parse_rot_update, \
-        parse_ang_vel_update, parse_lin_vel_update
+    from rocketleagueminimapgenerator.parser.frame_data import \
+        update_game_data, update_car_data, update_player_data, update_ball_data
 
     data = get_data()
 
@@ -70,88 +67,15 @@ def load_frames():
         frames[i]['delta'] = data['content']['frames'][i]['delta']
 
         for frame_data in data['content']['frames'][i]['replications']:
-            if frame_data['actor_id']['value'] in ball_objects:
+            actor_id = frame_data['actor_id']['value']
 
-                if 'spawned_replication_value' in frame_data['value'].keys():
-                    loc = parse_loc_spawn(frame_data)
-                    rot = parse_rot_spawn(frame_data)
-                    if loc:
-                        frames[i]['ball']['loc'].update(loc)
-                    if rot:
-                        frames[i]['ball']['rot'].update(rot)
-                elif 'updated_replication_value' in frame_data['value'].keys():
-                    for updated_data in \
-                            frame_data['value']['updated_replication_value']:
-                        if updated_data['name'] == \
-                                'TAGame.RBActor_TA:ReplicatedRBState':
-                            loc = parse_loc_update(updated_data)
-                            rot = parse_rot_update(updated_data)
-                            sleep = parse_sleep_update(updated_data)
-                            if loc:
-                                frames[i]['ball']['loc'].update(loc)
-                            if rot:
-                                frames[i]['ball']['rot'].update(rot)
-                            if sleep:
-                                frames[i]['ball']['sleep'] = sleep
-            elif frame_data['actor_id']['value'] in car_objects:
-                car_id = frame_data['actor_id']['value']
-                player_id = car_objects[car_id]
+            if actor_id in ball_objects:
+                update_ball_data(frame_data, frames, i)
+            elif actor_id in player_info.keys():
+                update_player_data(frame_data, frames, i, actor_id)
+            elif actor_id in car_objects:
+                player_id = car_objects[actor_id]
 
-                if 'spawned_replication_value' in frame_data['value'].keys():
-                    loc = parse_loc_spawn(frame_data)
-                    rot = parse_rot_spawn(frame_data)
-                    if loc:
-                        frames[i]['cars'][player_id]['loc'].update(loc)
-                    if rot:
-                        frames[i]['cars'][player_id]['rot'].update(rot)
-                elif 'updated_replication_value' in frame_data['value'].keys():
-                    for updated_data in \
-                            frame_data['value']['updated_replication_value']:
-                        if updated_data['name'] == \
-                                'TAGame.RBActor_TA:ReplicatedRBState':
-                            loc = parse_loc_update(updated_data)
-                            rot = parse_rot_update(updated_data)
-                            ang_vel = parse_ang_vel_update(updated_data)
-                            lin_vel = parse_lin_vel_update(updated_data)
-                            sleep = parse_sleep_update(updated_data)
-
-                            if loc:
-                                frames[i]['cars'][player_id]['loc'].update(loc)
-                            if rot:
-                                frames[i]['cars'][player_id]['rot'].update(rot)
-                            if ang_vel:
-                                frames[i]['cars'][player_id]['ang_vel'].update(
-                                        ang_vel)
-                            if lin_vel:
-                                frames[i]['cars'][player_id]['lin_vel'].update(
-                                        lin_vel)
-                            if sleep:
-                                frames[i]['cars'][player_id]['sleep'] = sleep
-                        elif updated_data['name'] == \
-                                'Engine.PlayerReplicationInfo:Ping':
-                            frames[i]['cars'][player_id]['ping'] = (
-                                updated_data['value']['byte_attribute_value'])
-                        elif updated_data['name'] == \
-                                'TAGame.CarComponent_Boost_TA:' \
-                                'ReplicatedBoostAmount':
-                            frames[i]['cars'][player_id]['boost'] = (
-                                updated_data['value']['byte_attribute_value']
-                                / 255)
-                        elif updated_data['name'] == \
-                                'TAGame.Vehicle_TA:ReplicatedThrottle':
-                            frames[i]['cars'][player_id]['throttle'] = (
-                                updated_data['value']['byte_attribute_value']
-                                / 255)
-                        elif updated_data['name'] == \
-                                'TAGame.Vehicle_TA:ReplicatedSteer':
-                            frames[i]['cars'][player_id]['steer'] = (
-                                updated_data['value']['byte_attribute_value']
-                                / 255)
-            elif frame_data['actor_id']['value'] == game_event_num:
-                if 'updated_replication_value' in frame_data['value'].keys():
-                    for updated_data in \
-                            frame_data['value']['updated_replication_value']:
-                        if updated_data['name'] == \
-                                'TAGame.GameEvent_Soccar_TA:SecondsRemaining':
-                            frames[i]['game_data']['sec_remaining'] = (
-                                updated_data['value']['int_attribute_value'])
+                update_car_data(frame_data, frames, i, player_id)
+            elif actor_id == game_event_num:
+                update_game_data(frame_data, frames, i)
