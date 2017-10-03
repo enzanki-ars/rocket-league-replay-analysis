@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="362px" height="130px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 242 87"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str1 {{stroke:black;stroke-width:1.33809}}
+    .str0 {{stroke:black;stroke-width:0.446116}}
+    .fil1 {{fill:none}}
+    .fil5 {{fill:none}}
+    .fil3 {{fill:black}}
+    .fil4 {{fill:white}}
+    .fil0 {{fill:#FF6600;fill-opacity:0.501961}}
+    .fil2 {{fill:url(#id0)}}
+	.team2 {{fill:blue}}
+    .team3 {{fill:orange}}
+    .fnt1 {{font-weight:normal;font-size:10.706px;font-family:'Arial'}}
+    .fnt2 {{font-weight:normal;font-size:16.0591px;font-family:'Arial'}}
+    .fnt0 {{font-weight:normal;font-size:21.4123px;font-family:'Arial'}}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="121.113" y1="32.5515" x2="121.113" y2="0.669173">
+   <stop offset="0" style="stop-opacity:1; stop-color:#E6E6E6"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:white"/>
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <g>
+   <path class="team{team}" d="M1 79l0 -72c0,-3 3,-6 6,-6l228 0c4,0 7,3 7,6l0 72c0,4 -3,7 -7,7l-228 0c-3,0 -6,-3 -6,-7z"/>
+   <path id="1" class="fil1 str0" d="M1 79l0 -72c0,-3 3,-6 6,-6l228 0c4,0 7,3 7,6l0 72c0,4 -3,7 -7,7l-228 0c-3,0 -6,-3 -6,-7z"/>
+  </g>
+  <rect class="fil2 str0" x="1" y="1" width="240.887" height="31.8823" rx="7" ry="7"/>
+  <text x="6" y="22"  class="fil3 fnt0">{player_name}</text>
+  <rect class="fil4 str0" x="1" y="46" width="48.1774" height="16.0591"/>
+  <rect class="fil4 str0" x="49" y="46" width="48.1774" height="16.0591"/>
+  <rect class="fil4 str0" x="97" y="46" width="48.1774" height="16.0591"/>
+  <rect class="fil4 str0" x="145" y="46" width="48.1774" height="16.0591"/>
+  <rect class="fil4 str0" x="193" y="46" width="48.1774" height="16.0591"/>
+  <text x="11" y="58"  class="fil3 fnt1">Score</text>
+  <text x="59" y="58"  class="fil3 fnt1">Goals</text>
+  <text x="104" y="58"  class="fil3 fnt1">Assists</text>
+  <text x="154" y="58"  class="fil3 fnt1">Saves</text>
+  <text x="204" y="58"  class="fil3 fnt1">Shots</text>
+  <path class="fil4 str0" d="M7 86l42 0 0 -24 -48 0 0 17c0,4 3,7 6,7z"/>
+  <rect class="fil4 str0" x="49" y="62" width="48.1774" height="24.0887"/>
+  <rect class="fil4 str0" x="97" y="62" width="48.1774" height="24.0887"/>
+  <rect class="fil4 str0" x="145" y="62" width="48.1774" height="24.0887"/>
+  <path class="fil4 str0" d="M193 86l42 0c4,0 7,-3 7,-7l0 -17 -49 0 0 24z"/>
+  <text x="6" y="80"  class="fil3 fnt2">{score}</text>
+  <text x="69" y="80"  class="fil3 fnt2">{goals}</text>
+  <text x="117" y="80"  class="fil3 fnt2">{assists}</text>
+  <text x="165" y="80"  class="fil3 fnt2">{saves}</text>
+  <text x="213" y="80"  class="fil3 fnt2">{shots}</text>
+  <path class="fil5 str1" d="M1 79l0 -72c0,-3 3,-6 6,-6l228 0c4,0 7,3 7,6l0 72c0,4 -3,7 -7,7l-228 0c-3,0 -6,-3 -6,-7z"/>
+  <rect class="fil1 str1" transform="matrix(3.36311E-14 -0.252976 1.12149 5.91726E-15 0.66929 85.9835)" width="337" height="215" rx="16" ry="16"/>
+ </g>
+</svg>

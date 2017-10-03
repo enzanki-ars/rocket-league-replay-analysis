@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="362px" height="202px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 242 135"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str1 {{stroke:black;stroke-width:2.00727}}
+    .str3 {{stroke:black;stroke-width:1.33809}}
+    .str2 {{stroke:red;stroke-width:1.33809}}
+    .str0 {{stroke:black;stroke-width:0.446116}}
+    .fil1 {{fill:none}}
+    .fil3 {{fill:black}}
+    .fil5 {{fill:gray}}
+    .fil4 {{fill:white}}
+    .fil0 {{fill:#FF6600;fill-opacity:0.501961}}
+    .fil2 {{fill:url(#id0)}}
+	.team2 {{fill:blue}}
+    .team3 {{fill:orange}}
+    .fnt3 {{font-weight:normal;font-size:10.7058px;font-family:'Arial'}}
+    .fnt1 {{font-weight:normal;font-size:10.706px;font-family:'Arial'}}
+    .fnt4 {{font-weight:normal;font-size:16.0589px;font-family:'Arial'}}
+    .fnt2 {{font-weight:normal;font-size:16.0591px;font-family:'Arial'}}
+    .fnt0 {{font-weight:normal;font-size:21.4123px;font-family:'Arial'}}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="121.113" y1="32.5515" x2="121.113" y2="0.669173">
+   <stop offset="0" style="stop-opacity:1; stop-color:#E6E6E6"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:white"/>
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <g>
+   <path class="team{team}" d="M1 128l0 -121c0,-3 3,-6 6,-6l228 0c4,0 7,3 7,6l0 121c0,4 -3,6 -7,6l-228 0c-3,0 -6,-2 -6,-6z"/>
+   <path id="1" class="fil1 str0" d="M1 128l0 -121c0,-3 3,-6 6,-6l228 0c4,0 7,3 7,6l0 121c0,4 -3,6 -7,6l-228 0c-3,0 -6,-2 -6,-6z"/>
+  </g>
+  <rect class="fil2 str0" x="1" y="1" width="240.887" height="31.8823" rx="6" ry="6"/>
+  <text x="6" y="22"  class="fil3 fnt0">{player_name}</text>
+  <rect class="fil4 str0" x="1" y="42" width="48.1774" height="16.0591"/>
+  <rect class="fil4 str0" x="49" y="42" width="48.1774" height="16.0591"/>
+  <rect class="fil4 str0" x="97" y="42" width="48.1774" height="16.0591"/>
+  <rect class="fil4 str0" x="145" y="42" width="48.1774" height="16.0591"/>
+  <rect class="fil4 str0" x="193" y="42" width="48.1774" height="16.0591"/>
+  <text x="11" y="54"  class="fil3 fnt1">Score</text>
+  <text x="59" y="54"  class="fil3 fnt1">Goals</text>
+  <text x="104" y="54"  class="fil3 fnt1">Assists</text>
+  <text x="154" y="54"  class="fil3 fnt1">Saves</text>
+  <text x="204" y="54"  class="fil3 fnt1">Shots</text>
+  <rect class="fil4 str0" x="1" y="58" width="48.1774" height="24.0887"/>
+  <rect class="fil4 str0" x="49" y="58" width="48.1774" height="24.0887"/>
+  <rect class="fil4 str0" x="97" y="58" width="48.1774" height="24.0887"/>
+  <rect class="fil4 str0" x="145" y="58" width="48.1774" height="24.0887"/>
+  <rect class="fil4 str0" x="193" y="58" width="48.1774" height="24.0887"/>
+  <text x="6" y="76"  class="fil3 fnt2">{score}</text>
+  <text x="69" y="76"  class="fil3 fnt2">{goals}</text>
+  <text x="117" y="76"  class="fil3 fnt2">{assists}</text>
+  <text x="165" y="76"  class="fil3 fnt2">{saves}</text>
+  <text x="213" y="76"  class="fil3 fnt2">{shots}</text>
+  <path class="fil4 str0" d="M7 134l42 0 0 -40 -48 0 0 34c0,3 3,6 6,6z"/>
+  <rect class="fil4 str0" x="145" y="94" width="48.1774" height="16.0591"/>
+  <rect class="fil4 str0" x="193" y="94" width="48.1774" height="16.0591"/>
+  <text x="7" y="118"  class="fil3 fnt3">Throttle</text>
+  <text x="150" y="106"  class="fil3 fnt3">Steering</text>
+  <text x="207" y="106"  class="fil3 fnt3">Ping</text>
+  <rect class="fil4 str0" x="145" y="110" width="48.1774" height="24.0887"/>
+  <path class="fil4 str0" d="M193 134l42 0c4,0 7,-3 7,-6l0 -18 -49 0 0 24z"/>
+  <text x="213" y="128"  class="fil3 fnt4">{ping}</text>
+  <rect class="fil4 str0" x="49" y="94" width="96.3549" height="40.148"/>
+  <rect class="fil5 str0" x="49" y="101" width="{throttle}" height="26.7649"/>
+  <g transform="rotate({steer} 169 122)">
+   <circle class="fil1 str1" cx="169" cy="122" r="8"/>
+   <path class="fil1 str0" d="M169 122l0 9m-8 -11l8 2 8 -2"/>
+   <line class="fil1 str2" x1="169" y1="114" x2="169" y2= "117" />
+  </g>
+  <rect class="fil1 str3" transform="matrix(3.36311E-14 -0.396826 1.12149 9.28197E-15 0.66929 134.495)" width="337" height="215" rx="10" ry="10"/>
+ </g>
+</svg>

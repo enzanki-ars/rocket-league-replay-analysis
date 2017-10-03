@@ -9,17 +9,29 @@ from rocketleagueminimapgenerator.data.object_numbers import \
     parse_ball_obj_nums, parse_car_obj_nums, parse_player_info, get_player_info
 from rocketleagueminimapgenerator.parser.frames import load_frames
 from rocketleagueminimapgenerator.render.minimap import render_field
-from rocketleagueminimapgenerator.render.player_data_full import \
-    render_player_data_full
+from rocketleagueminimapgenerator.render.player_data_drive import \
+    render_player_data_drive
+from rocketleagueminimapgenerator.render.player_data_scoreboard import \
+    render_player_data_scoreboard
+from rocketleagueminimapgenerator.render.player_data_scoreboard_with_drive import \
+    render_player_data_scoreboard_with_drive
 from rocketleagueminimapgenerator.render.transcode import render_video
 from rocketleagueminimapgenerator.util.data_explorer import data_explorer_cli
 
 with open(os.path.join('assets', 'field-template.svg'), 'r') as svg_file:
     field_template = svg_file.read()
 
-with open(os.path.join('assets', 'player-data-full-template.svg'),
+with open(os.path.join('assets', 'player-data-drive.svg'),
           'r') as svg_file:
-    player_data_full_template = svg_file.read()
+    player_data_drive_template = svg_file.read()
+
+with open(os.path.join('assets', 'player-data-scoreboard.svg'),
+          'r') as svg_file:
+    player_data_scoreboard_template = svg_file.read()
+
+with open(os.path.join('assets', 'player-data-scoreboard-with-drive.svg'),
+          'r') as svg_file:
+    player_data_scoreboard_with_drive_template = svg_file.read()
 
 car_template = '<circle class="team{team_id} stroke-black" ' \
                'cx="{car_pos_x}" cy="{car_pos_y}" r="{car_size}"/>' \
@@ -41,7 +53,9 @@ def main():
 
     parser.add_argument('--process_type',
                         choices=['video_minimap',
-                                 'video_player_data',
+                                 'video_player_data_drive',
+                                 'video_player_data_scoreboard',
+                                 'video_player_data_scoreboard_with_drive',
                                  'data_explorer'],
                         default='video_minimap')
 
@@ -76,11 +90,23 @@ def main():
         video_prefix = os.path.join('renders', out_prefix.split('.')[0])
         render_field(video_prefix)
         render_video(video_prefix, 'minimap')
-    elif args.process_type == 'video_player_data':
-        render_player_data_full(video_prefix)
+    elif args.process_type == 'video_player_data_drive':
+        render_player_data_drive(video_prefix)
         for player_id in get_player_info().keys():
             render_video(video_prefix,
-                         os.path.join('player-data', str(player_id)))
+                         os.path.join('player-data-drive', str(player_id)))
+    elif args.process_type == 'video_player_data_scoreboard':
+        render_player_data_scoreboard(video_prefix)
+        for player_id in get_player_info().keys():
+            render_video(video_prefix,
+                         os.path.join('player-data-scoreboard',
+                                      str(player_id)))
+    elif args.process_type == 'video_player_data_scoreboard_with_drive':
+        render_player_data_scoreboard_with_drive(video_prefix)
+        for player_id in get_player_info().keys():
+            render_video(video_prefix,
+                         os.path.join('player-data-scoreboard-with-drive',
+                                      str(player_id)))
     elif args.process_type == 'data_explorer':
         time.sleep(.5)
         data_explorer_cli()

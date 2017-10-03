@@ -95,6 +95,11 @@ def parse_player_info():
                             player_info[player_id]['name'] = \
                                 updated_data['value'][
                                     'string_attribute_value']
+                        elif updated_data['name'] == \
+                                'TAGame.PRI_TA:ClientLoadouts':
+                            player_info[player_id]['items'] = \
+                                updated_data['value'][
+                                    'loadouts_attribute_value']
 
 
 def get_player_info():
