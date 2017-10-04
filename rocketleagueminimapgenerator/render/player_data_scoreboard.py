@@ -3,7 +3,6 @@ render_type = 'player-data-scoreboard'
 
 def render_player_data_scoreboard(out_prefix):
     import os
-    import shutil
     from pathlib import Path
 
     from tqdm import tqdm
@@ -15,11 +14,6 @@ def render_player_data_scoreboard(out_prefix):
     frames = get_frames()
 
     for player_id in frames[get_data_start()]['cars'].keys():
-        if os.path.exists(
-                os.path.join(out_prefix, render_type, str(player_id))):
-            shutil.rmtree(
-                    os.path.join(out_prefix, render_type, str(player_id)))
-
         if not os.path.exists(
                 os.path.join(out_prefix, render_type, str(player_id))):
             path = Path(

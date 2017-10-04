@@ -7,18 +7,11 @@ viewBox="0 0 465 159"
   <style type="text/css">
    <![CDATA[
     .str1 {{stroke:black;stroke-width:3.85485}}
-    .str3 {{stroke:black;stroke-width:2.56974}}
     .str2 {{stroke:red;stroke-width:2.56974}}
     .str0 {{stroke:black;stroke-width:0.85674}}
     .fil1 {{fill:none}}
     .fil3 {{fill:black}}
     .fil5 {{fill:gray}}
-    .fil4 {{fill:white}}
-    .fil0 {{fill:#FF6600;fill-opacity:0.501961}}
-    .fil2 {{fill:url(#id0)}}
-	.team2 {{fill:blue}}
-    .team3 {{fill:orange}}
-    .fnt1 {{font-weight:normal;font-size:20.5598px;font-family:'Arial'}}
     .fnt2 {{font-weight:normal;font-size:30.8402px;font-family:'Arial'}}
     .fnt0 {{font-weight:normal;font-size:41.1211px;font-family:'Arial'}}
    ]]>
@@ -29,28 +22,13 @@ viewBox="0 0 465 159"
   </linearGradient>
  </defs>
  <g id="Layer_x0020_1">
-  <g>
-   <path class="team{team}" d="M1 145l0 -131c0,-7 6,-13 13,-13l437 0c7,0 13,6 13,13l0 131c0,7 -6,13 -13,13l-437 0c-7,0 -13,-6 -13,-13z"/>
-   <path id="1" class="fil1 str0" d="M1 145l0 -131c0,-7 6,-13 13,-13l437 0c7,0 13,6 13,13l0 131c0,7 -6,13 -13,13l-437 0c-7,0 -13,-6 -13,-13z"/>
-  </g>
-  <rect class="fil2 str0" x="1" y="1" width="462.611" height="61.2283" rx="12" ry="12"/>
   <text x="12" y="43"  class="fil3 fnt0">{player_name}</text>
-  <path class="fil4 str0" d="M14 158l80 0 0 -77 -93 0 0 64c0,7 6,13 13,13z"/>
-  <rect class="fil4 str0" x="279" y="81" width="92.5221" height="30.8407"/>
-  <rect class="fil4 str0" x="371" y="81" width="92.5221" height="30.8407"/>
-  <text x="13" y="127"  class="fil3 fnt1">Throttle</text>
-  <text x="287" y="104"  class="fil3 fnt1">Steering</text>
-  <text x="397" y="104"  class="fil3 fnt1">Ping</text>
-  <rect class="fil4 str0" x="279" y="112" width="92.5221" height="46.2611"/>
-  <path class="fil4 str0" d="M371 158l80 0c7,0 13,-6 13,-13l0 -33 -93 0 0 46z"/>
   <text x="409" y="146"  class="fil3 fnt2">{ping}</text>
-  <rect class="fil4 str0" x="94" y="81" width="185.044" height="77.102"/>
   <rect class="fil5 str0" x="94" y="94" width="{throttle}" height="51.4005"/>
   <g transform="rotate({steer} 325 135)">
    <circle class="fil1 str1" cx="325" cy="135" r="16"/>
    <path class="fil1 str0" d="M325 135l0 16m-15 -20l15 4 16 -4"/>
    <line class="fil1 str2" x1="325" y1="119" x2="325" y2= "125" />
   </g>
-  <rect class="fil1 str3" transform="matrix(3.36311E-14 -0.241962 1.12149 5.65963E-15 1.28533 157.993)" width="648" height="412" rx="34" ry="34"/>
  </g>
 </svg>

@@ -21,15 +21,18 @@ from rocketleagueminimapgenerator.util.data_explorer import data_explorer_cli
 with open(os.path.join('assets', 'field-template.svg'), 'r') as svg_file:
     field_template = svg_file.read()
 
-with open(os.path.join('assets', 'player-data-drive.svg'),
+with open(os.path.join('assets', 'player-data-drive-overlay-template.svg'),
           'r') as svg_file:
     player_data_drive_template = svg_file.read()
 
-with open(os.path.join('assets', 'player-data-scoreboard.svg'),
-          'r') as svg_file:
+with open(
+        os.path.join('assets', 'player-data-scoreboard-overlay-template.svg'),
+        'r') as svg_file:
     player_data_scoreboard_template = svg_file.read()
 
-with open(os.path.join('assets', 'player-data-scoreboard-with-drive.svg'),
+with open(os.path.join('assets',
+                       'player-data-scoreboard-with-drive'
+                       '-overlay-template.svg'),
           'r') as svg_file:
     player_data_scoreboard_with_drive_template = svg_file.read()
 
@@ -94,19 +97,22 @@ def main():
         render_player_data_drive(video_prefix)
         for player_id in get_player_info().keys():
             render_video(video_prefix,
-                         os.path.join('player-data-drive', str(player_id)))
+                         os.path.join('player-data-drive', str(player_id)),
+                         overlay='player-data-drive')
     elif args.process_type == 'video_player_data_scoreboard':
         render_player_data_scoreboard(video_prefix)
         for player_id in get_player_info().keys():
             render_video(video_prefix,
                          os.path.join('player-data-scoreboard',
-                                      str(player_id)))
+                                      str(player_id)),
+                         overlay='player-data-scoreboard')
     elif args.process_type == 'video_player_data_scoreboard_with_drive':
         render_player_data_scoreboard_with_drive(video_prefix)
         for player_id in get_player_info().keys():
             render_video(video_prefix,
                          os.path.join('player-data-scoreboard-with-drive',
-                                      str(player_id)))
+                                      str(player_id)),
+                         overlay='player-data-scoreboard-with-drive')
     elif args.process_type == 'data_explorer':
         time.sleep(.5)
         data_explorer_cli()

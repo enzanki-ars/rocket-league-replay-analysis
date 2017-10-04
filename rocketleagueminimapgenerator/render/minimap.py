@@ -34,11 +34,6 @@ def render_field(out_prefix):
     y_size = ((y_w - (y_w % (2 * get_config('size_modifier')))) /
               get_config('size_modifier'))
 
-    print('X:', x_size, 'Y:', y_size, 'Ball:', get_config('ball_size'))
-
-    if os.path.exists(os.path.join(out_prefix, 'minimap')):
-        shutil.rmtree(os.path.join(out_prefix, 'minimap'))
-
     if not os.path.exists(os.path.join(out_prefix, 'minimap')):
         path = Path(os.path.join(out_prefix, 'minimap'))
         path.mkdir(parents=True)

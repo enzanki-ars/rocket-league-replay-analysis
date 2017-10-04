@@ -15,11 +15,6 @@ def render_player_data_scoreboard_with_drive(out_prefix):
     frames = get_frames()
 
     for player_id in frames[get_data_start()]['cars'].keys():
-        if os.path.exists(
-                os.path.join(out_prefix, render_type, str(player_id))):
-            shutil.rmtree(
-                    os.path.join(out_prefix, render_type, str(player_id)))
-
         if not os.path.exists(
                 os.path.join(out_prefix, render_type, str(player_id))):
             path = Path(
