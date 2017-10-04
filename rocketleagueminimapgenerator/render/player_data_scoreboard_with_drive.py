@@ -69,5 +69,5 @@ def render_player_data_scoreboard_with_drive_frame(frames, frame_num,
                             ping=player_frame_info['ping'],
                             throttle=(player_frame_info['throttle'] *
                                       moving_data_width),
-                            steer=(player_frame_info['steer'] * 360)
+                            steer=(player_frame_info['steer'] * 180) - 90
                     ), 'UTF-8'), write_to=file_out)
