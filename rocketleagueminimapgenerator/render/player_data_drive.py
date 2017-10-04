@@ -3,7 +3,6 @@ render_type = 'player-data-drive'
 
 def render_player_data_drive(out_prefix):
     import os
-    import shutil
     from pathlib import Path
 
     from tqdm import tqdm
@@ -49,6 +48,16 @@ def render_player_data_drive_frame(frames, frame_num, out_prefix):
             player_name = get_player_info()[player_id]['name']
             player_team = get_player_info()[player_id]['team']
 
+            throttle_origin_x = 94
+            throttle = player_frame_info['throttle']
+            throttle_w = (throttle * .5 * moving_data_width)
+            throttle_mid = throttle_origin_x + .5 * moving_data_width
+
+            if throttle < .5:
+                throttle_x = throttle_mid - throttle_w
+            else:
+                throttle_x = throttle_mid
+
             cairosvg.svg2png(bytestring=bytes(
                     player_data_drive_template.format(
                             player_name=player_name,
@@ -60,7 +69,7 @@ def render_player_data_drive_frame(frames, frame_num, out_prefix):
                             shots=player_scoreboard['shots'],
                             sleep=str(player_frame_info['sleep'])[0],
                             ping=player_frame_info['ping'],
-                            throttle=(player_frame_info['throttle'] *
-                                      moving_data_width),
+                            throttle_x=throttle_x,
+                            throttle_w=throttle_w,
                             steer=(player_frame_info['steer'] * 180) - 90
                     ), 'UTF-8'), write_to=file_out)

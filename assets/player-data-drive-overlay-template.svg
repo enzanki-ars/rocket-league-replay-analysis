@@ -24,7 +24,7 @@ viewBox="0 0 465 159"
  <g id="Layer_x0020_1">
   <text x="12" y="43"  class="fil3 fnt0">{player_name}</text>
   <text x="409" y="146"  class="fil3 fnt2">{ping}</text>
-  <rect class="fil5 str0" x="94" y="94" width="{throttle}" height="51.4005"/>
+  <rect class="fil5 str0" x="{throttle_x}" y="109" width="{throttle_w}" height="35"/>
   <g transform="rotate({steer} 325 135)">
    <circle class="fil1 str1" cx="325" cy="135" r="16"/>
    <path class="fil1 str0" d="M325 135l0 16m-15 -20l15 4 16 -4"/>
