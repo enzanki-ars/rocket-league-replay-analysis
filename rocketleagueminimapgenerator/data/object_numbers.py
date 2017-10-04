@@ -1,12 +1,11 @@
-from tqdm import tqdm
-
 ball_objects = []
 car_objects = {}
 player_info = {}
+game_event_num = None
 
 
 def parse_ball_obj_nums():
-    from rocketleagueminimapgenerator.actor_data import get_actor_data
+    from rocketleagueminimapgenerator.data.actor_data import get_actor_data
 
     global ball_objects
 
@@ -21,8 +20,25 @@ def get_ball_obj_nums():
     return ball_objects
 
 
+def parse_game_event_num():
+    from rocketleagueminimapgenerator.data.actor_data import get_actor_data
+
+    global game_event_num
+
+    game_event_num = 1
+
+    for i, obj in enumerate(get_actor_data()):
+        if 'TAGame.GameEvent_Soccar_TA' in get_actor_data()[obj]:
+            game_event_num = i
+            return
+
+
+def get_game_event_num():
+    return game_event_num
+
+
 def parse_car_obj_nums():
-    from rocketleagueminimapgenerator.data import get_data, get_data_end
+    from rocketleagueminimapgenerator.data.data_loader import get_data, get_data_end
 
     global car_objects
 
@@ -49,7 +65,8 @@ def get_car_obj_nums():
 
 
 def parse_player_info():
-    from rocketleagueminimapgenerator.data import get_data, get_data_end
+    from tqdm import tqdm
+    from rocketleagueminimapgenerator.data.data_loader import get_data, get_data_end
 
     global player_info
 
@@ -78,6 +95,11 @@ def parse_player_info():
                             player_info[player_id]['name'] = \
                                 updated_data['value'][
                                     'string_attribute_value']
+                        elif updated_data['name'] == \
+                                'TAGame.PRI_TA:ClientLoadouts':
+                            player_info[player_id]['items'] = \
+                                updated_data['value'][
+                                    'loadouts_attribute_value']
 
 
 def get_player_info():

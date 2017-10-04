@@ -17,7 +17,8 @@
 
 1. [Run rattletrap](https://github.com/tfausak/rattletrap#replays) on your 
 replay file.
-2. Run either `start.bat` or `start.sh` 
+2. Run either `python -m rocketleagueminimapgenerator.main [args]` replacing 
+`[args]` with the program arguments you wish to use.  Leave empty to see help.
     * If you are running a precompiled version, run that 
     executable name instead.  Make sure that `field-template.svg` 
     and the `.json` file of the replay are next to the precompiled executable.

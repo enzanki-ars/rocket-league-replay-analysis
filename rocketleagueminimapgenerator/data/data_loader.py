@@ -1,5 +1,3 @@
-import json
-
 data = None
 
 data_end = None
@@ -7,6 +5,8 @@ data_start = 0
 
 
 def load_data(out_prefix):
+    import json
+
     global data
     global data_end
 

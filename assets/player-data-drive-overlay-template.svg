@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="362px" height="124px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 465 159"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str1 {{stroke:black;stroke-width:3.85485}}
+    .str2 {{stroke:red;stroke-width:2.56974}}
+    .str0 {{stroke:black;stroke-width:0.85674}}
+    .fil1 {{fill:none}}
+    .fil3 {{fill:black}}
+    .fil5 {{fill:gray}}
+    .fnt2 {{font-weight:normal;font-size:30.8402px;font-family:'Arial'}}
+    .fnt0 {{font-weight:normal;font-size:41.1211px;font-family:'Arial'}}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="232.59" y1="62.5139" x2="232.59" y2="1.2856">
+   <stop offset="0" style="stop-opacity:1; stop-color:#E6E6E6"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:white"/>
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <text x="12" y="43"  class="fil3 fnt0">{player_name}</text>
+  <text x="409" y="146"  class="fil3 fnt2">{ping}</text>
+  <rect class="fil5 str0" x="94" y="94" width="{throttle}" height="51.4005"/>
+  <g transform="rotate({steer} 325 135)">
+   <circle class="fil1 str1" cx="325" cy="135" r="16"/>
+   <path class="fil1 str0" d="M325 135l0 16m-15 -20l15 4 16 -4"/>
+   <line class="fil1 str2" x1="325" y1="119" x2="325" y2= "125" />
+  </g>
+ </g>
+</svg>

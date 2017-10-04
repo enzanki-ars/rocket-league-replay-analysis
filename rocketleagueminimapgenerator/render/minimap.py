@@ -1,16 +1,14 @@
-import os
-import shutil
-import subprocess
-from pathlib import Path
-
-import cairosvg
-from tqdm import tqdm
-
-
 def render_field(out_prefix):
-    from rocketleagueminimapgenerator.frames import get_frames
-    from rocketleagueminimapgenerator.data import get_data_start, get_data_end
-    from rocketleagueminimapgenerator.config import get_config
+    import os
+    import shutil
+    from pathlib import Path
+
+    from tqdm import tqdm
+
+    from rocketleagueminimapgenerator.parser.frames import get_frames
+    from rocketleagueminimapgenerator.data.data_loader import get_data_start, \
+        get_data_end
+    from rocketleagueminimapgenerator.util.config import get_config
 
     frames = get_frames()
 
@@ -36,16 +34,12 @@ def render_field(out_prefix):
     y_size = ((y_w - (y_w % (2 * get_config('size_modifier')))) /
               get_config('size_modifier'))
 
-    print('X:', x_size, 'Y:', y_size, 'Ball:', get_config('ball_size'))
-
-    if os.path.exists(out_prefix):
-        shutil.rmtree(out_prefix)
-
-    if not os.path.exists(out_prefix):
-        path = Path(out_prefix)
+    if not os.path.exists(os.path.join(out_prefix, 'minimap')):
+        path = Path(os.path.join(out_prefix, 'minimap'))
         path.mkdir(parents=True)
 
-    for i in tqdm(range(get_data_start(), get_data_end()), desc='Video Frame Out',
+    for i in tqdm(range(get_data_start(), get_data_end()),
+                  desc='Video Frame Out',
                   ascii=True):
         render_frame(ball_loc=ball_loc, frames=frames, frame_num=i,
                      min_x=min_x, min_y=min_y, out_prefix=out_prefix,
@@ -55,14 +49,18 @@ def render_field(out_prefix):
 def render_frame(ball_loc, frames, frame_num,
                  min_x, min_y, x_size, y_size, out_prefix):
     import math
+    import os
+
+    import cairosvg
+
     from rocketleagueminimapgenerator.main import frame_num_format, \
         car_template, field_template
-    from rocketleagueminimapgenerator.object_numbers import \
+    from rocketleagueminimapgenerator.data.object_numbers import \
         get_player_info
-    from rocketleagueminimapgenerator.config import \
+    from rocketleagueminimapgenerator.util.config import \
         get_config
 
-    with open(os.path.join(out_prefix,
+    with open(os.path.join(out_prefix, 'minimap',
                            frame_num_format.format(frame_num) + '.png'),
               'wb') as file_out:
         car_placement = ''
@@ -94,8 +92,8 @@ def render_frame(ball_loc, frames, frame_num,
                     car_triangle_pt3_x=car_x + tri_pt_x_const,
                     car_triangle_pt3_y=car_y + tri_pt_y_const,
 
-                    car_angle=frames[frame_num]['cars'][car_id]['rot']['y'] + \
-                              90,
+                    car_angle=(frames[frame_num]['cars'][car_id]['rot']['y'] +
+                               90),
 
                     car_size=car_size,
                     arrow_move=car_size * 1.5
@@ -116,39 +114,3 @@ def render_frame(ball_loc, frames, frame_num,
                                       ball_size=get_config('ball_size'),
                                       car_placement=car_placement
                                       ), 'UTF-8'), write_to=file_out)
-
-
-def render_video(out_prefix, out_frame_rate=30):
-    from rocketleagueminimapgenerator.frames import get_frames
-    from rocketleagueminimapgenerator.main import frame_num_format
-    from rocketleagueminimapgenerator.data import get_data_start, get_data_end
-
-    Path(out_prefix + '-frames.txt').touch()
-
-    with open(out_prefix + '-frames.txt', 'w') as f:
-        out_str = ''
-        for i, frame in enumerate(
-                get_frames()[get_data_start():get_data_end()]):
-            out_str += 'file \'' + os.path.join(out_prefix,
-                                                frame_num_format.format(
-                                                        i) + '.png') + '\'\n'
-            out_str += 'duration ' + str(frame['delta']) + '\n'
-        # Ensure display of final frame
-        out_str += 'file \'' + os.path.join(out_prefix,
-                                            frame_num_format.format(
-                                                    get_data_end()) + '.png') + \
-                   '\'\n'
-        f.write(out_str)
-
-    p = subprocess.Popen(['ffmpeg',
-                          '-safe', '0',
-                          '-f', 'concat',
-                          '-i', out_prefix + '-frames.txt',
-                          '-r', str(out_frame_rate),
-                          '-vf', 'format=yuv420p',
-                          '-crf', '18',
-                          os.path.join(out_prefix + '.mp4'),
-                          '-y'],
-                         stderr=subprocess.STDOUT)
-
-    stdout, stderr = p.communicate()

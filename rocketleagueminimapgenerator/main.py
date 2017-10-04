@@ -1,16 +1,40 @@
 import argparse
 import os
+import time
 
-from rocketleagueminimapgenerator.actor_data import parse_actor_data
-from rocketleagueminimapgenerator.data import load_data, \
+from rocketleagueminimapgenerator.data.actor_data import parse_actor_data
+from rocketleagueminimapgenerator.data.data_loader import load_data, \
     set_data_start, set_data_end
-from rocketleagueminimapgenerator.frames import load_frames
-from rocketleagueminimapgenerator.object_numbers import parse_ball_obj_nums, \
-    parse_car_obj_nums, parse_player_info
-from rocketleagueminimapgenerator.render import render_field, render_video
+from rocketleagueminimapgenerator.data.object_numbers import \
+    parse_ball_obj_nums, parse_car_obj_nums, parse_player_info, get_player_info
+from rocketleagueminimapgenerator.parser.frames import load_frames
+from rocketleagueminimapgenerator.render.minimap import render_field
+from rocketleagueminimapgenerator.render.player_data_drive import \
+    render_player_data_drive
+from rocketleagueminimapgenerator.render.player_data_scoreboard import \
+    render_player_data_scoreboard
+from rocketleagueminimapgenerator.render.player_data_scoreboard_with_drive import \
+    render_player_data_scoreboard_with_drive
+from rocketleagueminimapgenerator.render.transcode import render_video
+from rocketleagueminimapgenerator.util.data_explorer import data_explorer_cli
 
-with open('field-template.svg', 'r') as svg_file:
+with open(os.path.join('assets', 'field-template.svg'), 'r') as svg_file:
     field_template = svg_file.read()
+
+with open(os.path.join('assets', 'player-data-drive-overlay-template.svg'),
+          'r') as svg_file:
+    player_data_drive_template = svg_file.read()
+
+with open(
+        os.path.join('assets', 'player-data-scoreboard-overlay-template.svg'),
+        'r') as svg_file:
+    player_data_scoreboard_template = svg_file.read()
+
+with open(os.path.join('assets',
+                       'player-data-scoreboard-with-drive'
+                       '-overlay-template.svg'),
+          'r') as svg_file:
+    player_data_scoreboard_with_drive_template = svg_file.read()
 
 car_template = '<circle class="team{team_id} stroke-black" ' \
                'cx="{car_pos_x}" cy="{car_pos_y}" r="{car_size}"/>' \
@@ -29,6 +53,14 @@ def main():
 
     # Required args
     parser.add_argument('game_json', help='The name of the game json.')
+
+    parser.add_argument('--process_type',
+                        choices=['video_minimap',
+                                 'video_player_data_drive',
+                                 'video_player_data_scoreboard',
+                                 'video_player_data_scoreboard_with_drive',
+                                 'data_explorer'],
+                        default='video_minimap')
 
     # Optional args
     parser.add_argument('--data_start',
@@ -55,9 +87,38 @@ def main():
     if args.data_end:
         set_data_end(args.data_end)
 
-    render_field(video_prefix)
+    if args.process_type == 'video_minimap':
+        print('Creating video of minimap')
 
-    render_video(video_prefix)
+        video_prefix = os.path.join('renders', out_prefix.split('.')[0])
+        render_field(video_prefix)
+        render_video(video_prefix, 'minimap')
+    elif args.process_type == 'video_player_data_drive':
+        render_player_data_drive(video_prefix)
+        for player_id in get_player_info().keys():
+            render_video(video_prefix,
+                         os.path.join('player-data-drive', str(player_id)),
+                         overlay='player-data-drive')
+    elif args.process_type == 'video_player_data_scoreboard':
+        render_player_data_scoreboard(video_prefix)
+        for player_id in get_player_info().keys():
+            render_video(video_prefix,
+                         os.path.join('player-data-scoreboard',
+                                      str(player_id)),
+                         overlay='player-data-scoreboard')
+    elif args.process_type == 'video_player_data_scoreboard_with_drive':
+        render_player_data_scoreboard_with_drive(video_prefix)
+        for player_id in get_player_info().keys():
+            render_video(video_prefix,
+                         os.path.join('player-data-scoreboard-with-drive',
+                                      str(player_id)),
+                         overlay='player-data-scoreboard-with-drive')
+    elif args.process_type == 'data_explorer':
+        time.sleep(.5)
+        data_explorer_cli()
+    else:
+        print('Unexpected Argument Error:',
+              'process_type is', args.process_type)
 
 
 if __name__ == "__main__":
