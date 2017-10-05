@@ -14,7 +14,7 @@ def render_video(out_prefix, render_type, out_frame_rate=30, overlay=None):
               'w') as f:
         out_str = ''
         for i, frame in enumerate(
-                get_frames()[get_data_start():get_data_end()-1]):
+                get_frames()[get_data_start():get_data_end() - 1]):
             out_str += 'file \'' + os.path.join(out_prefix, render_type,
                                                 frame_num_format.format(
                                                         i) + '.png') + '\'\n'
@@ -22,7 +22,7 @@ def render_video(out_prefix, render_type, out_frame_rate=30, overlay=None):
         # Ensure display of final frame
         out_str += 'file \'' + os.path.join(out_prefix, render_type,
                                             frame_num_format.format(
-                                                    get_data_end()-1) +
+                                                    get_data_end() - 1) +
                                             '.png') + \
                    '\'\n'
         f.write(out_str)
@@ -39,7 +39,9 @@ def render_video(out_prefix, render_type, out_frame_rate=30, overlay=None):
                               '-filter_complex', '[0:v] overlay',
                               '-r', str(out_frame_rate),
                               '-crf', '18',
-                              os.path.join(out_prefix, render_type + '.mp4'),
+                              os.path.join(out_prefix,
+                                           render_type + '-' + overlay +
+                                           '.mp4'),
                               '-y'],
                              stderr=subprocess.STDOUT)
     else:
