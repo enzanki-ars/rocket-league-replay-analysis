@@ -1,6 +1,6 @@
 # Rocket League Minimap Generator
 
-**Version:** v1.0.0
+**Version:** v1.1.1
 
 ## Installation
 
@@ -12,6 +12,11 @@
 
 * Download rattletrap 
 [https://github.com/tfausak/rattletrap/releases]()
+
+* _Optional:_ A [https://sourceforge.net/projects/imdisk-toolkit/](RAM disk) 
+is suggested to run the program much faster.  This program can take up about 
+.1 GB per minimap render, with player data renders taking up about .5 GB per 
+render.  Copy the program to the RAM disk and run it from there.
 
 ## Usage Instructions
 
@@ -26,8 +31,10 @@ replay file.
 ## Known Issues
 
 * Players that disconnect, reconnect, or are replaced are not reflected 
-accordingly in the generated minimap.  These players will remain on the field.
-A later release will correct this issue.
+accordingly in the generated minimap.  These players will remain on the field. 
+Additionally, these disconnects/reconnects will cause additional players to be 
+rendered in player data.  Sadly, this makes using these renders a bit more 
+difficult. A later release will correct this issue.   
 * This program assumes that the ball has traveled the farthest possible in 
 both the `X`, `Y`, and `Z` directions.  While the `Z` distance is not 
 important yet, if the ball does not ever hit the boundaries of the map, then 
