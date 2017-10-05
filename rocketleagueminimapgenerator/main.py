@@ -96,23 +96,45 @@ def main():
     elif args.process_type == 'video_player_data_drive':
         render_player_data_drive(video_prefix)
         for player_id in get_player_info().keys():
+            if get_player_info()[player_id]['team'] == 2:
+                team_color = 'blue'
+            elif get_player_info()[player_id]['team'] == 3:
+                team_color = 'orange'
+            else:
+                team_color = 'grey'
+
             render_video(video_prefix,
                          os.path.join('player-data-drive', str(player_id)),
-                         overlay='player-data-drive')
+                         overlay='player-data-drive-' + team_color)
     elif args.process_type == 'video_player_data_scoreboard':
         render_player_data_scoreboard(video_prefix)
         for player_id in get_player_info().keys():
+            if get_player_info()[player_id]['team'] == 2:
+                team_color = 'blue'
+            elif get_player_info()[player_id]['team'] == 3:
+                team_color = 'orange'
+            else:
+                team_color = 'grey'
+
             render_video(video_prefix,
                          os.path.join('player-data-scoreboard',
                                       str(player_id)),
-                         overlay='player-data-scoreboard')
+                         overlay='player-data-scoreboard-' + team_color)
     elif args.process_type == 'video_player_data_scoreboard_with_drive':
         render_player_data_scoreboard_with_drive(video_prefix)
         for player_id in get_player_info().keys():
+            if get_player_info()[player_id]['team'] == 2:
+                team_color = 'blue'
+            elif get_player_info()[player_id]['team'] == 3:
+                team_color = 'orange'
+            else:
+                team_color = 'grey'
+
             render_video(video_prefix,
                          os.path.join('player-data-scoreboard-with-drive',
                                       str(player_id)),
-                         overlay='player-data-scoreboard-with-drive')
+                         overlay='player-data-scoreboard-with-drive-' +
+                                 team_color)
     elif args.process_type == 'data_explorer':
         time.sleep(.5)
         data_explorer_cli()
