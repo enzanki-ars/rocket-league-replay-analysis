@@ -35,7 +35,7 @@ def render_player_data_scoreboard_frame(frames, frame_num, out_prefix):
     from rocketleagueminimapgenerator.main import frame_num_format, \
         player_data_scoreboard_template
     from rocketleagueminimapgenerator.data.object_numbers import \
-        get_player_info
+        get_player_info, team_blue, team_orange
 
     moving_data_width = 185.044  # 96.3549
 
@@ -46,7 +46,12 @@ def render_player_data_scoreboard_frame(frames, frame_num, out_prefix):
             player_frame_info = frames[frame_num]['cars'][player_id]
             player_scoreboard = player_frame_info['scoreboard']
             player_name = get_player_info()[player_id]['name']
-            player_team = get_player_info()[player_id]['team']
+            if get_player_info()[player_id]['team'] == team_blue:
+                player_team = 'blue'
+            elif get_player_info()[player_id]['team'] == team_orange:
+                player_team = 'orange'
+            else:
+                player_team = 'grey'
 
             cairosvg.svg2png(bytestring=bytes(
                     player_data_scoreboard_template.format(

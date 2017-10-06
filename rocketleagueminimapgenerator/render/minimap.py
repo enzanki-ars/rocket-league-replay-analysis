@@ -56,7 +56,7 @@ def render_frame(ball_loc, frames, frame_num,
     from rocketleagueminimapgenerator.main import frame_num_format, \
         car_template, field_template
     from rocketleagueminimapgenerator.data.object_numbers import \
-        get_player_info
+        get_player_info, team_blue, team_orange
     from rocketleagueminimapgenerator.util.config import \
         get_config
 
@@ -78,8 +78,15 @@ def render_frame(ball_loc, frames, frame_num,
             car_y = ((frames[frame_num]['cars'][car_id]['loc']['y']
                       - min_y) / get_config('size_modifier'))
 
+            if get_player_info()[car_id]['team'] == team_blue:
+                player_team = 'blue'
+            elif get_player_info()[car_id]['team'] == team_orange:
+                player_team = 'orange'
+            else:
+                player_team = 'grey'
+
             car_placement += car_template.format(
-                    team_id=get_player_info()[car_id]['team'],
+                    team_id=player_team,
                     car_pos_x=car_x,
                     car_pos_y=car_y,
 

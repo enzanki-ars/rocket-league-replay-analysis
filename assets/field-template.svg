@@ -14,8 +14,8 @@
                 .stroke-silver {{stroke:silver;stroke-width:1}}
                 .fill-white {{fill:white}}
                 .fill-grey {{fill:grey}}
-                .team2 {{fill:blue}}
-                .team3 {{fill:orange}}
+                .team-blue {{fill:blue}}
+                .team-orange {{fill:orange}}
                 .fill-black {{fill:black}}
             ]]>
         </style>

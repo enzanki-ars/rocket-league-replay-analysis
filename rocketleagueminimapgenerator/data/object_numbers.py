@@ -2,6 +2,8 @@ ball_objects = []
 car_objects = {}
 player_info = {}
 game_event_num = None
+team_blue = None
+team_orange = None
 
 
 def parse_ball_obj_nums():
@@ -68,7 +70,7 @@ def parse_player_info():
     from tqdm import tqdm
     from rocketleagueminimapgenerator.data.data_loader import get_data, get_data_end
 
-    global player_info
+    global player_info, team_blue, team_orange
 
     player_info = {}
 
@@ -100,6 +102,13 @@ def parse_player_info():
                             player_info[player_id]['items'] = \
                                 updated_data['value'][
                                     'loadouts_attribute_value']
+
+    team_nums = []
+    for player in player_info:
+        team_nums.append(player['team'])
+
+    team_blue = min(team_nums)
+    team_orange = max(team_nums)
 
 
 def get_player_info():
