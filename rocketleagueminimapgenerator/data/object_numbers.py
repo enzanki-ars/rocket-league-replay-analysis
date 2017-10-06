@@ -107,7 +107,7 @@ def parse_player_info():
 
     team_nums = []
     for player in player_info:
-        team_nums.append(player['team'])
+        team_nums.append(player_info[player]['team'])
 
     team_blue = min(team_nums)
     team_orange = max(team_nums)
