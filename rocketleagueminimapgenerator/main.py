@@ -6,15 +6,16 @@ from rocketleagueminimapgenerator.data.actor_data import parse_actor_data
 from rocketleagueminimapgenerator.data.data_loader import load_data, \
     set_data_start, set_data_end
 from rocketleagueminimapgenerator.data.object_numbers import \
-    parse_ball_obj_nums, parse_car_obj_nums, parse_player_info, get_player_info
+    parse_ball_obj_nums, parse_car_obj_nums, parse_player_info, \
+    get_player_info, get_player_team_name
 from rocketleagueminimapgenerator.parser.frames import load_frames
 from rocketleagueminimapgenerator.render.minimap import render_field
 from rocketleagueminimapgenerator.render.player_data_drive import \
     render_player_data_drive
 from rocketleagueminimapgenerator.render.player_data_scoreboard import \
     render_player_data_scoreboard
-from rocketleagueminimapgenerator.render.player_data_scoreboard_with_drive import \
-    render_player_data_scoreboard_with_drive
+from rocketleagueminimapgenerator.render.player_data_scoreboard_with_drive \
+    import render_player_data_scoreboard_with_drive
 from rocketleagueminimapgenerator.render.transcode import render_video
 from rocketleagueminimapgenerator.util.data_explorer import data_explorer_cli
 
@@ -59,6 +60,7 @@ def main():
                                  'video_player_data_drive',
                                  'video_player_data_scoreboard',
                                  'video_player_data_scoreboard_with_drive',
+                                 'video_all',
                                  'data_explorer'],
                         default='video_minimap')
 
@@ -90,57 +92,62 @@ def main():
     if args.process_type == 'video_minimap':
         print('Creating video of minimap')
 
-        video_prefix = os.path.join('renders', out_prefix.split('.')[0])
-        render_field(video_prefix)
-        render_video(video_prefix, 'minimap')
+        do_render_minimap(video_prefix)
     elif args.process_type == 'video_player_data_drive':
-        render_player_data_drive(video_prefix)
-        for player_id in get_player_info().keys():
-            if get_player_info()[player_id]['team'] == 2:
-                team_color = 'blue'
-            elif get_player_info()[player_id]['team'] == 3:
-                team_color = 'orange'
-            else:
-                team_color = 'grey'
-
-            render_video(video_prefix,
-                         os.path.join('player-data-drive', str(player_id)),
-                         overlay='player-data-drive-' + team_color)
+        do_render_player_data_drive(video_prefix)
     elif args.process_type == 'video_player_data_scoreboard':
-        render_player_data_scoreboard(video_prefix)
-        for player_id in get_player_info().keys():
-            if get_player_info()[player_id]['team'] == 2:
-                team_color = 'blue'
-            elif get_player_info()[player_id]['team'] == 3:
-                team_color = 'orange'
-            else:
-                team_color = 'grey'
-
-            render_video(video_prefix,
-                         os.path.join('player-data-scoreboard',
-                                      str(player_id)),
-                         overlay='player-data-scoreboard-' + team_color)
+        do_render_player_data_scoreboard(video_prefix)
     elif args.process_type == 'video_player_data_scoreboard_with_drive':
-        render_player_data_scoreboard_with_drive(video_prefix)
-        for player_id in get_player_info().keys():
-            if get_player_info()[player_id]['team'] == 2:
-                team_color = 'blue'
-            elif get_player_info()[player_id]['team'] == 3:
-                team_color = 'orange'
-            else:
-                team_color = 'grey'
-
-            render_video(video_prefix,
-                         os.path.join('player-data-scoreboard-with-drive',
-                                      str(player_id)),
-                         overlay='player-data-scoreboard-with-drive-' +
-                                 team_color)
+        do_render_player_data_scoreboard_with_drive(video_prefix)
+    elif args.process_type == 'video_all':
+        do_render_minimap(video_prefix)
+        do_render_player_data_drive(video_prefix)
+        do_render_player_data_scoreboard(video_prefix)
+        do_render_player_data_scoreboard_with_drive(video_prefix)
     elif args.process_type == 'data_explorer':
         time.sleep(.5)
         data_explorer_cli()
     else:
         print('Unexpected Argument Error:',
               'process_type is', args.process_type)
+
+
+def do_render_minimap(video_prefix):
+    render_field(video_prefix)
+    render_video(video_prefix, 'minimap')
+
+
+def do_render_player_data_scoreboard_with_drive(video_prefix):
+    render_player_data_scoreboard_with_drive(video_prefix)
+    for player_id in get_player_info().keys():
+        team_color = get_player_team_name(player_id)
+
+        render_video(video_prefix,
+                     os.path.join('player-data-scoreboard-with-drive',
+                                  str(player_id)),
+                     overlay='player-data-scoreboard-with-drive-' +
+                             team_color)
+
+
+def do_render_player_data_scoreboard(video_prefix):
+    render_player_data_scoreboard(video_prefix)
+    for player_id in get_player_info().keys():
+        team_color = get_player_team_name(player_id)
+
+        render_video(video_prefix,
+                     os.path.join('player-data-scoreboard',
+                                  str(player_id)),
+                     overlay='player-data-scoreboard-' + team_color)
+
+
+def do_render_player_data_drive(video_prefix):
+    render_player_data_drive(video_prefix)
+    for player_id in get_player_info().keys():
+        team_color = get_player_team_name(player_id)
+
+        render_video(video_prefix,
+                     os.path.join('player-data-drive', str(player_id)),
+                     overlay='player-data-drive-' + team_color)
 
 
 if __name__ == "__main__":

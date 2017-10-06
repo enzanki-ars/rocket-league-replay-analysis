@@ -35,7 +35,7 @@ def render_player_data_drive_frame(frames, frame_num, out_prefix):
     from rocketleagueminimapgenerator.main import frame_num_format, \
         player_data_drive_template
     from rocketleagueminimapgenerator.data.object_numbers import \
-        get_player_info, team_blue, team_orange
+        get_player_info, get_player_team_name
 
     moving_data_width = 185.044
 
@@ -46,12 +46,7 @@ def render_player_data_drive_frame(frames, frame_num, out_prefix):
             player_frame_info = frames[frame_num]['cars'][player_id]
             player_scoreboard = player_frame_info['scoreboard']
             player_name = get_player_info()[player_id]['name']
-            if get_player_info()[player_id]['team'] == team_blue:
-                player_team = 'blue'
-            elif get_player_info()[player_id]['team'] == team_orange:
-                player_team = 'orange'
-            else:
-                player_team = 'grey'
+            player_team = get_player_team_name(player_id)
 
             throttle_origin_x = 94
             throttle = player_frame_info['throttle']

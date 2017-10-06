@@ -40,7 +40,8 @@ def get_game_event_num():
 
 
 def parse_car_obj_nums():
-    from rocketleagueminimapgenerator.data.data_loader import get_data, get_data_end
+    from rocketleagueminimapgenerator.data.data_loader import get_data, \
+        get_data_end
 
     global car_objects
 
@@ -68,7 +69,8 @@ def get_car_obj_nums():
 
 def parse_player_info():
     from tqdm import tqdm
-    from rocketleagueminimapgenerator.data.data_loader import get_data, get_data_end
+    from rocketleagueminimapgenerator.data.data_loader import get_data, \
+        get_data_end
 
     global player_info, team_blue, team_orange
 
@@ -109,6 +111,17 @@ def parse_player_info():
 
     team_blue = min(team_nums)
     team_orange = max(team_nums)
+
+
+def get_player_team_name(player_id):
+    if get_player_info()[player_id]['team'] == 2:
+        team_color = 'blue'
+    elif get_player_info()[player_id]['team'] == 3:
+        team_color = 'orange'
+    else:
+        team_color = 'grey'
+
+    return team_color
 
 
 def get_player_info():
