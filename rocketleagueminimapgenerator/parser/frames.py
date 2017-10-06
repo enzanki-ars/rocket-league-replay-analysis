@@ -60,7 +60,7 @@ def load_frames():
             }
         }
 
-    for i in tqdm(range(0, data_end), desc='Frames', ascii=True):
+    for i in tqdm(range(0, data_end), desc='Parsing Frame Data', ascii=True):
 
         if i > 0:
             frames.append(copy.deepcopy(frames[i - 1]))

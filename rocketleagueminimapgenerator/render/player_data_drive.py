@@ -21,7 +21,7 @@ def render_player_data_drive(out_prefix):
             path.mkdir(parents=True)
 
     for i in tqdm(range(get_data_start(), get_data_end()),
-                  desc='Video Frame Out',
+                  desc='Player Data Drive Render',
                   ascii=True):
         render_player_data_drive_frame(frames=frames, frame_num=i,
                                        out_prefix=out_prefix)

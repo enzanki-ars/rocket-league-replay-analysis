@@ -21,7 +21,7 @@ def render_player_data_scoreboard_with_drive(out_prefix):
             path.mkdir(parents=True)
 
     for i in tqdm(range(get_data_start(), get_data_end()),
-                  desc='Video Frame Out',
+                  desc='Player Data Drive w/ Scoreboard Render',
                   ascii=True):
         render_player_data_scoreboard_with_drive_frame(frames=frames,
                                                        frame_num=i,

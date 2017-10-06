@@ -39,7 +39,7 @@ def render_field(out_prefix):
         path.mkdir(parents=True)
 
     for i in tqdm(range(get_data_start(), get_data_end()),
-                  desc='Video Frame Out',
+                  desc='Minimap Render',
                   ascii=True):
         render_frame(ball_loc=ball_loc, frames=frames, frame_num=i,
                      min_x=min_x, min_y=min_y, out_prefix=out_prefix,

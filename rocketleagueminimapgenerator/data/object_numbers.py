@@ -80,7 +80,8 @@ def parse_player_info():
         if get_car_obj_nums()[car_id] not in player_info:
             player_info[get_car_obj_nums()[car_id]] = {}
 
-    for i in tqdm(range(0, get_data_end()), desc='Player Info', ascii=True):
+    for i in tqdm(range(0, get_data_end()), desc='Parsing Player Info',
+                  ascii=True):
         for frame_data in get_data()['content']['frames'][i]['replications']:
             if frame_data['actor_id']['value'] in player_info:
                 player_id = frame_data['actor_id']['value']
