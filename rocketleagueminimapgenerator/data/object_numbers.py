@@ -114,9 +114,9 @@ def parse_player_info():
 
 
 def get_player_team_name(player_id):
-    if get_player_info()[player_id]['team'] == 2:
+    if get_player_info()[player_id]['team'] == team_blue:
         team_color = 'blue'
-    elif get_player_info()[player_id]['team'] == 3:
+    elif get_player_info()[player_id]['team'] == team_orange:
         team_color = 'orange'
     else:
         team_color = 'grey'

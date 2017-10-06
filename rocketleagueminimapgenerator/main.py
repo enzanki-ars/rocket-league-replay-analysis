@@ -37,9 +37,9 @@ with open(os.path.join('assets',
           'r') as svg_file:
     player_data_scoreboard_with_drive_template = svg_file.read()
 
-car_template = '<circle class="team{team_id} stroke-black" ' \
+car_template = '<circle class="team-{team_id} stroke-black" ' \
                'cx="{car_pos_x}" cy="{car_pos_y}" r="{car_size}"/>' \
-               '<polygon class="team{team_id} stroke-black" ' \
+               '<polygon class="team-{team_id} stroke-black" ' \
                'points="' \
                '{car_triangle_pt1_x},{car_triangle_pt1_y} ' \
                '{car_triangle_pt2_x},{car_triangle_pt2_y} ' \

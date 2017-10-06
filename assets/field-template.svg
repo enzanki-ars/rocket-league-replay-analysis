@@ -16,6 +16,7 @@
                 .fill-grey {{fill:grey}}
                 .team-blue {{fill:blue}}
                 .team-orange {{fill:orange}}
+                .team-grey {{fill:grey}}
                 .fill-black {{fill:black}}
             ]]>
         </style>
