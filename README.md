@@ -13,7 +13,7 @@
 * Download rattletrap 
 [https://github.com/tfausak/rattletrap/releases]()
 
-* _Optional:_ A [https://sourceforge.net/projects/imdisk-toolkit/](RAM disk) 
+* _Optional:_ A [RAM disk](https://sourceforge.net/projects/imdisk-toolkit/) 
 is suggested to run the program much faster.  This program can take up about 
 .1 GB per minimap render, with player data renders taking up about .5 GB per 
 render.  A RAM Disk does not necessarily increase the program's speed, but it 
