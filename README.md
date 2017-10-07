@@ -1,5 +1,3 @@
-# **WARNING:** Project has moved to https://gitlab.com/enzanki_ars/rocket-league-minimap-generator
-
 # Rocket League Minimap Generator
 
 **Version:** v1.1.2
