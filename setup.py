@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
         name='rocketleagueminimapgenerator',
-        version='1.0.0',
+        version='1.1.2',
         url='https://enzanki-ars.github.io/rocket-league-minimap-generator',
         license='GNU AGPLv3',
         author='Alex Shafer',
@@ -10,5 +10,6 @@ setup(
         description='Parses Rocket League replay json files and '
                     'creates a minimap video',
         requires=['cairosvg',
-                  'tqdm']
+                  'tqdm',
+                  'ruamel.yaml']
 )
