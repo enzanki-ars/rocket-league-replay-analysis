@@ -18,13 +18,13 @@ def parse_rot_update(updated_data):
 
     returned_data = {}
 
-    if 'rotation' in update:
+    if 'Rotation' in update:
         if 'X' in update['Rotation']:
-            returned_data['x'] = update['Rotation']['X'] * 360
-        if 'Y' in update['rotation']:
-            returned_data['y'] = update['Rotation']['Y'] * 360
-        if 'Z' in update['rotation']:
-            returned_data['z'] = update['Rotation']['Z'] * 360
+            returned_data['x'] = update['Rotation']['X'] * 180
+        if 'Y' in update['Rotation']:
+            returned_data['y'] = update['Rotation']['Y'] * 180
+        if 'Z' in update['Rotation']:
+            returned_data['z'] = update['Rotation']['Z'] * 180
 
     return returned_data
 

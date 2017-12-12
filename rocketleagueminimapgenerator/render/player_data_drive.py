@@ -68,7 +68,7 @@ def render_player_data_drive_frame(frames, frame_num, out_prefix):
                             saves=player_scoreboard['saves'],
                             shots=player_scoreboard['shots'],
                             sleep=str(player_frame_info['sleep'])[0],
-                            boost='{0:03d}'.format(
+                            boost='{0:03.0f}'.format(
                                 player_frame_info['boost'] * 100),
                             throttle_x=throttle_x,
                             throttle_w=throttle_w,

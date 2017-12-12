@@ -94,8 +94,7 @@ def render_frame(ball_loc, frames, frame_num,
                     car_triangle_pt3_x=car_x + tri_pt_x_const,
                     car_triangle_pt3_y=car_y + tri_pt_y_const,
 
-                    car_angle=(frames[frame_num]['cars'][car_id]['rot']['y'] +
-                               90),
+                    car_angle=(frames[frame_num]['cars'][car_id]['rot']['y'] + 270),
 
                     car_size=car_size,
                     arrow_move=car_size * 1.5

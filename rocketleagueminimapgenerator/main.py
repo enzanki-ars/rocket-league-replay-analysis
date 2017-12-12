@@ -6,8 +6,7 @@ from rocketleagueminimapgenerator.data.actor_data import parse_actor_data
 from rocketleagueminimapgenerator.data.data_loader import load_data, \
     set_data_start, set_data_end
 from rocketleagueminimapgenerator.data.object_numbers import \
-    parse_ball_obj_nums, parse_car_obj_nums, parse_player_info, \
-    get_player_info, get_player_team_name
+    parse_player_info, get_player_info, get_player_team_name
 from rocketleagueminimapgenerator.parser.frames import load_frames
 from rocketleagueminimapgenerator.render.minimap import render_field
 from rocketleagueminimapgenerator.render.player_data_drive import \
@@ -78,8 +77,6 @@ def main():
 
     load_data(out_prefix)
     parse_actor_data()
-    parse_ball_obj_nums()
-    parse_car_obj_nums()
     parse_player_info()
     load_frames()
 
