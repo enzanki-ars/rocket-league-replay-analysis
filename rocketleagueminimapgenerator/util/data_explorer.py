@@ -3,7 +3,7 @@ def data_explorer_cli():
     from rocketleagueminimapgenerator.data.data_loader import get_data
     from rocketleagueminimapgenerator.data.actor_data import get_actor_data
     from rocketleagueminimapgenerator.data.object_numbers import \
-        get_ball_obj_nums, get_car_obj_nums, get_player_info
+        get_player_info
 
     print()
 
@@ -11,14 +11,13 @@ def data_explorer_cli():
     print("""
     Help:
     
-    To see keys for data point: `keys [key...]`
-    To see data for data point: `data [key...]`
-    To see actor data:          `actor_data`
-    To see ball object numbers: `ball_obj_nums`
-    To see car object numbers:  `car_obj_nums`
-    To see player info:         `player_info`
-    To enter frame loop mode:   `loop_mode`
-    To exit:                    `exit`
+    To see keys for data point:         `keys [key...]`
+    To see data for data point:         `data [key...]`
+    To see actor data:                  `actor_data`
+    To see player info:                 `player_info`
+    To enter source frame loop mode:    `source_loop_mode`
+    To enter data frame loop mode:      `data_loop_mode`
+    To exit:                            `exit`
     """)
 
     cont = True
@@ -59,14 +58,12 @@ def data_explorer_cli():
                 print('Key does not have any subkeys')
         elif parsed_input[0] == 'actor_data':
             pprint(get_actor_data())
-        elif parsed_input[0] == 'ball_obj_nums':
-            pprint(get_ball_obj_nums())
-        elif parsed_input[0] == 'car_obj_nums':
-            pprint(get_car_obj_nums())
         elif parsed_input[0] == 'player_info':
             pprint(get_player_info())
-        elif parsed_input[0] == 'loop_mode':
-            loop_mode()
+        elif parsed_input[0] == 'source_loop_mode':
+            source_loop_mode()
+        elif parsed_input[0] == 'data_loop_mode':
+            data_loop_mode()
         elif parsed_input[0] == 'exit':
             cont = False
         else:
@@ -75,11 +72,9 @@ def data_explorer_cli():
             print('Parsed Input:', parsed_input)
 
 
-def loop_mode():
+def source_loop_mode():
     from pprint import pprint
     from rocketleagueminimapgenerator.data.data_loader import get_data
-    from rocketleagueminimapgenerator.data.object_numbers import \
-        get_ball_obj_nums, get_car_obj_nums, get_player_info
 
     print('===== Entering Loop Mode =====')
     print('To exit, type exit.')
@@ -89,40 +84,54 @@ def loop_mode():
     data = get_data()
 
     if parsed_user_input2 != 'exit':
-        for i, frame in enumerate(data['content']['frames']):
+        for i, frame in enumerate(data['Frames']):
             if parsed_user_input2 != 'exit':
-                for j, replication in enumerate(frame['replications']):
+                for j, update in enumerate(frame['ActorUpdates']):
                     print('=====')
                     print('Frame:', i)
-                    print('Time:', frame['time'])
-                    print('Delta:', frame['delta'])
-                    print('-----')
-                    print('Replication:', j)
-                    print('-----')
-
-                    actor_id = replication['actor_id']['value']
-
-                    if actor_id in get_ball_obj_nums():
-                        print('Known Ball')
-                    elif actor_id in get_car_obj_nums().keys():
-                        car_id = get_car_obj_nums()[actor_id]
-                        print('Known Car for Player #', car_id)
-                        print('\tName:', get_player_info()[car_id]['name'])
-                        print('\tTeam:', get_player_info()[car_id]['team'])
-                    elif actor_id in get_player_info().keys():
-                        print('Known Player:')
-                        print('\tName:', get_player_info()[actor_id]['name'])
-                        print('\tTeam:', get_player_info()[actor_id]['team'])
+                    print('Time:', frame['Time'])
+                    print('Actor:', update['Id'])
 
                     print('=====')
 
-                    pprint(replication)
+                    pprint(update)
 
                     user_input2 = input('Press Enter to Continue > ')
                     parsed_user_input2 = user_input2.split(' ')
 
                     if parsed_user_input2 == 'exit':
                         return
+            else:
+                return
+    else:
+        return
+
+
+def data_loop_mode():
+    from pprint import pprint
+    from rocketleagueminimapgenerator.parser.frames import get_frames
+
+    print('===== Entering Loop Mode =====')
+    print('To exit, type exit.')
+    user_input2 = input('Press Enter to Continue > ')
+    parsed_user_input2 = user_input2.split(' ')
+
+    frames = get_frames()
+
+    if parsed_user_input2 != 'exit':
+        for i, frame in enumerate(frames):
+            if parsed_user_input2 != 'exit':
+                print('=====')
+                print('Frame:', i)
+                print('=====')
+
+                pprint(frame)
+
+                user_input2 = input('Press Enter to Continue > ')
+                parsed_user_input2 = user_input2.split(' ')
+
+                if parsed_user_input2 == 'exit':
+                    return
             else:
                 return
     else:

@@ -70,7 +70,8 @@ def render_player_data_scoreboard_with_drive_frame(frames, frame_num,
                             saves=player_scoreboard['saves'],
                             shots=player_scoreboard['shots'],
                             sleep=str(player_frame_info['sleep'])[0],
-                            ping=player_frame_info['ping'],
+                            boost='{0:03d}'.format(
+                                player_frame_info['boost'] * 100),
                             throttle_w=throttle_w,
                             throttle_x=throttle_x,
                             steer=(player_frame_info['steer'] * 180) - 90
