@@ -7,6 +7,6 @@ COPY /Y .\README.md .\dist\README.txt
 DEL /S /Q .\dist\assets
 COPY /Y .\assets .\dist\assets
 
-powershell Compress-Archive -Path .\dist\rocketleagueminimapgenerator.exe, .\dist\README.txt, .\dist\assets -DestinationPath .\dist\rocketleagueminimapgenerator.zip
+powershell Compress-Archive -Force -Path .\dist\rocketleagueminimapgenerator.exe, .\dist\README.txt, .\dist\assets -DestinationPath .\dist\rocketleagueminimapgenerator.zip
 
 pause
