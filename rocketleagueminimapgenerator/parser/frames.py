@@ -31,7 +31,7 @@ def load_frames():
 
     frames = [len(data['Frames'])]
     frames[0] = {'time': data['Frames'][0]['Time'],
-                 'delta': 0,
+                 'delta': data['Frames'][0]['Delta'],
                  'ball': {'loc': {'x': 0, 'y': 0, 'z': 0},
                           'rot': {'x': 0, 'y': 0, 'z': 0},
                           'sleep': True},
@@ -67,7 +67,7 @@ def load_frames():
             frames.append(copy.deepcopy(frames[i - 1]))
 
         frames[i]['time'] = data['Frames'][i]['Time']
-        frames[i]['delta'] = frames[i]['time'] - frames[i - 1]['time']
+        frames[i]['delta'] = data['Frames'][i]['Delta']
 
         for update in data['Frames'][i]['ActorUpdates']:
             actor_id = update['Id']
