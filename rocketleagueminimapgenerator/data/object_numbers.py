@@ -47,20 +47,16 @@ def parse_car_obj_nums():
 
     car_objects = {}
 
-    for frame in get_data()['content']['frames'][:get_data_end()]:
-        for actor in frame['replications']:
+    for frame in get_data()['Frames'][:get_data_end()]:
+        for update in frame['ActorUpdates']:
 
-            actor_id = actor['actor_id']['value']
+            actor_id = update['Id']
 
-            if 'updated_replication_value' in actor['value'].keys():
-                for updated_data in \
-                        actor['value']['updated_replication_value']:
-                    if updated_data['name'] == \
-                            'Engine.Pawn:PlayerReplicationInfo':
-                        if actor_id not in car_objects.keys():
-                            player_id = updated_data['value'][
-                                'flagged_int_attribute_value']['int']
-                            car_objects[actor_id] = player_id
+            if 'Engine.Pawn:PlayerReplicationInfo' in update.keys():
+                if actor_id not in car_objects.keys():
+                    player_id = update['Engine.Pawn:PlayerReplicationInfo'][
+                        'ActorId']
+                    car_objects[actor_id] = player_id
 
 
 def get_car_obj_nums():
@@ -82,29 +78,21 @@ def parse_player_info():
 
     for i in tqdm(range(0, get_data_end()), desc='Parsing Player Info',
                   ascii=True):
-        for frame_data in get_data()['content']['frames'][i]['replications']:
-            if frame_data['actor_id']['value'] in player_info:
-                player_id = frame_data['actor_id']['value']
+        for update in get_data()['Frames'][i]['ActorUpdates']:
+            if update['Id'] in player_info:
+                player_id = update['Id']
 
-                if 'updated_replication_value' in frame_data['value'].keys():
-                    for updated_data in \
-                            frame_data['value']['updated_replication_value']:
-                        if updated_data['name'] == \
-                                'Engine.PlayerReplicationInfo:Team':
-                            if 'team' not in player_info[player_id].keys():
-                                player_info[player_id]['team'] = \
-                                    updated_data['value'][
-                                        'flagged_int_attribute_value']['int']
-                        elif updated_data['name'] == \
-                                'Engine.PlayerReplicationInfo:PlayerName':
-                            player_info[player_id]['name'] = \
-                                updated_data['value'][
-                                    'string_attribute_value']
-                        elif updated_data['name'] == \
-                                'TAGame.PRI_TA:ClientLoadouts':
-                            player_info[player_id]['items'] = \
-                                updated_data['value'][
-                                    'loadouts_attribute_value']
+                if 'Engine.PlayerReplicationInfo:Team' in update.keys():
+                    if 'team' not in player_info[player_id].keys():
+                        player_info[player_id]['team'] = \
+                            update['Engine.PlayerReplicationInfo:Team'][
+                                'ActorId']
+                if 'Engine.PlayerReplicationInfo:PlayerName' in update.keys():
+                    player_info[player_id]['name'] = \
+                        update['Engine.PlayerReplicationInfo:PlayerName']
+                if 'TAGame.PRI_TA:ClientLoadouts' in update.keys():
+                    player_info[player_id]['items'] = \
+                        update['TAGame.PRI_TA:ClientLoadouts']
 
     team_nums = []
     for player in player_info:

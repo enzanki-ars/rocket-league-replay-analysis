@@ -51,4 +51,4 @@ def get_data_end():
 
 
 def max_data_end():
-    return len(data['content']['frames'])
+    return len(data['Frames'])

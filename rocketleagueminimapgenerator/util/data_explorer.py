@@ -89,18 +89,15 @@ def loop_mode():
     data = get_data()
 
     if parsed_user_input2 != 'exit':
-        for i, frame in enumerate(data['content']['frames']):
+        for i, frame in enumerate(data['Frames']):
             if parsed_user_input2 != 'exit':
-                for j, replication in enumerate(frame['replications']):
+                for j, update in enumerate(frame['ActorUpdates']):
                     print('=====')
                     print('Frame:', i)
-                    print('Time:', frame['time'])
-                    print('Delta:', frame['delta'])
-                    print('-----')
-                    print('Replication:', j)
+                    print('Time:', frame['Time'])
                     print('-----')
 
-                    actor_id = replication['actor_id']['value']
+                    actor_id = update['Id']
 
                     if actor_id in get_ball_obj_nums():
                         print('Known Ball')
@@ -116,7 +113,7 @@ def loop_mode():
 
                     print('=====')
 
-                    pprint(replication)
+                    pprint(update)
 
                     user_input2 = input('Press Enter to Continue > ')
                     parsed_user_input2 = user_input2.split(' ')
