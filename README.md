@@ -1,6 +1,6 @@
 # Rocket League Minimap Generator
 
-**Version:** v1.3.0
+**Version:** v1.3.1
 
 ## Installation
 
@@ -20,6 +20,7 @@ disk and run it from there.
 ## Usage Instructions
 
 1. Run RocketLeagueReplayParser on your replay file.
+    * Instructions coming soon for using RocketLeagueReplayParser.
 2. Run `python -m rocketleagueminimapgenerator.main [args]` replacing 
 `[args]` with the program arguments you wish to use.  Leave empty to see help.
     * If you are running a precompiled version, run that 
