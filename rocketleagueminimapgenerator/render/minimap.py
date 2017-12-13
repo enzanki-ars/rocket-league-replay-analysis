@@ -75,7 +75,7 @@ def render_frame(ball_loc, frames, frame_num,
             x = frames[frame_num]['cars'][car_id]['loc']['x']
             y = frames[frame_num]['cars'][car_id]['loc']['y']
 
-            if x is None and y is None:
+            if x is not None and y is not None:
                 car_x = ((frames[frame_num]['cars'][car_id]['loc']['x']
                           - min_x) / get_config('size_modifier'))
                 car_y = ((frames[frame_num]['cars'][car_id]['loc']['y']
