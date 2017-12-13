@@ -70,7 +70,16 @@ def load_frames():
             frames.append(copy.deepcopy(frames[i - 1]))
 
         frames[i]['time'] = data['Frames'][i]['Time']
-        frames[i]['delta'] = data['Frames'][i]['Delta']
+
+        replay_delta = data['Frames'][i]['Delta']
+
+        calc_delta = data['Frames'][i]['Time'] - data['Frames'][i - 1]['Time']
+
+        if replay_delta == 0:
+            # There seems to have been a goal here.
+            frames[i]['delta'] = replay_delta
+        else:
+            frames[i]['delta'] = calc_delta
 
         for update in data['Frames'][i]['ActorUpdates']:
             actor_id = update['Id']
