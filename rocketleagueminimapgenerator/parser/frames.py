@@ -43,7 +43,7 @@ def load_frames():
     for player_id in player_info.keys():
         current_car_objects[player_id] = None
         frames[0]['cars'][player_id] = {
-            'loc': {'x': -10000, 'y': -10000, 'z': -10000},
+            'loc': {'x': None, 'y': None, 'z': None},
             'rot': {'x': 0, 'y': 0, 'z': 0},
             'ang_vel': {'x': 0, 'y': 0, 'z': 0},
             'lin_vel': {'x': 0, 'y': 0, 'z': 0},
@@ -52,6 +52,9 @@ def load_frames():
             'ping': 0,
             'boost': 0,
             'sleep': True,
+            'drift': False,
+            '2nd_cam': False,
+            'driving': False,
             'scoreboard': {
                 'score': 0,
                 'goals': 0,
@@ -90,3 +93,33 @@ def load_frames():
                 for player_id in current_car_objects:
                     if actor_id == current_car_objects[player_id]:
                         update_car_data(update, frames, i, player_id)
+
+        for actor_id in data['Frames'][i]['DeletedActorIds']:
+            if actor_id == current_ball_object:
+                frames[i]['ball'] = {'loc': {'x': 0, 'y': 0, 'z': 0},
+                                     'rot': {'x': 0, 'y': 0, 'z': 0},
+                                     'sleep': True}
+            else:
+                for player_id in current_car_objects:
+                    if actor_id == current_car_objects[player_id]:
+                        current_car_objects[player_id] = None
+                        frames[i]['cars'][player_id]['loc'] = {'x': None,
+                                                               'y': None,
+                                                               'z': None}
+                        frames[i]['cars'][player_id]['rot'] = {'x': 0,
+                                                               'y': 0,
+                                                               'z': 0}
+                        frames[i]['cars'][player_id]['ang_vel'] = {'x': 0,
+                                                                   'y': 0,
+                                                                   'z': 0}
+                        frames[i]['cars'][player_id]['lin_vel'] = {'x': 0,
+                                                                   'y': 0,
+                                                                   'z': 0}
+                        frames[i]['cars'][player_id]['throttle'] = .5
+                        frames[i]['cars'][player_id]['steer'] = .5
+                        frames[i]['cars'][player_id]['ping'] = 0
+                        frames[i]['cars'][player_id]['boost'] = 0
+                        frames[i]['cars'][player_id]['sleep'] = True
+                        frames[i]['cars'][player_id]['drift'] = False
+                        frames[i]['cars'][player_id]['2nd_cam'] = False
+                        frames[i]['cars'][player_id]['driving'] = False

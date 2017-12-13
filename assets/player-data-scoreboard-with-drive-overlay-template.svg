@@ -38,7 +38,7 @@ viewBox="0 0 242 135"
   <text x="117" y="76"  class="fil3 fnt2">{assists}</text>
   <text x="165" y="76"  class="fil3 fnt2">{saves}</text>
   <text x="213" y="76"  class="fil3 fnt2">{shots}</text>
-  <text x="213" y="128"  class="fil3 fnt4">{boost}</text>
+  <text x="213" y="128"  class="fil3 fnt4">{drift}</text>
   <rect class="fil5 str0" x="{throttle_x}" y="109" width="{throttle_w}" height="18.725"/>
   <g transform="rotate({steer} 169 122)">
    <circle class="fil1 str1" cx="169" cy="122" r="8"/>

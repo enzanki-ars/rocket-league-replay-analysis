@@ -35,6 +35,18 @@ def update_car_data(update, frames, i, player_id):
     if 'TAGame.Vehicle_TA:ReplicatedSteer' in update.keys():
         frames[i]['cars'][player_id]['steer'] = \
             update['TAGame.Vehicle_TA:ReplicatedSteer'] / 255
+    if 'TAGame.Vehicle_TA:bReplicatedHandbrake' in update.keys():
+        # print('drift')
+        frames[i]['cars'][player_id]['drift'] = \
+            update['TAGame.Vehicle_TA:bReplicatedHandbrake']
+    if 'TAGame.CameraSettingsActor_TA:bUsingSecondaryCamera' in update.keys():
+        print('2nd_cam')
+        frames[i]['cars'][player_id]['2nd_cam'] = \
+            update['TAGame.CameraSettingsActor_TA:bUsingSecondaryCamera']
+    if 'TAGame.Vehicle_TA:bDriving' in update.keys():
+        # print('driving')
+        frames[i]['cars'][player_id]['driving'] = \
+            update['TAGame.Vehicle_TA:bDriving']
 
 
 def update_player_data(update, frames, i, actor_id):

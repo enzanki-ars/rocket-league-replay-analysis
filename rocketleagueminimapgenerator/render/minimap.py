@@ -1,6 +1,5 @@
 def render_field(out_prefix):
     import os
-    import shutil
     from pathlib import Path
 
     from tqdm import tqdm
@@ -56,7 +55,7 @@ def render_frame(ball_loc, frames, frame_num,
     from rocketleagueminimapgenerator.main import frame_num_format, \
         car_template, field_template
     from rocketleagueminimapgenerator.data.object_numbers import \
-        get_player_info, get_player_team_name
+        get_player_team_name
     from rocketleagueminimapgenerator.util.config import \
         get_config
 
@@ -73,32 +72,38 @@ def render_frame(ball_loc, frames, frame_num,
         tri_pt_y_const = r / math.sqrt(3)
 
         for car_id in frames[frame_num]['cars'].keys():
-            car_x = ((frames[frame_num]['cars'][car_id]['loc']['x']
-                      - min_x) / get_config('size_modifier'))
-            car_y = ((frames[frame_num]['cars'][car_id]['loc']['y']
-                      - min_y) / get_config('size_modifier'))
+            x = frames[frame_num]['cars'][car_id]['loc']['x']
+            y = frames[frame_num]['cars'][car_id]['loc']['y']
 
-            player_team = get_player_team_name(car_id)
+            if x is None and y is None:
+                car_x = ((frames[frame_num]['cars'][car_id]['loc']['x']
+                          - min_x) / get_config('size_modifier'))
+                car_y = ((frames[frame_num]['cars'][car_id]['loc']['y']
+                          - min_y) / get_config('size_modifier'))
 
-            car_placement += car_template.format(
-                    team_id=player_team,
-                    car_pos_x=car_x,
-                    car_pos_y=car_y,
+                player_team = get_player_team_name(car_id)
 
-                    car_triangle_pt1_x=car_x,
-                    car_triangle_pt1_y=car_y - r,
+                car_placement += car_template.format(
+                        team_id=player_team,
+                        car_pos_x=car_x,
+                        car_pos_y=car_y,
 
-                    car_triangle_pt2_x=car_x - tri_pt_x_const,
-                    car_triangle_pt2_y=car_y + tri_pt_y_const,
+                        car_triangle_pt1_x=car_x,
+                        car_triangle_pt1_y=car_y - r,
 
-                    car_triangle_pt3_x=car_x + tri_pt_x_const,
-                    car_triangle_pt3_y=car_y + tri_pt_y_const,
+                        car_triangle_pt2_x=car_x - tri_pt_x_const,
+                        car_triangle_pt2_y=car_y + tri_pt_y_const,
 
-                    car_angle=(frames[frame_num]['cars'][car_id]['rot']['y'] + 270),
+                        car_triangle_pt3_x=car_x + tri_pt_x_const,
+                        car_triangle_pt3_y=car_y + tri_pt_y_const,
 
-                    car_size=car_size,
-                    arrow_move=car_size * 1.5
-            )
+                        car_angle=(
+                            frames[frame_num]['cars'][car_id]['rot']['y'] +
+                            270),
+
+                        car_size=car_size,
+                        arrow_move=car_size * 1.5
+                )
 
         cairosvg.svg2png(bytestring=bytes(
                 field_template.format(x_size=x_size,

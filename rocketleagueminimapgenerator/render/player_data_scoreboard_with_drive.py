@@ -60,6 +60,11 @@ def render_player_data_scoreboard_with_drive_frame(frames, frame_num,
             else:
                 throttle_x = throttle_mid
 
+            if player_frame_info['drift']:
+                drift = 'T'
+            else:
+                drift = 'F'
+
             cairosvg.svg2png(bytestring=bytes(
                     player_data_scoreboard_with_drive_template.format(
                             player_name=player_name,
@@ -70,8 +75,7 @@ def render_player_data_scoreboard_with_drive_frame(frames, frame_num,
                             saves=player_scoreboard['saves'],
                             shots=player_scoreboard['shots'],
                             sleep=str(player_frame_info['sleep'])[0],
-                            boost='{0:03d}'.format(
-                                player_frame_info['boost'] * 100),
+                            drift=drift,
                             throttle_w=throttle_w,
                             throttle_x=throttle_x,
                             steer=(player_frame_info['steer'] * 180) - 90
