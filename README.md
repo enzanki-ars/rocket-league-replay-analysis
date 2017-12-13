@@ -12,7 +12,7 @@
 
 * **_Highly Suggested:_** A [RAM disk](https://sourceforge.net/projects/imdisk-toolkit/) 
 is suggested to run the program much faster.  This program can take up about 
-.1 GB per minimap render, with player data renders taking up about .5 GB per 
+.1 GB per minimap render, with player data renders taking up about .2 GB per 
 render.  A RAM Disk does not necessarily increase the program's speed, but it 
 will help reduce the stress on the hard drive.  Copy the program to the RAM 
 disk and run it from there.
