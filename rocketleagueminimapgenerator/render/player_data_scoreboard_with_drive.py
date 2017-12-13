@@ -61,9 +61,9 @@ def render_player_data_scoreboard_with_drive_frame(frames, frame_num,
                 throttle_x = throttle_mid
 
             if player_frame_info['drift']:
-                drift = ''
-            else:
                 drift = 'D'
+            else:
+                drift = ''
 
             cairosvg.svg2png(bytestring=bytes(
                     player_data_scoreboard_with_drive_template.format(

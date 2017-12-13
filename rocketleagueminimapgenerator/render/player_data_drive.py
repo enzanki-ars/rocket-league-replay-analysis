@@ -59,9 +59,9 @@ def render_player_data_drive_frame(frames, frame_num, out_prefix):
                 throttle_x = throttle_mid
 
             if player_frame_info['drift']:
-                drift = ''
-            else:
                 drift = 'D'
+            else:
+                drift = ''
 
             cairosvg.svg2png(bytestring=bytes(
                     player_data_drive_template.format(
