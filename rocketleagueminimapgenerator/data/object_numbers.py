@@ -48,7 +48,7 @@ def parse_player_info():
                     player_info[player_id]['items'] = \
                         update['TAGame.PRI_TA:ClientLoadouts']
 
-        for player in get_data()['PlayerStats']:
+        for player in get_data()['Properties']['PlayerStats']:
             for player_id in player_info:
                 if 'name' in player_info[player_id] \
                         and player_info[player_id]['name'] == player['Name']:
