@@ -5,7 +5,7 @@ def update_game_data(update, frames, i):
 
 
 def update_car_data(update, frames, i, player_id):
-    from rocketleagueminimapgenerator.parser.location import \
+    from rocketleaguereplayanalysis.parser.location import \
         parse_loc_update, parse_rot_update, \
         parse_sleep_update, parse_lin_vel_update, parse_ang_vel_update
 
@@ -71,7 +71,7 @@ def update_player_data(update, frames, i, actor_id):
 
 
 def update_ball_data(update, frames, i):
-    from rocketleagueminimapgenerator.parser.location import \
+    from rocketleaguereplayanalysis.parser.location import \
         parse_loc_update, parse_rot_update, parse_sleep_update
 
     if 'TAGame.RBActor_TA:ReplicatedRBState' in update.keys():

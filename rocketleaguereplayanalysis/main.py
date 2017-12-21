@@ -2,21 +2,21 @@ import argparse
 import os
 import time
 
-from rocketleagueminimapgenerator.data.actor_data import parse_actor_data
-from rocketleagueminimapgenerator.data.data_loader import load_data, \
+from rocketleaguereplayanalysis.data.actor_data import parse_actor_data
+from rocketleaguereplayanalysis.data.data_loader import load_data, \
     set_data_start, set_data_end
-from rocketleagueminimapgenerator.data.object_numbers import \
+from rocketleaguereplayanalysis.data.object_numbers import \
     parse_player_info, get_player_info, get_player_team_name
-from rocketleagueminimapgenerator.parser.frames import load_frames
-from rocketleagueminimapgenerator.render.minimap import render_field
-from rocketleagueminimapgenerator.render.player_data_drive import \
+from rocketleaguereplayanalysis.parser.frames import load_frames
+from rocketleaguereplayanalysis.render.minimap import render_field
+from rocketleaguereplayanalysis.render.player_data_drive import \
     render_player_data_drive
-from rocketleagueminimapgenerator.render.player_data_scoreboard import \
+from rocketleaguereplayanalysis.render.player_data_scoreboard import \
     render_player_data_scoreboard
-from rocketleagueminimapgenerator.render.player_data_scoreboard_with_drive \
+from rocketleaguereplayanalysis.render.player_data_scoreboard_with_drive \
     import render_player_data_scoreboard_with_drive
-from rocketleagueminimapgenerator.render.transcode import render_video
-from rocketleagueminimapgenerator.util.data_explorer import data_explorer_cli
+from rocketleaguereplayanalysis.render.transcode import render_video
+from rocketleaguereplayanalysis.util.data_explorer import data_explorer_cli
 
 with open(os.path.join('assets', 'field-template.svg'), 'r') as svg_file:
     field_template = svg_file.read()
@@ -49,7 +49,7 @@ frame_num_format = '{0:04d}'
 
 
 def main():
-    parser = argparse.ArgumentParser(prog='rocketleagueminimapgenerator')
+    parser = argparse.ArgumentParser(prog='rocketleaguereplayanalysis')
 
     # Required args
     parser.add_argument('game_json', help='The name of the game json.')

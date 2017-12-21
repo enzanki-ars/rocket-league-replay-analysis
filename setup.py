@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(
-        name='rocketleagueminimapgenerator',
+        name='rocketleaguereplayanalysis',
         version='1.1.2',
         url='https://enzanki-ars.github.io/rocket-league-replay-analysis',
         license='GNU AGPLv3',

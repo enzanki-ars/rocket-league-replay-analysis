@@ -7,8 +7,8 @@ def render_player_data_scoreboard(out_prefix):
 
     from tqdm import tqdm
 
-    from rocketleagueminimapgenerator.parser.frames import get_frames
-    from rocketleagueminimapgenerator.data.data_loader import get_data_start, \
+    from rocketleaguereplayanalysis.parser.frames import get_frames
+    from rocketleaguereplayanalysis.data.data_loader import get_data_start, \
         get_data_end
 
     frames = get_frames()
@@ -32,9 +32,9 @@ def render_player_data_scoreboard_frame(frames, frame_num, out_prefix):
 
     import cairosvg
 
-    from rocketleagueminimapgenerator.main import frame_num_format, \
+    from rocketleaguereplayanalysis.main import frame_num_format, \
         player_data_scoreboard_template
-    from rocketleagueminimapgenerator.data.object_numbers import \
+    from rocketleaguereplayanalysis.data.object_numbers import \
         get_player_info, get_player_team_name
 
     moving_data_width = 185.044  # 96.3549

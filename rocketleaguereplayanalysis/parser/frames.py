@@ -13,11 +13,11 @@ def load_frames():
 
     from tqdm import tqdm
 
-    from rocketleagueminimapgenerator.data.data_loader import get_data, \
+    from rocketleaguereplayanalysis.data.data_loader import get_data, \
         get_data_end
-    from rocketleagueminimapgenerator.data.object_numbers import \
+    from rocketleaguereplayanalysis.data.object_numbers import \
         get_player_info, get_game_event_num
-    from rocketleagueminimapgenerator.parser.frame_data import \
+    from rocketleaguereplayanalysis.parser.frame_data import \
         update_game_data, update_car_data, update_player_data, update_ball_data
 
     data = get_data()

@@ -7,7 +7,7 @@ team_orange = None
 
 
 def parse_game_event_num():
-    from rocketleagueminimapgenerator.data.actor_data import get_actor_data
+    from rocketleaguereplayanalysis.data.actor_data import get_actor_data
 
     global game_event_num
 
@@ -25,7 +25,7 @@ def get_game_event_num():
 
 def parse_player_info():
     from tqdm import tqdm
-    from rocketleagueminimapgenerator.data.data_loader import get_data, \
+    from rocketleaguereplayanalysis.data.data_loader import get_data, \
         get_data_end
 
     global player_info, team_blue, team_orange

@@ -3,9 +3,9 @@ def render_video(out_prefix, render_type, out_frame_rate=30, overlay=None):
     import subprocess
     from pathlib import Path
 
-    from rocketleagueminimapgenerator.parser.frames import get_frames
-    from rocketleagueminimapgenerator.main import frame_num_format
-    from rocketleagueminimapgenerator.data.data_loader import get_data_start, \
+    from rocketleaguereplayanalysis.parser.frames import get_frames
+    from rocketleaguereplayanalysis.main import frame_num_format
+    from rocketleaguereplayanalysis.data.data_loader import get_data_start, \
         get_data_end
 
     Path(os.path.join(out_prefix, render_type + '-frames.txt')).touch()

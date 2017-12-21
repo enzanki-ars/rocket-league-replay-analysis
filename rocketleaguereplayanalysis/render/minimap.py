@@ -4,10 +4,10 @@ def render_field(out_prefix):
 
     from tqdm import tqdm
 
-    from rocketleagueminimapgenerator.parser.frames import get_frames
-    from rocketleagueminimapgenerator.data.data_loader import get_data_start, \
+    from rocketleaguereplayanalysis.parser.frames import get_frames
+    from rocketleaguereplayanalysis.data.data_loader import get_data_start, \
         get_data_end
-    from rocketleagueminimapgenerator.util.config import get_config
+    from rocketleaguereplayanalysis.util.config import get_config
 
     frames = get_frames()
 
@@ -52,11 +52,11 @@ def render_frame(ball_loc, frames, frame_num,
 
     import cairosvg
 
-    from rocketleagueminimapgenerator.main import frame_num_format, \
+    from rocketleaguereplayanalysis.main import frame_num_format, \
         car_template, field_template
-    from rocketleagueminimapgenerator.data.object_numbers import \
+    from rocketleaguereplayanalysis.data.object_numbers import \
         get_player_team_name
-    from rocketleagueminimapgenerator.util.config import \
+    from rocketleaguereplayanalysis.util.config import \
         get_config
 
     with open(os.path.join(out_prefix, 'minimap',

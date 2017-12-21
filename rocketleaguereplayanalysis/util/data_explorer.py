@@ -1,8 +1,8 @@
 def data_explorer_cli():
     from pprint import pprint
-    from rocketleagueminimapgenerator.data.data_loader import get_data
-    from rocketleagueminimapgenerator.data.actor_data import get_actor_data
-    from rocketleagueminimapgenerator.data.object_numbers import \
+    from rocketleaguereplayanalysis.data.data_loader import get_data
+    from rocketleaguereplayanalysis.data.actor_data import get_actor_data
+    from rocketleaguereplayanalysis.data.object_numbers import \
         get_player_info
 
     print()
@@ -74,7 +74,7 @@ def data_explorer_cli():
 
 def source_loop_mode():
     from pprint import pprint
-    from rocketleagueminimapgenerator.data.data_loader import get_data
+    from rocketleaguereplayanalysis.data.data_loader import get_data
 
     print('===== Entering Loop Mode =====')
     print('To exit, type exit.')
@@ -109,7 +109,7 @@ def source_loop_mode():
 
 def data_loop_mode():
     from pprint import pprint
-    from rocketleagueminimapgenerator.parser.frames import get_frames
+    from rocketleaguereplayanalysis.parser.frames import get_frames
 
     print('===== Entering Loop Mode =====')
     print('To exit, type exit.')
