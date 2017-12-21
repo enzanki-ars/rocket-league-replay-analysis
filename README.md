@@ -21,7 +21,7 @@ disk and run it from there.
 
 1. Run RocketLeagueReplayParser on your replay file.
     * Instructions coming soon for using RocketLeagueReplayParser.
-2. Run `python -m rocketleagueminimapgenerator.main [args]` replacing 
+2. Run `python -m rocketleaguereplayanalysis.main [args]` replacing 
 `[args]` with the program arguments you wish to use.  Leave empty to see help.
     * If you are running a precompiled version, run that 
     executable name instead.  Make sure that `field-template.svg` 
