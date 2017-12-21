@@ -4,13 +4,13 @@ data_end = None
 data_start = 0
 
 
-def load_data(out_prefix):
+def load_data(filename):
     import json
 
     global data
     global data_end
 
-    with open(out_prefix) as data_file:
+    with open(filename) as data_file:
         data = json.load(data_file)
 
     data_end = max_data_end()

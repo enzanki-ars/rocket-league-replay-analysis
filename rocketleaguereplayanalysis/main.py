@@ -73,9 +73,9 @@ def main():
 
     args = parser.parse_args()
 
-    out_prefix = args.game_json
+    out_prefix = os.path.basename(args.game_json)
 
-    load_data(out_prefix)
+    load_data(args.game_json)
     parse_actor_data()
     parse_player_info()
     load_frames()
