@@ -1,6 +1,6 @@
-# Rocket League Minimap Generator
+# Rocket League Replay Analysis
 
-**Version:** v1.2.2
+**Version:** v1.3.0-dev
 
 ## Installation
 

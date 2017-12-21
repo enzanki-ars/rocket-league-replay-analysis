@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
         name='rocketleagueminimapgenerator',
         version='1.1.2',
-        url='https://enzanki-ars.github.io/rocket-league-minimap-generator',
+        url='https://enzanki-ars.github.io/rocket-league-replay-analysis',
         license='GNU AGPLv3',
         author='Alex Shafer',
         author_email='enzanki.ars@gmail.com',
