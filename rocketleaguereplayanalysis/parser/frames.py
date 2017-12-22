@@ -14,7 +14,7 @@ def load_frames():
     from tqdm import tqdm
 
     from rocketleaguereplayanalysis.data.data_loader import get_data, \
-        get_data_end
+        max_data_end
     from rocketleaguereplayanalysis.data.object_numbers import \
         get_player_info, get_game_event_num
     from rocketleaguereplayanalysis.parser.frame_data import \
@@ -27,18 +27,21 @@ def load_frames():
     player_info = get_player_info()
     game_event_num = get_game_event_num()
 
-    data_end = get_data_end()
-
     frames = [len(data['Frames'])]
-    frames[0] = {'time': data['Frames'][0]['Time'],
-                 'delta': data['Frames'][0]['Delta'],
-                 'ball': {'loc': {'x': 0, 'y': 0, 'z': 0},
-                          'rot': {'x': 0, 'y': 0, 'z': 0},
-                          'sleep': True},
-                 'cars': {},
-                 'game_data': {
-                     'sec_remaining': 300
-                 }}
+    frames[0] = {
+        'time': {
+            'replay_time': data['Frames'][0]['Delta'],
+            'server_time': data['Frames'][0]['Time'],
+            'game_time': 300,
+            'replay_delta': data['Frames'][0]['Delta'],
+            'server_delta': data['Frames'][0]['Delta'],
+            'real_replay_delta': data['Frames'][0]['Delta']
+        },
+        'ball': {'loc': {'x': 0, 'y': 0, 'z': 0},
+                 'rot': {'x': 0, 'y': 0, 'z': 0},
+                 'sleep': True},
+        'cars': {}
+    }
 
     for player_id in player_info.keys():
         current_car_objects[player_id] = None
@@ -64,22 +67,32 @@ def load_frames():
             }
         }
 
-    for i in tqdm(range(0, data_end), desc='Parsing Frame Data', ascii=True):
+    for i in tqdm(range(0, max_data_end()), desc='Parsing Frame Data',
+                  ascii=True):
 
         if i > 0:
             frames.append(copy.deepcopy(frames[i - 1]))
 
-        frames[i]['time'] = data['Frames'][i]['Time']
-
+        server_time = data['Frames'][i]['Time']
+        replay_time = frames[i - 1]['time']['replay_time'] + \
+                      data['Frames'][i]['Delta']
+        server_delta = data['Frames'][i]['Time'] - \
+                       data['Frames'][i - 1]['Time']
         replay_delta = data['Frames'][i]['Delta']
-
-        calc_delta = data['Frames'][i]['Time'] - data['Frames'][i - 1]['Time']
 
         if replay_delta == 0:
             # There seems to have been a goal here.
-            frames[i]['delta'] = replay_delta
+            real_replay_delta = replay_delta
         else:
-            frames[i]['delta'] = calc_delta
+            real_replay_delta = server_delta
+
+        frames[i]['time'] = {
+            'replay_time': replay_time,
+            'server_time': server_time,
+            'replay_delta': replay_delta,
+            'server_delta': server_delta,
+            'real_replay_delta': real_replay_delta
+        }
 
         for update in data['Frames'][i]['ActorUpdates']:
             actor_id = update['Id']

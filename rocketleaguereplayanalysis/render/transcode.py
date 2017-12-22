@@ -18,7 +18,8 @@ def render_video(out_prefix, render_type, out_frame_rate=30, overlay=None):
             out_str += 'file \'' + os.path.join(out_prefix, render_type,
                                                 frame_num_format.format(
                                                         i) + '.png') + '\'\n'
-            out_str += 'duration ' + str(frame['delta']) + '\n'
+            out_str += 'duration ' + \
+                       str(frame['time']['real_replay_delta']) + '\n'
         # Ensure display of final frame
         out_str += 'file \'' + os.path.join(out_prefix, render_type,
                                             frame_num_format.format(
