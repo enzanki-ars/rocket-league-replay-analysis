@@ -17,9 +17,12 @@ def render_field(out_prefix):
         ball_loc['x'].append(frame['ball']['loc']['x'])
         ball_loc['y'].append(frame['ball']['loc']['y'])
 
+    center_x = ball_loc['x'][0]
+    center_y = ball_loc['y'][0]
+
     max_x = max(ball_loc['x'])
     min_x = min(ball_loc['x'])
-    x_w = max_x - min_x
+    x_w = max(max_x - center_x, center_x - min_x) * 2
 
     # Make divisible by 2
     x_size = ((x_w - (x_w % (2 * get_config('size_modifier')))) /
@@ -27,7 +30,7 @@ def render_field(out_prefix):
 
     max_y = max(ball_loc['y'])
     min_y = min(ball_loc['y'])
-    y_w = max_y - min_y
+    y_w = max(max_y - center_y, center_y - min_y) * 2
 
     # Make divisible by 2
     y_size = ((y_w - (y_w % (2 * get_config('size_modifier')))) /
