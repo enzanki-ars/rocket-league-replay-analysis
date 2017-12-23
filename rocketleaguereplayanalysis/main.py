@@ -15,11 +15,15 @@ from rocketleaguereplayanalysis.render.player_data_scoreboard import \
     render_player_data_scoreboard
 from rocketleaguereplayanalysis.render.player_data_scoreboard_with_drive \
     import render_player_data_scoreboard_with_drive
+from rocketleaguereplayanalysis.render.pressure import render_pressure
 from rocketleaguereplayanalysis.render.transcode import render_video
 from rocketleaguereplayanalysis.util.data_explorer import data_explorer_cli
 
 with open(os.path.join('assets', 'field-template.svg'), 'r') as svg_file:
     field_template = svg_file.read()
+
+with open(os.path.join('assets', 'bar-comparison-template.svg'), 'r') as svg_file:
+    bar_comparison_template = svg_file.read()
 
 with open(os.path.join('assets', 'player-data-drive-overlay-template.svg'),
           'r') as svg_file:
@@ -56,6 +60,7 @@ def main():
 
     parser.add_argument('--process_type',
                         choices=['video_minimap',
+                                 'video_pressure',
                                  'video_player_data_drive',
                                  'video_player_data_scoreboard',
                                  'video_player_data_scoreboard_with_drive',
@@ -87,9 +92,9 @@ def main():
         set_data_end(args.data_end)
 
     if args.process_type == 'video_minimap':
-        print('Creating video of minimap')
-
         do_render_minimap(video_prefix)
+    elif args.process_type == 'video_pressure':
+        do_render_pressure(video_prefix)
     elif args.process_type == 'video_player_data_drive':
         do_render_player_data_drive(video_prefix)
     elif args.process_type == 'video_player_data_scoreboard':
@@ -112,6 +117,11 @@ def main():
 def do_render_minimap(video_prefix):
     render_field(video_prefix)
     render_video(video_prefix, 'minimap')
+
+
+def do_render_pressure(video_prefix):
+    render_pressure(video_prefix)
+    render_video(video_prefix, 'pressure', overlay='bar-comparison')
 
 
 def do_render_player_data_scoreboard_with_drive(video_prefix):

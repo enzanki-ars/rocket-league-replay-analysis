@@ -7,34 +7,8 @@ def render_field(out_prefix):
     from rocketleaguereplayanalysis.parser.frames import get_frames
     from rocketleaguereplayanalysis.data.data_loader import get_data_start, \
         get_data_end
-    from rocketleaguereplayanalysis.util.config import get_config
 
     frames = get_frames()
-
-    ball_loc = {'x': [], 'y': []}
-
-    for frame in frames:
-        ball_loc['x'].append(frame['ball']['loc']['x'])
-        ball_loc['y'].append(frame['ball']['loc']['y'])
-
-    center_x = ball_loc['x'][0]
-    center_y = ball_loc['y'][0]
-
-    max_x = max(ball_loc['x'])
-    min_x = min(ball_loc['x'])
-    x_w = max(max_x - center_x, center_x - min_x) * 2
-
-    # Make divisible by 2
-    x_size = ((x_w - (x_w % (2 * get_config('size_modifier')))) /
-              get_config('size_modifier'))
-
-    max_y = max(ball_loc['y'])
-    min_y = min(ball_loc['y'])
-    y_w = max(max_y - center_y, center_y - min_y) * 2
-
-    # Make divisible by 2
-    y_size = ((y_w - (y_w % (2 * get_config('size_modifier')))) /
-              get_config('size_modifier'))
 
     if not os.path.exists(os.path.join(out_prefix, 'minimap')):
         path = Path(os.path.join(out_prefix, 'minimap'))
@@ -43,13 +17,12 @@ def render_field(out_prefix):
     for i in tqdm(range(get_data_start(), get_data_end()),
                   desc='Minimap Render',
                   ascii=True):
-        render_frame(ball_loc=ball_loc, frames=frames, frame_num=i,
-                     min_x=min_x, min_y=min_y, out_prefix=out_prefix,
-                     x_size=x_size, y_size=y_size)
+        render_frame(frames=frames,
+                     frame_num=i,
+                     out_prefix=out_prefix)
 
 
-def render_frame(ball_loc, frames, frame_num,
-                 min_x, min_y, x_size, y_size, out_prefix):
+def render_frame(frames, frame_num, out_prefix):
     import math
     import os
 
@@ -61,6 +34,9 @@ def render_frame(ball_loc, frames, frame_num,
         get_player_team_name
     from rocketleaguereplayanalysis.util.config import \
         get_config
+    from rocketleaguereplayanalysis.util.extra_info import get_field_dimensions
+
+    field_dim = get_field_dimensions()
 
     with open(os.path.join(out_prefix, 'minimap',
                            frame_num_format.format(frame_num) + '.png'),
@@ -80,9 +56,11 @@ def render_frame(ball_loc, frames, frame_num,
 
             if x is not None and y is not None:
                 car_x = ((frames[frame_num]['cars'][car_id]['loc']['x']
-                          - min_x) / get_config('size_modifier'))
+                          - field_dim['min_x']) / get_config(
+                        'size_modifier'))
                 car_y = ((frames[frame_num]['cars'][car_id]['loc']['y']
-                          - min_y) / get_config('size_modifier'))
+                          - field_dim['min_y']) / get_config(
+                        'size_modifier'))
 
                 player_team = get_player_team_name(car_id)
 
@@ -109,17 +87,18 @@ def render_frame(ball_loc, frames, frame_num,
                 )
 
         cairosvg.svg2png(bytestring=bytes(
-                field_template.format(x_size=x_size,
-                                      y_size=y_size,
-                                      center_pos_x=x_size / 2,
-                                      center_pos_y=y_size / 2,
-                                      center_size=get_config('center_size'),
-                                      ball_pos_x=(ball_loc['x'][frame_num] -
-                                                  min_x) / get_config(
-                                              'size_modifier'),
-                                      ball_pos_y=(ball_loc['y'][frame_num] -
-                                                  min_y) / get_config(
-                                              'size_modifier'),
-                                      ball_size=get_config('ball_size'),
-                                      car_placement=car_placement
-                                      ), 'UTF-8'), write_to=file_out)
+                field_template.format(
+                        x_size=field_dim['x_size'],
+                        y_size=field_dim['y_size'],
+                        center_pos_x=field_dim['x_size'] / 2,
+                        center_pos_y=field_dim['y_size'] / 2,
+                        center_size=get_config('center_size'),
+                        ball_pos_x=(field_dim['ball_loc']['x'][frame_num] -
+                                    field_dim['min_x']) /
+                                   get_config('size_modifier'),
+                        ball_pos_y=(field_dim['ball_loc']['y'][frame_num] -
+                                    field_dim['min_y']) /
+                                   get_config('size_modifier'),
+                        ball_size=get_config('ball_size'),
+                        car_placement=car_placement
+                ), 'UTF-8'), write_to=file_out)
