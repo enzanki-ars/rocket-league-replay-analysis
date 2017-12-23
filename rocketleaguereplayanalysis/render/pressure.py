@@ -6,9 +6,7 @@ def render_pressure(out_prefix):
 
     from rocketleaguereplayanalysis.data.data_loader import get_data_start, \
         get_data_end
-    from rocketleaguereplayanalysis.util.extra_info import get_pressure
-
-    pressure = get_pressure()
+    from rocketleaguereplayanalysis.parser.frames import get_frames
 
     if not os.path.exists(os.path.join(out_prefix, 'pressure')):
         path = Path(os.path.join(out_prefix, 'pressure'))
@@ -17,12 +15,12 @@ def render_pressure(out_prefix):
     for i in tqdm(range(get_data_start(), get_data_end()),
                   desc='Pressure Render',
                   ascii=True):
-        render_frame(pressure=pressure,
+        render_frame(frames=get_frames(),
                      frame_num=i,
                      out_prefix=out_prefix)
 
 
-def render_frame(pressure, frame_num, out_prefix):
+def render_frame(frames, frame_num, out_prefix):
     import os
 
     import cairosvg
@@ -37,11 +35,12 @@ def render_frame(pressure, frame_num, out_prefix):
     with open(os.path.join(out_prefix, 'pressure',
                            frame_num_format.format(frame_num) + '.png'),
               'wb') as file_out:
-        total = pressure[team_blue][frame_num] + pressure[team_orange][
-            frame_num]
+        total = frames[frame_num]['pressure'][team_blue] + \
+                frames[frame_num]['pressure'][team_orange]
         if total > 0:
-            blue_percent = (pressure[team_blue][frame_num]) / total
-            orange_percent = (pressure[team_orange][frame_num]) / total
+            blue_percent = (frames[frame_num]['pressure'][team_blue]) / total
+            orange_percent = (frames[frame_num]['pressure'][
+                                  team_orange]) / total
         else:
             blue_percent = .5
             orange_percent = .5
@@ -54,5 +53,5 @@ def render_frame(pressure, frame_num, out_prefix):
                         blue_width=blue_width,
                         blue_percent='{0:03.0f}'.format(blue_percent * 100),
                         orange_percent='{0:03.0f}'.format(
-                            orange_percent * 100),
+                                orange_percent * 100),
                 ), 'UTF-8'), write_to=file_out)

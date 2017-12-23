@@ -6,19 +6,15 @@ from rocketleaguereplayanalysis.data.actor_data import parse_actor_data
 from rocketleaguereplayanalysis.data.data_loader import load_data, \
     set_data_start, set_data_end
 from rocketleaguereplayanalysis.data.object_numbers import \
-    parse_player_info, get_player_info, get_player_team_name
+    parse_player_info
 from rocketleaguereplayanalysis.parser.frames import load_frames
-from rocketleaguereplayanalysis.render.minimap import render_field
-from rocketleaguereplayanalysis.render.player_data_drive import \
-    render_player_data_drive
-from rocketleaguereplayanalysis.render.player_data_scoreboard import \
-    render_player_data_scoreboard
-from rocketleaguereplayanalysis.render.player_data_scoreboard_with_drive \
-    import render_player_data_scoreboard_with_drive
-from rocketleaguereplayanalysis.render.possession import render_possession
-from rocketleaguereplayanalysis.render.pressure import render_pressure
-from rocketleaguereplayanalysis.render.transcode import render_video
 from rocketleaguereplayanalysis.util.data_explorer import data_explorer_cli
+from rocketleaguereplayanalysis.util.do_render import do_render_minimap, \
+    do_render_pressure, do_render_possession, \
+    do_render_player_data_scoreboard_with_drive, \
+    do_render_player_data_scoreboard, do_render_player_data_drive
+from rocketleaguereplayanalysis.util.extra_info import parse_pressure, \
+    parse_possession
 
 with open(os.path.join('assets', 'field-template.svg'), 'r') as svg_file:
     field_template = svg_file.read()
@@ -84,9 +80,14 @@ def main():
     out_prefix = os.path.basename(args.game_json)
 
     load_data(args.game_json)
+
     parse_actor_data()
     parse_player_info()
+
     load_frames()
+
+    parse_pressure()
+    parse_possession()
 
     video_prefix = os.path.join('renders', out_prefix.split('.')[0])
     if args.data_start:
@@ -119,54 +120,6 @@ def main():
     else:
         print('Unexpected Argument Error:',
               'process_type is', args.process_type)
-
-
-def do_render_minimap(video_prefix):
-    render_field(video_prefix)
-    render_video(video_prefix, 'minimap')
-
-
-def do_render_pressure(video_prefix):
-    render_pressure(video_prefix)
-    render_video(video_prefix, 'pressure', overlay='bar-comparison')
-
-
-def do_render_possession(video_prefix):
-    render_possession(video_prefix)
-    render_video(video_prefix, 'possession', overlay='bar-comparison')
-
-
-def do_render_player_data_scoreboard_with_drive(video_prefix):
-    render_player_data_scoreboard_with_drive(video_prefix)
-    for player_id in get_player_info().keys():
-        team_color = get_player_team_name(player_id)
-
-        render_video(video_prefix,
-                     os.path.join('player-data-scoreboard-with-drive',
-                                  str(player_id)),
-                     overlay='player-data-scoreboard-with-drive-' +
-                             team_color)
-
-
-def do_render_player_data_scoreboard(video_prefix):
-    render_player_data_scoreboard(video_prefix)
-    for player_id in get_player_info().keys():
-        team_color = get_player_team_name(player_id)
-
-        render_video(video_prefix,
-                     os.path.join('player-data-scoreboard',
-                                  str(player_id)),
-                     overlay='player-data-scoreboard-' + team_color)
-
-
-def do_render_player_data_drive(video_prefix):
-    render_player_data_drive(video_prefix)
-    for player_id in get_player_info().keys():
-        team_color = get_player_team_name(player_id)
-
-        render_video(video_prefix,
-                     os.path.join('player-data-drive', str(player_id)),
-                     overlay='player-data-drive-' + team_color)
 
 
 if __name__ == "__main__":
