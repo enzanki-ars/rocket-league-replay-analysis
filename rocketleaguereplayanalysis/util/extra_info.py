@@ -53,13 +53,13 @@ def get_pressure():
     pressure = {team_blue: [], team_orange: []}
 
     for i, frame in enumerate(frames):
-        if field_dimensions['ball_loc']['x'][i] < \
+        if field_dimensions['ball_loc']['y'][i] > \
                 field_dimensions['center_y']:
             pressure[team_blue].append(pressure[team_blue][i - 1] +
                                        frame['time']['real_replay_delta'])
             pressure[team_orange].append(pressure[team_orange][i - 1])
 
-        elif field_dimensions['ball_loc']['x'][i] > \
+        elif field_dimensions['ball_loc']['y'][i] < \
                 field_dimensions['center_y']:
             pressure[team_blue].append(pressure[team_blue][i - 1])
             pressure[team_orange].append(pressure[team_orange][i - 1] +
