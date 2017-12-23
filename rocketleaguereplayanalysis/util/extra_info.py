@@ -73,3 +73,33 @@ def get_pressure():
                 pressure[team_orange].append(0)
 
     return pressure
+
+
+def get_possession():
+    from rocketleaguereplayanalysis.parser.frames import get_frames
+    from rocketleaguereplayanalysis.data.object_numbers import team_blue, \
+        team_orange
+
+    frames = get_frames()
+
+    possession = {team_blue: [], team_orange: []}
+
+    for i, frame in enumerate(frames):
+        if frame['ball']['last_hit'] == team_blue:
+            possession[team_blue].append(possession[team_blue][i - 1] +
+                                         frame['time']['real_replay_delta'])
+            possession[team_orange].append(possession[team_orange][i - 1])
+
+        elif frame['ball']['last_hit'] == team_orange:
+            possession[team_blue].append(possession[team_blue][i - 1])
+            possession[team_orange].append(possession[team_orange][i - 1] +
+                                           frame['time']['real_replay_delta'])
+        else:
+            if i > 0:
+                possession[team_blue].append(possession[team_blue][i - 1])
+                possession[team_orange].append(possession[team_orange][i - 1])
+            else:
+                possession[team_blue].append(0)
+                possession[team_orange].append(0)
+
+    return possession

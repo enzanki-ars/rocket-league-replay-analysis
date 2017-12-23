@@ -59,6 +59,7 @@ def update_player_data(update, frames, i, actor_id):
     if 'TAGame.PRI_TA:MatchGoals' in update.keys():
         frames[i]['cars'][actor_id]['scoreboard']['goals'] = \
             update['TAGame.PRI_TA:MatchGoals']
+        frames[i]['ball']['last_hit'] = None
     if 'TAGame.PRI_TA:MatchAssists' in update.keys():
         frames[i]['cars'][actor_id]['scoreboard']['assists'] = \
             update['TAGame.PRI_TA:MatchAssists']
@@ -74,6 +75,8 @@ def update_ball_data(update, frames, i):
     from rocketleaguereplayanalysis.parser.location import \
         parse_loc_update, parse_rot_update, parse_sleep_update
 
+    if 'TAGame.Ball_TA:HitTeamNum' in update.keys():
+        frames[i]['ball']['last_hit'] = update['TAGame.Ball_TA:HitTeamNum']
     if 'TAGame.RBActor_TA:ReplicatedRBState' in update.keys():
         loc = parse_loc_update(update)
         rot = parse_rot_update(update)

@@ -39,7 +39,8 @@ def load_frames():
         },
         'ball': {'loc': {'x': 0, 'y': 0, 'z': 0},
                  'rot': {'x': 0, 'y': 0, 'z': 0},
-                 'sleep': True},
+                 'sleep': True,
+                 'last_hit': None},
         'cars': {}
     }
 

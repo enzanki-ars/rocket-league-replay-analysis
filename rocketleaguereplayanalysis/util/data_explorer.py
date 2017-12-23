@@ -4,7 +4,8 @@ def data_explorer_cli():
     from rocketleaguereplayanalysis.data.actor_data import get_actor_data
     from rocketleaguereplayanalysis.data.object_numbers import \
         get_player_info, team_blue, team_orange
-    from rocketleaguereplayanalysis.util.extra_info import get_pressure
+    from rocketleaguereplayanalysis.util.extra_info import get_pressure, \
+        get_possession
 
     print()
 
@@ -17,6 +18,7 @@ def data_explorer_cli():
     To see actor data:                  `actor_data`
     To see player info:                 `player_info`
     To see pressure info:               `pressure_info`
+    To see possession info:             `possession_info`
     To enter source frame loop mode:    `source_loop_mode`
     To enter data frame loop mode:      `data_loop_mode`
     To exit:                            `exit`
@@ -65,6 +67,9 @@ def data_explorer_cli():
         elif parsed_input[0] == 'pressure_info':
             print('Blue:\t', get_pressure()[team_blue][-1])
             print('Orange:\t', get_pressure()[team_orange][-1])
+        elif parsed_input[0] == 'possession_info':
+            print('Blue:\t', get_possession()[team_blue][-1])
+            print('Orange:\t', get_possession()[team_orange][-1])
         elif parsed_input[0] == 'source_loop_mode':
             source_loop_mode()
         elif parsed_input[0] == 'data_loop_mode':
