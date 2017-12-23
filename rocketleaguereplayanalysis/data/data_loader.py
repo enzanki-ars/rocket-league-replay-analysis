@@ -7,6 +7,13 @@ data_start = 0
 def load_data(filename):
     import json
 
+    from rocketleaguereplayanalysis.data.actor_data import parse_actor_data
+    from rocketleaguereplayanalysis.data.object_numbers import \
+        parse_player_info
+    from rocketleaguereplayanalysis.parser.frames import load_frames
+    from rocketleaguereplayanalysis.util.extra_info import parse_pressure, \
+        parse_possession
+
     global data
     global data_end
 
@@ -14,6 +21,14 @@ def load_data(filename):
         data = json.load(data_file)
 
     data_end = max_data_end()
+
+    parse_actor_data()
+    parse_player_info()
+
+    load_frames()
+
+    parse_pressure()
+    parse_possession()
 
 
 def get_data():
