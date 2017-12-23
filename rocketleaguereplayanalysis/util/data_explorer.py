@@ -12,15 +12,15 @@ def data_explorer_cli():
     print("""
     Help:
     
-    To see keys for data point:         `keys [key...]`
-    To see data for data point:         `data [key...]`
-    To see actor data:                  `actor_data`
-    To see player info:                 `player_info`
-    To see pressure info:               `pressure_info`
-    To see possession info:             `possession_info`
-    To enter source frame loop mode:    `source_loop_mode`
-    To enter data frame loop mode:      `data_loop_mode`
-    To exit:                            `exit`
+    To see keys for data point:             `keys [key...]`
+    To see data for data point:             `data [key...]`
+    To see actor data:                      `actor_data`
+    To see player info:                     `player_info`
+    To see pressure info:                   `pressure_info`
+    To see possession info:                 `possession_info`
+    To enter source frame loop mode:        `source_loop_mode`
+    To enter parsed data frame loop mode:   `data_loop_mode`
+    To exit:                                `exit`
     """)
 
     cont = True

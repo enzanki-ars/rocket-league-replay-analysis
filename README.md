@@ -1,6 +1,6 @@
 # Rocket League Replay Analysis
 
-**Version:** v1.3.0
+**Version:** v1.3.1-dev
 
 ## Installation
 
@@ -25,6 +25,38 @@ disk and run it from there.
 `[args]` with the program arguments you wish to use.  Leave empty to see help.
     * If you are running a precompiled version, run that 
     executable name instead.
+
+```
+usage: rocketleaguereplayanalysis [-h]
+                                  [--process_type {video_minimap,
+                                                   video_pressure,
+                                                   video_possession,
+                                                   video_player_data_drive,
+                                                   video_player_data_scoreboard,
+                                                   video_player_data_scoreboard_with_drive,
+                                                   video_all,
+                                                   data_explorer}]
+                                  [--data_start DATA_START]
+                                  [--data_end DATA_END] 
+                                  [--export_parsed_data]
+                                  [--version]
+                                  game_json
+
+positional arguments:
+  game_json             The name of the game json.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --process_type        {video_minimap,video_pressure,video_possession,
+                         video_player_data_drive,video_player_data_scoreboard,
+                         video_player_data_scoreboard_with_drive,
+                         video_all,data_explorer}
+  --data_start DATA_START
+                        Number of frames to render (start).
+  --data_end DATA_END   Number of frames to render (end).
+  --export_parsed_data  Export the parsed data.
+  --version             Print version and exit
+```
 
 ## Known Issues
 

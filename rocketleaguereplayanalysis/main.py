@@ -9,6 +9,9 @@ from rocketleaguereplayanalysis.util.do_render import do_render_minimap, \
     do_render_pressure, do_render_possession, \
     do_render_player_data_scoreboard_with_drive, \
     do_render_player_data_scoreboard, do_render_player_data_drive
+from rocketleaguereplayanalysis.util.export import export_parsed_data
+
+version = 'v1.3.1-dev'
 
 with open(os.path.join('assets', 'field-template.svg'), 'r') as svg_file:
     field_template = svg_file.read()
@@ -59,7 +62,7 @@ def main():
                                  'video_player_data_scoreboard_with_drive',
                                  'video_all',
                                  'data_explorer'],
-                        default='video_minimap')
+                        default=None)
 
     # Optional args
     parser.add_argument('--data_start',
@@ -68,6 +71,15 @@ def main():
     parser.add_argument('--data_end',
                         help='Number of frames to render (end).',
                         type=int)
+    parser.add_argument('--export_parsed_data',
+                        help='Export the parsed data.',
+                        action='store_const',
+                        const=True,
+                        default=False)
+    parser.add_argument('--version',
+                        action='version',
+                        help='Print version and exit (' + version + ')',
+                        version='%(prog)s ' + version)
 
     args = parser.parse_args()
 
@@ -80,6 +92,10 @@ def main():
         set_data_start(args.data_start)
     if args.data_end:
         set_data_end(args.data_end)
+    if args.export_parsed_data:
+        print('Exporting data.')
+        export_parsed_data(video_prefix)
+        print('Export successful.')
 
     if args.process_type == 'video_minimap':
         do_render_minimap(video_prefix)
@@ -104,8 +120,9 @@ def main():
         time.sleep(.5)
         data_explorer_cli()
     else:
-        print('Unexpected Argument Error:',
-              'process_type is', args.process_type)
+        print('No process_type selected. Exiting. (See help for more info if '
+              'you expected a video render or the ability to easily explore '
+              'the data.)')
 
 
 if __name__ == "__main__":
