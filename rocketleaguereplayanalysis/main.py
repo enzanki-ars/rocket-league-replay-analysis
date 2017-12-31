@@ -1,6 +1,7 @@
 import argparse
 import os
 import time
+from pprint import pprint
 
 from rocketleaguereplayanalysis.data.data_loader import load_data, \
     set_data_start, set_data_end
@@ -10,6 +11,7 @@ from rocketleaguereplayanalysis.util.do_render import do_render_minimap, \
     do_render_player_data_scoreboard_with_drive, \
     do_render_player_data_scoreboard, do_render_player_data_drive
 from rocketleaguereplayanalysis.util.export import export_parsed_data
+from rocketleaguereplayanalysis.util.extra_info import get_field_dimensions
 
 version = 'v1.3.1-dev'
 
@@ -76,6 +78,11 @@ def main():
                         action='store_const',
                         const=True,
                         default=False)
+    parser.add_argument('--show_field_size',
+                        help='Show the calculated field size.',
+                        action='store_const',
+                        const=True,
+                        default=False)
     parser.add_argument('--version',
                         action='version',
                         help='Print version and exit (' + version + ')',
@@ -92,6 +99,8 @@ def main():
         set_data_start(args.data_start)
     if args.data_end:
         set_data_end(args.data_end)
+    if args.show_field_size:
+        pprint(get_field_dimensions())
     if args.export_parsed_data:
         print('Exporting data.')
         export_parsed_data(video_prefix)
