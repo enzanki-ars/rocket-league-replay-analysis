@@ -2,6 +2,13 @@
 
 **Version:** v1.3.1-dev
 
+## Licences
+
+- This project is licensed under the GNU Affero General Public License v3.0
+  - See `LICENSE.md` for more info.
+- Open Sans by Google Fonts licensed under Apache License Version 2.0
+  - See `assets/Google-Fonts-OpenSans-LICENSE.txt` for more info.
+
 ## Installation
 
 * Ensure [FFMPEG](http://ffmpeg.org/download.html) is installed and on the `PATH`
