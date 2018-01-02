@@ -40,11 +40,8 @@ usage: rocketleaguereplayanalysis [-h]
                                                    video_possession,
                                                    video_player_data_drive,
                                                    video_player_data_scoreboard,
-                                                   video_player_data_scoreboard_with_drive,
                                                    video_all,
                                                    data_explorer}]
-                                  [--data_start DATA_START]
-                                  [--data_end DATA_END] 
                                   [--export_parsed_data]
                                   [--version]
                                   game_json
@@ -58,9 +55,6 @@ optional arguments:
                          video_player_data_drive,video_player_data_scoreboard,
                          video_player_data_scoreboard_with_drive,
                          video_all,data_explorer}
-  --data_start DATA_START
-                        Number of frames to render (start).
-  --data_end DATA_END   Number of frames to render (end).
   --export_parsed_data  Export the parsed data.
   --version             Print version and exit
 ```
