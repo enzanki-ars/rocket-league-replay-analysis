@@ -13,8 +13,7 @@ def load_frames():
 
     from tqdm import tqdm
 
-    from rocketleaguereplayanalysis.data.data_loader import get_data, \
-        max_data_end
+    from rocketleaguereplayanalysis.data.data_loader import get_data
     from rocketleaguereplayanalysis.data.object_numbers import \
         get_player_info, get_game_event_num
     from rocketleaguereplayanalysis.parser.frame_data import \
@@ -35,6 +34,7 @@ def load_frames():
             'game_time': 300,
             'replay_delta': data['Frames'][0]['Delta'],
             'server_delta': data['Frames'][0]['Delta'],
+            'real_replay_time': 0,
             'real_replay_delta': data['Frames'][0]['Delta']
         },
         'ball': {'loc': {'x': 0, 'y': 0, 'z': 0},
@@ -68,7 +68,7 @@ def load_frames():
             }
         }
 
-    for i in tqdm(range(0, max_data_end()), desc='Parsing Frame Data',
+    for i in tqdm(range(0, len(data['Frames'])), desc='Parsing Frame Data',
                   ascii=True):
 
         if i > 0:
@@ -77,6 +77,7 @@ def load_frames():
         server_time = data['Frames'][i]['Time']
         replay_time = frames[i - 1]['time']['replay_time'] + \
                       data['Frames'][i]['Delta']
+        game_time = frames[i - 1]['time']['game_time']
         server_delta = data['Frames'][i]['Time'] - \
                        data['Frames'][i - 1]['Time']
         replay_delta = data['Frames'][i]['Delta']
@@ -84,14 +85,20 @@ def load_frames():
         if replay_delta == 0:
             # There seems to have been a goal here.
             real_replay_delta = replay_delta
+            real_replay_time = (frames[i]['time']['real_replay_time'] +
+                                replay_delta)
         else:
             real_replay_delta = server_delta
+            real_replay_time = (frames[i]['time']['real_replay_time'] +
+                                server_delta)
 
         frames[i]['time'] = {
             'replay_time': replay_time,
             'server_time': server_time,
+            'game_time': game_time,
             'replay_delta': replay_delta,
             'server_delta': server_delta,
+            'real_replay_time': real_replay_time,
             'real_replay_delta': real_replay_delta
         }
 

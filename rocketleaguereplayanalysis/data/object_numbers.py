@@ -24,16 +24,13 @@ def get_game_event_num():
 
 
 def parse_player_info():
-    from tqdm import tqdm
-    from rocketleaguereplayanalysis.data.data_loader import get_data, \
-        max_data_end
+    from rocketleaguereplayanalysis.data.data_loader import get_data
 
     global player_info, team_blue, team_orange
 
     player_info = {}
 
-    for i in tqdm(range(0, max_data_end()), desc='Parsing Player Info',
-                  ascii=True):
+    for i in range(0, len(get_data())):
         for update in get_data()['Frames'][i]['ActorUpdates']:
             if 'ClassName' in update and update['ClassName'] == \
                     'TAGame.PRI_TA':
