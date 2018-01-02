@@ -53,7 +53,6 @@ optional arguments:
   -h, --help            show this help message and exit
   --process_type        {video_minimap,video_pressure,video_possession,
                          video_player_data_drive,video_player_data_scoreboard,
-                         video_player_data_scoreboard_with_drive,
                          video_all,data_explorer}
   --export_parsed_data  Export the parsed data.
   --version             Print version and exit
