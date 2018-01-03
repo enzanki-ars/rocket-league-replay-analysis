@@ -13,7 +13,7 @@ from rocketleaguereplayanalysis.util.data_explorer import data_explorer_cli
 from rocketleaguereplayanalysis.util.export import export_parsed_data
 from rocketleaguereplayanalysis.util.extra_info import get_field_dimensions
 
-version = 'v1.3.1-dev'
+version = 'v1.4.0-dev'
 
 frame_num_format = '{0:05d}'
 
@@ -63,8 +63,15 @@ def main():
         print('Exporting data.')
         export_parsed_data(video_prefix)
         print('Export successful.')
+        
+    if args.process_type == 'data_explorer':
+        time.sleep(.5)
+        data_explorer_cli()
+        exit()
 
     create_ffmpeg_cmd_files(video_prefix)
+    print('Rendering is not ready yet. For that reason, this program '
+          'will now terminate.')
     exit()
 
     if args.process_type == 'video_minimap':
@@ -83,9 +90,6 @@ def main():
         do_render_possession(video_prefix)
         do_render_player_data_drive(video_prefix)
         do_render_player_data_scoreboard(video_prefix)
-    elif args.process_type == 'data_explorer':
-        time.sleep(.5)
-        data_explorer_cli()
     else:
         print('No process_type selected. Exiting. (See --help for more info '
               'if you expected a video renders or the ability to easily '
