@@ -6,7 +6,8 @@ from pprint import pprint
 from rocketleaguereplayanalysis.data.data_loader import load_data
 from rocketleaguereplayanalysis.render.do_render import do_render_minimap, \
     do_render_pressure, do_render_possession, \
-    do_render_player_data_scoreboard, do_render_player_data_drive
+    do_render_player_data_scoreboard, do_render_player_data_drive, \
+    set_video_prefix
 from rocketleaguereplayanalysis.render.ffmpeg_cmd import \
     create_ffmpeg_cmd_files
 from rocketleaguereplayanalysis.util.data_explorer import data_explorer_cli
@@ -56,12 +57,13 @@ def main():
 
     load_data(args.game_json)
 
-    video_prefix = os.path.join('renders', out_prefix.split('.')[0])
+    set_video_prefix(os.path.join('renders', out_prefix.split('.')[0]))
+
     if args.show_field_size:
         pprint(get_field_dimensions())
     if args.export_parsed_data:
         print('Exporting data.')
-        export_parsed_data(video_prefix)
+        export_parsed_data()
         print('Export successful.')
         
     if args.process_type == 'data_explorer':
@@ -75,21 +77,21 @@ def main():
     exit()
 
     if args.process_type == 'video_minimap':
-        do_render_minimap(video_prefix)
+        do_render_minimap()
     elif args.process_type == 'video_pressure':
-        do_render_pressure(video_prefix)
+        do_render_pressure()
     elif args.process_type == 'video_possession':
-        do_render_possession(video_prefix)
+        do_render_possession()
     elif args.process_type == 'video_player_data_drive':
-        do_render_player_data_drive(video_prefix)
+        do_render_player_data_drive()
     elif args.process_type == 'video_player_data_scoreboard':
-        do_render_player_data_scoreboard(video_prefix)
+        do_render_player_data_scoreboard()
     elif args.process_type == 'video_all':
-        do_render_minimap(video_prefix)
-        do_render_pressure(video_prefix)
-        do_render_possession(video_prefix)
-        do_render_player_data_drive(video_prefix)
-        do_render_player_data_scoreboard(video_prefix)
+        do_render_minimap()
+        do_render_pressure()
+        do_render_possession()
+        do_render_player_data_drive()
+        do_render_player_data_scoreboard()
     else:
         print('No process_type selected. Exiting. (See --help for more info '
               'if you expected a video renders or the ability to easily '
