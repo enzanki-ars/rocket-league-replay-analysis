@@ -11,8 +11,6 @@ def load_frames():
 
     import copy
 
-    from tqdm import tqdm
-
     from rocketleaguereplayanalysis.data.data_loader import get_data
     from rocketleaguereplayanalysis.data.object_numbers import \
         get_player_info, get_game_event_num
@@ -68,8 +66,7 @@ def load_frames():
             }
         }
 
-    for i in tqdm(range(0, len(data['Frames'])), desc='Parsing Frame Data',
-                  ascii=True):
+    for i in range(0, len(data['Frames'])):
 
         if i > 0:
             frames.append(copy.deepcopy(frames[i - 1]))

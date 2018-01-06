@@ -33,8 +33,6 @@ def create_ffmpeg_cmd_files_from_path(path):
     import functools
     import os
 
-    from tqdm import tqdm
-
     from rocketleaguereplayanalysis.data.object_numbers import \
         get_player_info
     from rocketleaguereplayanalysis.parser.frames import get_frames
@@ -68,9 +66,7 @@ def create_ffmpeg_cmd_files_from_path(path):
                       'a') as f:
 
                 if 'frame_num' in path:
-                    for i in tqdm(range(0, len(frames)),
-                                  desc='Video Output - ' + new_name,
-                                  ascii=True):
+                    for i in range(0, len(frames)):
                         frame_path = list(
                                 replace_in_array(new_path, 'frame_num', i))
 
@@ -91,9 +87,7 @@ def create_ffmpeg_cmd_files_from_path(path):
         with open(os.path.join(video_prefix,
                                name + '.txt'), 'a') as f:
             if 'frame_num' in path:
-                for i in tqdm(range(0, len(frames)),
-                              desc='Video Output - ' + name,
-                              ascii=True):
+                for i in range(0, len(frames)):
                     frame_path = list(replace_in_array(path, 'frame_num', i))
 
                     curr_val = str(functools.reduce(lambda d, key: d[key],

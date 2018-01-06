@@ -9,6 +9,5 @@ setup(
         author_email='enzanki.ars@gmail.com',
         description='Parses Rocket League replay json files and '
                     'creates a minimap video',
-        requires=['tqdm',
-                  'ruamel.yaml']
+        requires=[]
 )

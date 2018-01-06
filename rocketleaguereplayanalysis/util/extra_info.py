@@ -1,6 +1,5 @@
 def get_field_dimensions():
     from rocketleaguereplayanalysis.parser.frames import get_frames
-    from rocketleaguereplayanalysis.util.config import get_config
 
     frames = get_frames()
 
@@ -17,17 +16,9 @@ def get_field_dimensions():
     min_x = min(ball_loc['x'])
     x_w = max(max_x - center_x, center_x - min_x) * 2
 
-    # Make divisible by 2
-    x_size = ((x_w - (x_w % (2 * get_config('size_modifier')))) /
-              get_config('size_modifier'))
-
     max_y = max(ball_loc['y'])
     min_y = min(ball_loc['y'])
     y_w = max(max_y - center_y, center_y - min_y) * 2
-
-    # Make divisible by 2
-    y_size = ((y_w - (y_w % (2 * get_config('size_modifier')))) /
-              get_config('size_modifier'))
 
     return {
         'ball_loc': ball_loc,
@@ -37,8 +28,8 @@ def get_field_dimensions():
         'min_y': min_y,
         'max_x': max_x,
         'max_y': max_y,
-        'x_size': x_size,
-        'y_size': y_size,
+        'x_size': x_w,
+        'y_size': y_w,
     }
 
 

@@ -55,23 +55,28 @@ def main():
 
     out_prefix = os.path.basename(args.game_json)
 
+    print('Parsing data...')
     load_data(args.game_json)
+    print('Data successfully parsed.')
 
     set_video_prefix(os.path.join('renders', out_prefix.split('.')[0]))
 
     if args.show_field_size:
         pprint(get_field_dimensions())
     if args.export_parsed_data:
-        print('Exporting data.')
+        print('Exporting data...')
         export_parsed_data()
         print('Export successful.')
-        
+
     if args.process_type == 'data_explorer':
         time.sleep(.5)
         data_explorer_cli()
         exit()
 
-    create_ffmpeg_cmd_files(video_prefix)
+    print('Rendering video...')
+    create_ffmpeg_cmd_files()
+    print('Text files created.')
+
     print('Rendering is not ready yet. For that reason, this program '
           'will now terminate.')
     exit()
