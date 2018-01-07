@@ -35,71 +35,71 @@ def get_field_dimensions():
 
 def parse_pressure():
     from rocketleaguereplayanalysis.parser.frames import get_frames
-    from rocketleaguereplayanalysis.data.object_numbers import team_blue, \
-        team_orange
+    from rocketleaguereplayanalysis.data.object_numbers import team0, \
+        team1
 
     field_dimensions = get_field_dimensions()
     frames = get_frames()
 
-    frames[0]['pressure'] = {team_blue: 0, team_orange: 0}
+    frames[0]['pressure'] = {team0: 0, team1: 0}
 
     for i, frame in enumerate(frames):
         if field_dimensions['ball_loc']['y'][i] > \
                 field_dimensions['center_y']:
             frame['pressure'] = {
-                team_blue: (frames[i - 1]['pressure'][team_blue] +
-                            frame['time']['real_replay_delta']),
-                team_orange: frames[i - 1]['pressure'][team_orange]
+                team0: (frames[i - 1]['pressure'][team0] +
+                        frame['time']['real_replay_delta']),
+                team1: frames[i - 1]['pressure'][team1]
             }
 
         elif field_dimensions['ball_loc']['y'][i] < \
                 field_dimensions['center_y']:
             frame['pressure'] = {
-                team_blue: frames[i - 1]['pressure'][team_blue],
-                team_orange: (frames[i - 1]['pressure'][team_orange] +
-                              frame['time']['real_replay_delta'])
+                team0: frames[i - 1]['pressure'][team0],
+                team1: (frames[i - 1]['pressure'][team1] +
+                        frame['time']['real_replay_delta'])
             }
 
         else:
             if i > 0:
                 frame['pressure'] = {
-                    team_blue: frames[i - 1]['pressure'][team_blue],
-                    team_orange: frames[i - 1]['pressure'][team_orange]
+                    team0: frames[i - 1]['pressure'][team0],
+                    team1: frames[i - 1]['pressure'][team1]
                 }
             else:
                 frame['pressure'] = {
-                    team_blue: 0,
-                    team_orange: 0
+                    team0: 0,
+                    team1: 0
                 }
 
 
 def parse_possession():
     from rocketleaguereplayanalysis.parser.frames import get_frames
-    from rocketleaguereplayanalysis.data.object_numbers import team_blue, \
-        team_orange
+    from rocketleaguereplayanalysis.data.object_numbers import team0, \
+        team1
 
     frames = get_frames()
 
-    frames[0]['possession'] = {team_blue: 0, team_orange: 0}
+    frames[0]['possession'] = {team0: 0, team1: 0}
 
     for i, frame in enumerate(frames):
-        if frame['ball']['last_hit'] == team_blue:
+        if frame['ball']['last_hit'] == team0:
             frame['possession'] = {
-                team_blue: (frames[i - 1]['possession'][team_blue] +
-                            frame['time']['real_replay_delta']),
-                team_orange: frames[i - 1]['possession'][team_orange]}
+                team0: (frames[i - 1]['possession'][team0] +
+                        frame['time']['real_replay_delta']),
+                team1: frames[i - 1]['possession'][team1]}
 
-        elif frame['ball']['last_hit'] == team_orange:
+        elif frame['ball']['last_hit'] == team1:
             frame['possession'] = {
-                team_blue: frames[i - 1]['possession'][team_blue],
-                team_orange: (frames[i - 1]['possession'][team_orange] +
-                              frame['time']['real_replay_delta'])
+                team0: frames[i - 1]['possession'][team0],
+                team1: (frames[i - 1]['possession'][team1] +
+                        frame['time']['real_replay_delta'])
             }
         else:
             if i > 0:
                 frame['possession'] = {
-                    team_blue: frames[i - 1]['possession'][team_blue],
-                    team_orange: frames[i - 1]['possession'][team_orange]
+                    team0: frames[i - 1]['possession'][team0],
+                    team1: frames[i - 1]['possession'][team1]
                 }
             else:
-                frame['possession'] = {team_blue: 0, team_orange: 0}
+                frame['possession'] = {team0: 0, team1: 0}

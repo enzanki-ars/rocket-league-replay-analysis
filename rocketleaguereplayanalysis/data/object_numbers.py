@@ -2,8 +2,8 @@ ball_objects = []
 car_objects = {}
 player_info = {}
 game_event_num = None
-team_blue = None
-team_orange = None
+team0 = None
+team1 = None
 
 
 def parse_game_event_num():
@@ -26,7 +26,7 @@ def get_game_event_num():
 def parse_player_info():
     from rocketleaguereplayanalysis.data.data_loader import get_data
 
-    global player_info, team_blue, team_orange
+    global player_info, team0, team1
 
     player_info = {}
 
@@ -44,26 +44,26 @@ def parse_player_info():
                 if 'TAGame.PRI_TA:ClientLoadouts' in update.keys():
                     player_info[player_id]['items'] = \
                         update['TAGame.PRI_TA:ClientLoadouts']
-
-        for player in get_data()['Properties']['PlayerStats']:
-            for player_id in player_info:
-                if 'name' in player_info[player_id] \
-                        and player_info[player_id]['name'] == player['Name']:
-                    player_info[player_id]['team'] = player['Team']
-
-    team_nums = []
-    for player in player_info:
-        if 'team' in player_info[player]:
-            team_nums.append(player_info[player]['team'])
-
-    team_blue = min(team_nums)
-    team_orange = max(team_nums)
+                if 'Engine.PlayerReplicationInfo:Team' in update.keys():
+                    player_info[player_id]['team'] = \
+                        update['Engine.PlayerReplicationInfo:Team']['ActorId']
+            elif 'ClassName' in update and update['ClassName'] == \
+                    'TAGame.Team_Soccar_TA':
+                if update['TypeName'] == 'Archetypes.Teams.Team0':
+                    team0 = update['Id']
+                elif update['TypeName'] == 'Archetypes.Teams.Team1':
+                    team1 = update['Id']
+                else:
+                    print('wat? Teams don\'t seem to make sense...')
+                    print('Found Team 0 (Usually Blue):  ', team0)
+                    print('Found Team 1 (Usually Orange):', team1)
+                    print('Weird Team:                   ', update['Id'])
 
 
 def get_player_team_name(player_id):
-    if get_player_info()[player_id]['team'] == team_blue:
+    if get_player_info()[player_id]['team'] == team0:
         team_color = 'blue'
-    elif get_player_info()[player_id]['team'] == team_orange:
+    elif get_player_info()[player_id]['team'] == team1:
         team_color = 'orange'
     else:
         team_color = 'grey'

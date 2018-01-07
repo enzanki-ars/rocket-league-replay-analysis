@@ -4,7 +4,19 @@ def get_all_data():
     from rocketleaguereplayanalysis.parser.frames import get_frames
     from rocketleaguereplayanalysis.util.extra_info import get_field_dimensions
 
+    from rocketleaguereplayanalysis.data.object_numbers import team0, team1
     return {
+        'team_info': {
+            'number': {
+                'team0': team0,
+                'team1': team1
+            },
+            'name': {
+                'note': 'Not Fully Implemented Yet',
+                'team0': 'Blue',
+                'team1': 'Orange'
+            }
+        },
         'player_info': get_player_info(),
         'field_size': get_field_dimensions(),
         'frames': get_frames()
