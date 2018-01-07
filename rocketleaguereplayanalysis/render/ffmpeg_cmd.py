@@ -46,6 +46,9 @@ def create_ffmpeg_cmd_files_from_path(path):
     video_prefix = get_video_prefix()
 
     name = '-'.join(path)
+    if not os.path.exists(os.path.join(video_prefix)):
+        os.mkdir(os.path.join(video_prefix))
+
     if os.path.exists(os.path.join(video_prefix, name + '.txt')):
         os.remove(os.path.join(video_prefix, name + '.txt'))
 
