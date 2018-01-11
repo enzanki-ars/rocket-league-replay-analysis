@@ -4,6 +4,8 @@ import sys
 from pprint import pprint
 
 import rocketleaguereplayanalysis.assets
+from rocketleaguereplayanalysis.util.asset_loc import get_assets_path, \
+    set_assets_path
 from rocketleaguereplayanalysis.data.data_loader import load_data
 from rocketleaguereplayanalysis.render.do_render import set_video_prefix, \
     render
@@ -15,12 +17,8 @@ version = 'v1.4.0-alpha1'
 
 frame_num_format = '{0:05d}'
 
-assets_path = None
-
 
 def main():
-    global assets_path
-
     parser = argparse.ArgumentParser(prog='rocketleaguereplayanalysis')
 
     # Required args
@@ -29,11 +27,11 @@ def main():
     available_assets_builtin = []
 
     if getattr(sys, 'frozen', False):
-        assets_path = os.path.join(sys._MEIPASS, 'assets')
+        set_assets_path(os.path.join(sys._MEIPASS, 'assets'))
     else:
-        assets_path = rocketleaguereplayanalysis.assets.__path__[0]
+        set_assets_path(os.path.join(rocketleaguereplayanalysis.assets.__path__[0]))
 
-    for file in os.listdir(assets_path):
+    for file in os.listdir(get_assets_path()):
         if file.endswith('.json'):
             available_assets_builtin.append(file[:-1 * len('.json')])
 
