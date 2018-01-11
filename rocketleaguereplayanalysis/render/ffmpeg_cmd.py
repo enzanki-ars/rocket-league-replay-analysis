@@ -1,35 +1,4 @@
-def create_ffmpeg_cmd_files():
-    create_ffmpeg_cmd_files_from_path(['frames', 'frame_num', 'time',
-                                       'game_time'])
-    create_ffmpeg_cmd_files_from_path(['frames', 'frame_num', 'time',
-                                       'real_replay_time'])
-    create_ffmpeg_cmd_files_from_path(['frames', 'frame_num', 'cars',
-                                       'player_num', 'throttle'])
-    create_ffmpeg_cmd_files_from_path(['frames', 'frame_num', 'cars',
-                                       'player_num', 'steer'])
-    create_ffmpeg_cmd_files_from_path(['frames', 'frame_num', 'cars',
-                                       'player_num', 'ping'])
-    create_ffmpeg_cmd_files_from_path(['frames', 'frame_num', 'cars',
-                                       'player_num', 'boost'])
-    create_ffmpeg_cmd_files_from_path(['frames', 'frame_num', 'cars',
-                                       'player_num', 'sleep'])
-    create_ffmpeg_cmd_files_from_path(['frames', 'frame_num', 'cars',
-                                       'player_num', 'drift'])
-    create_ffmpeg_cmd_files_from_path(['frames', 'frame_num', 'cars',
-                                       'player_num', 'scoreboard', 'score'])
-    create_ffmpeg_cmd_files_from_path(['frames', 'frame_num', 'cars',
-                                       'player_num', 'scoreboard', 'goals'])
-    create_ffmpeg_cmd_files_from_path(['frames', 'frame_num', 'cars',
-                                       'player_num', 'scoreboard', 'assists'])
-    create_ffmpeg_cmd_files_from_path(['frames', 'frame_num', 'cars',
-                                       'player_num', 'scoreboard', 'saves'])
-    create_ffmpeg_cmd_files_from_path(['frames', 'frame_num', 'cars',
-                                       'player_num', 'scoreboard', 'shots'])
-
-    pass
-
-
-def create_ffmpeg_cmd_files_from_path(path):
+def create_ffmpeg_cmd_files_from_path(path, filter_type, reinit, modify=None):
     import functools
     import os
 
@@ -49,14 +18,6 @@ def create_ffmpeg_cmd_files_from_path(path):
     if not os.path.exists(os.path.join(video_prefix)):
         os.mkdir(os.path.join(video_prefix))
 
-    if os.path.exists(os.path.join(video_prefix, name + '.txt')):
-        os.remove(os.path.join(video_prefix, name + '.txt'))
-
-    for player in player_info.keys():
-        if os.path.exists(os.path.join(name + '-' + str(player) + '.txt')):
-            os.remove(os.path.join(video_prefix,
-                                   name + '-' + str(player) + '.txt'))
-
     last_val = None
 
     if 'player_num' in path:
@@ -64,6 +25,9 @@ def create_ffmpeg_cmd_files_from_path(path):
 
             new_path = list(replace_in_array(path, 'player_num', player))
             new_name = '-'.join(str(x) for x in new_path)
+
+            if os.path.exists(os.path.join(video_prefix, new_name + '.txt')):
+                os.remove(os.path.join(video_prefix, new_name + '.txt'))
 
             with open(os.path.join(video_prefix, new_name + '.txt'),
                       'a') as f:
@@ -73,48 +37,83 @@ def create_ffmpeg_cmd_files_from_path(path):
                         frame_path = list(
                                 replace_in_array(new_path, 'frame_num', i))
 
-                        curr_val = str(functools.reduce(lambda d, key: d[key],
-                                                        frame_path, all_data))
+                        curr_val = functools.reduce(lambda d, key: d[key],
+                                                    frame_path, all_data)
 
-                        if curr_val != last_val:
-                            write_to_file(f, new_name, i, curr_val)
+                        if curr_val != last_val or i == 0:
+                            write_to_file(f, new_name, i, filter_type, reinit,
+                                          curr_val, modify)
                         last_val = curr_val
                 else:
-                    curr_val = str(functools.reduce(lambda d, key: d[key],
-                                                    new_path, all_data))
-                    if curr_val != last_val:
-                        write_to_file(f, new_name, 0, curr_val)
-                    last_val = curr_val
+                    curr_val = functools.reduce(lambda d, key: d[key],
+                                                new_path, all_data)
+                    write_to_file(f, new_name, 0, filter_type, reinit,
+                                  curr_val, modify)
 
     else:
+        if os.path.exists(os.path.join(video_prefix, name + '.txt')):
+            os.remove(os.path.join(video_prefix, name + '.txt'))
+
         with open(os.path.join(video_prefix,
                                name + '.txt'), 'a') as f:
             if 'frame_num' in path:
                 for i in range(0, len(frames)):
                     frame_path = list(replace_in_array(path, 'frame_num', i))
 
-                    curr_val = str(functools.reduce(lambda d, key: d[key],
-                                                    frame_path,
-                                                    all_data))
+                    curr_val = functools.reduce(lambda d, key: d[key],
+                                                frame_path,
+                                                all_data)
 
-                    if curr_val != last_val:
-                        write_to_file(f, name, i, curr_val)
+                    if curr_val != last_val or i == 0:
+                        write_to_file(f, name, i, filter_type, reinit,
+                                      curr_val,
+                                      modify)
 
                     last_val = curr_val
             else:
-                curr_val = str(functools.reduce(lambda d, key: d[key],
-                                                path,
-                                                all_data))
+                curr_val = functools.reduce(lambda d, key: d[key],
+                                            path,
+                                            all_data)
 
-                write_to_file(f, name, 0, curr_val)
+                write_to_file(f, name, 0, filter_type, reinit, curr_val,
+                              modify)
 
 
-def write_to_file(file, name, frame_num, value):
+def write_to_file(file, name, frame_num, filter_type, reinit, value,
+                  modify=None):
     from rocketleaguereplayanalysis.parser.frames import get_frames
 
     file.write(str(get_frames()[frame_num]['time']['real_replay_time']) +
-               " drawtext@" + name +
-               " reinit 'text=" + value + "';\n")
+               " " + filter_type + "@" + name +
+               " reinit '")
+
+    for i, reinit_what in enumerate(reinit.keys(), start=1):
+        mod_value = value
+        if modify:
+            for modify_style in modify.keys():
+                if modify_style == 'add':
+                    mod_value = mod_value + modify[modify_style]
+                elif modify_style == 'subtract':
+                    mod_value = mod_value - modify[modify_style]
+                elif modify_style == 'multiply':
+                    mod_value = mod_value * modify[modify_style]
+                elif modify_style == 'divide':
+                    mod_value = mod_value / modify[modify_style]
+                elif modify_style == 'mod':
+                    mod_value = mod_value % modify[modify_style]
+                elif modify_style == 'replace':
+                    for check in modify[modify_style].keys():
+                        if check == str(mod_value):
+                            mod_value = modify[modify_style][check]
+                            break
+
+        file.write(reinit_what + '=' + reinit[reinit_what].format(mod_value))
+        if i != len(reinit):
+            file.write(":")
+        else:
+            file.write("';")
+
+    file.write("\n")
 
 
 def replace_in_array(it, find, replacement):

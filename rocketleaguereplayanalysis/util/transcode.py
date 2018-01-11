@@ -11,19 +11,14 @@ def render_video(render_type,
     cmd = ['ffmpeg',
            '-loop', '1',
            '-i', os.path.join('assets', overlay + '.png'),
-           '-t', str(get_frames()[-1]['time']['real_replay_time']),
-           '-safe', '0']
+           '-t', str(get_frames()[-1]['time']['real_replay_time'])]
 
     cmd += extra_cmd
 
-    cmd += ['-r', str(out_frame_rate),
-            os.path.join(video_prefix,
-                         render_type + '-' + overlay +
-                         '.mp4'),
-            '-y']
+    cmd += ['-r', str(out_frame_rate), render_type + '.mp4', '-y']
 
     print('FFmpeg Command:', cmd)
 
-    p = subprocess.Popen(cmd, stderr=subprocess.STDOUT)
+    p = subprocess.Popen(cmd, cwd=video_prefix, stderr=subprocess.STDOUT)
 
     p.communicate()
