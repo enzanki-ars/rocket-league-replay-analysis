@@ -1,4 +1,5 @@
-def create_ffmpeg_cmd_files_from_path(path, filter_type, reinit, modify=None):
+def create_ffmpeg_cmd_files_from_path(path, filter_type,
+                                      reinit=None, modify=None):
     import functools
     import os
 
@@ -82,38 +83,44 @@ def create_ffmpeg_cmd_files_from_path(path, filter_type, reinit, modify=None):
 def write_to_file(file, name, frame_num, filter_type, reinit, value,
                   modify=None):
     from rocketleaguereplayanalysis.parser.frames import get_frames
+    from rocketleaguereplayanalysis.data.object_numbers import \
+        get_team_color
 
     file.write(str(get_frames()[frame_num]['time']['real_replay_time']) +
                " " + filter_type + "@" + name +
                " reinit '")
 
-    for i, reinit_what in enumerate(reinit.keys(), start=1):
-        mod_value = value
-        if modify:
-            for modify_style in modify.keys():
-                if modify_style == 'add':
-                    mod_value = mod_value + modify[modify_style]
-                elif modify_style == 'subtract':
-                    mod_value = mod_value - modify[modify_style]
-                elif modify_style == 'multiply':
-                    mod_value = mod_value * modify[modify_style]
-                elif modify_style == 'divide':
-                    mod_value = mod_value / modify[modify_style]
-                elif modify_style == 'mod':
-                    mod_value = mod_value % modify[modify_style]
-                elif modify_style == 'replace':
-                    for check in modify[modify_style].keys():
-                        if check == str(mod_value):
-                            mod_value = modify[modify_style][check]
-                            break
+    if reinit:
+        for i, reinit_what in enumerate(reinit.keys(), start=1):
+            mod_value = value
+            if modify:
+                for modify_style in modify.keys():
+                    if modify_style == 'add':
+                        mod_value = mod_value + modify[modify_style]
+                    elif modify_style == 'subtract':
+                        mod_value = mod_value - modify[modify_style]
+                    elif modify_style == 'multiply':
+                        mod_value = mod_value * modify[modify_style]
+                    elif modify_style == 'divide':
+                        mod_value = mod_value / modify[modify_style]
+                    elif modify_style == 'mod':
+                        mod_value = mod_value % modify[modify_style]
+                    elif modify_style == 'replace':
+                        for check in modify[modify_style].keys():
+                            if check == str(mod_value):
+                                mod_value = modify[modify_style][check]
+                                break
+                    elif modify_style == 'replace_color':
+                        mod_value = get_team_color(mod_value)
 
-        file.write(reinit_what + '=' + reinit[reinit_what].format(mod_value))
-        if i != len(reinit):
-            file.write(":")
-        else:
-            file.write("';")
+            file.write(
+                reinit_what + '=' + reinit[reinit_what].format(mod_value))
+            if i != len(reinit):
+                file.write(":")
+            else:
+                file.write("';")
 
-    file.write("\n")
+        file.write("\n")
 
 
 def replace_in_array(it, find, replacement):

@@ -13,8 +13,13 @@ def get_all_data():
             },
             'name': {
                 'note': 'Not Fully Implemented Yet',
-                'team0': 'Blue',
-                'team1': 'Orange'
+                'team0': 'blue',
+                'team1': 'orange'
+            },
+            'color': {
+                'note': 'Not Fully Implemented Yet',
+                'team0': 'blue',
+                'team1': 'orange'
             }
         },
         'player_info': get_player_info(),

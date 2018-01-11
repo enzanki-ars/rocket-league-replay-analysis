@@ -20,7 +20,7 @@ def render(filename):
     from rocketleaguereplayanalysis.render.ffmpeg_cmd import \
         create_ffmpeg_cmd_files_from_path, replace_in_array
     from rocketleaguereplayanalysis.data.object_numbers import \
-        get_player_info
+        get_player_info, get_player_team_color
     from rocketleaguereplayanalysis.util.transcode import \
         render_video
 
@@ -31,16 +31,29 @@ def render(filename):
 
     for render_cmd in render_paths:
         if 'modify' in render_cmd:
-            create_ffmpeg_cmd_files_from_path(path=render_cmd['varaible_path'],
-                                              filter_type=render_cmd['filter'],
-                                              reinit=render_cmd['reinit'],
-                                              modify=render_cmd['modify'])
+            if 'reinit' in render_cmd:
+                create_ffmpeg_cmd_files_from_path(
+                    path=render_cmd['variable_path'],
+                    filter_type=render_cmd['filter'],
+                    reinit=render_cmd['reinit'],
+                    modify=render_cmd['modify'])
+            else:
+                create_ffmpeg_cmd_files_from_path(
+                        path=render_cmd['variable_path'],
+                        filter_type=render_cmd['filter'],
+                        modify=render_cmd['modify'])
         else:
-            create_ffmpeg_cmd_files_from_path(path=render_cmd['varaible_path'],
-                                              filter_type=render_cmd['filter'],
-                                              reinit=render_cmd['reinit'])
+            if 'reinit' in render_cmd:
+                create_ffmpeg_cmd_files_from_path(
+                    path=render_cmd['variable_path'],
+                    filter_type=render_cmd['filter'],
+                    reinit=render_cmd['reinit'])
+            else:
+                create_ffmpeg_cmd_files_from_path(
+                        path=render_cmd['variable_path'],
+                        filter_type=render_cmd['filter'])
 
-        if 'player_num' in render_cmd['varaible_path']:
+        if 'player_num' in render_cmd['variable_path']:
             is_player_render = True
 
     if is_player_render:
@@ -48,7 +61,7 @@ def render(filename):
             extra_cmd_filter = ''
 
             for i, render_cmd in enumerate(render_paths, start=1):
-                new_path = list(replace_in_array(render_cmd['varaible_path'],
+                new_path = list(replace_in_array(render_cmd['variable_path'],
                                                  'player_num', player))
                 new_name = '-'.join(str(x) for x in new_path)
 
@@ -58,7 +71,14 @@ def render(filename):
                 if render_cmd['filter'] == 'drawtext':
                     extra_cmd_filter += '=fontfile=\\\'' + \
                                         os.path.join(assets_path_builtin,
-                                                     'OpenSans.ttf').replace('\\', '\\\\') + '\\\''
+                                                     'OpenSans.ttf').replace(
+                                                '\\', '\\\\') + '\\\''
+                    if 'options' in render_cmd:
+                        extra_cmd_filter += ':'
+                elif render_cmd['filter'] == 'drawbox':
+                    if 'set_team_color' in render_cmd:
+                        extra_cmd_filter += '=color=' + \
+                                            get_player_team_color(player)
                     if 'options' in render_cmd:
                         extra_cmd_filter += ':'
                 else:
@@ -86,7 +106,7 @@ def render(filename):
         extra_cmd_filter = ''
 
         for i, render_cmd in enumerate(render_paths, start=1):
-            name = '-'.join(str(x) for x in render_cmd['varaible_path'])
+            name = '-'.join(str(x) for x in render_cmd['variable_path'])
 
             extra_cmd_filter += 'sendcmd=f=' + name + '.txt,' + \
                                 render_cmd['filter'] + '@' + name + '='
@@ -94,7 +114,9 @@ def render(filename):
             if render_cmd['filter'] == 'drawtext':
                 extra_cmd_filter += '=fontfile=\\\'' + \
                                     os.path.join(assets_path_builtin,
-                                                 'OpenSans.ttf').replace('\\', '\\\\') + '\\\''
+                                                 'OpenSans.ttf').replace(
+                                            '\\',
+                                            '\\\\') + '\\\''
                 if 'options' in render_cmd:
                     extra_cmd_filter += ':'
             else:

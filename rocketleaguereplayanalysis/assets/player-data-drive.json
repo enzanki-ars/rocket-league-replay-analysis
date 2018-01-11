@@ -1,6 +1,6 @@
 [
   {
-    "varaible_path": [
+    "variable_path": [
       "player_info",
       "player_num",
       "name"
@@ -18,7 +18,23 @@
     }
   },
   {
-    "varaible_path": [
+    "variable_path": [
+      "player_info",
+      "player_num",
+      "team"
+    ],
+    "set_team_color": true,
+    "filter": "drawbox",
+    "options": {
+      "x": 2,
+      "y": 49,
+      "h": 19,
+      "w": 358,
+      "thickness": "fill"
+    }
+  },
+  {
+    "variable_path": [
       "frames",
       "frame_num",
       "cars",
@@ -39,7 +55,7 @@
     }
   },
   {
-    "varaible_path": [
+    "variable_path": [
       "frames",
       "frame_num",
       "cars",
@@ -63,7 +79,7 @@
     }
   },
   {
-    "varaible_path": [
+    "variable_path": [
       "frames",
       "frame_num",
       "cars",
@@ -83,7 +99,7 @@
     }
   },
   {
-    "varaible_path": [
+    "variable_path": [
       "frames",
       "frame_num",
       "cars",
@@ -109,7 +125,7 @@
     }
   },
   {
-    "varaible_path": [
+    "variable_path": [
       "frames",
       "frame_num",
       "cars",
