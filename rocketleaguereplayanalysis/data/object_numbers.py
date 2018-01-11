@@ -62,33 +62,52 @@ def parse_player_info():
 
 def get_player_team_name(player_id):
     if get_player_info()[player_id]['team'] == team0:
-        team_name = 'blue'
+        team_name = 'Blue'
     elif get_player_info()[player_id]['team'] == team1:
-        team_name = 'orange'
+        team_name = 'Orange'
     else:
-        team_name = 'unknown'
+        team_name = 'Unknown'
 
     return team_name
 
 
 def get_player_team_color(player_id):
     if get_player_info()[player_id]['team'] == team0:
-        team_color = 'blue'
+        team_color = '0x7f7fff'
     elif get_player_info()[player_id]['team'] == team1:
-        team_color = 'orange'
+        team_color = '0xffb27f'
     else:
-        team_color = 'unknown'
+        team_color = '0xc0c0c0'
 
     return team_color
 
 
+def get_team_name(team):
+    if team == team0:
+        team_name = 'Blue'
+    elif team == team1:
+        team_name = 'Orange'
+    elif team == 'team0':
+        team_name = 'Blue'
+    elif team == 'team1':
+        team_name = 'Orange'
+    else:
+        team_name = 'Unknown'
+
+    return team_name
+
+
 def get_team_color(team):
     if team == team0:
-        team_color = 'blue'
+        team_color = '0x7f7fff'
     elif team == team1:
-        team_color = 'orange'
+        team_color = '0xffb27f'
+    elif team == 'team0':
+        team_color = '0x7f7fff'
+    elif team == 'team1':
+        team_color = '0xffb27f'
     else:
-        team_color = 'grey'
+        team_color = '0xc0c0c0'
 
     return team_color
 

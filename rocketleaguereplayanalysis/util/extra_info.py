@@ -33,43 +33,74 @@ def get_field_dimensions():
     }
 
 
+def fix_pressure_possession_values():
+    from rocketleaguereplayanalysis.parser.frames import get_frames
+
+    frames = get_frames()
+
+    for i, frame in enumerate(frames):
+        max_pressure = (frames[i]['pressure']['team0'] +
+                        frames[i]['pressure']['team1'])
+
+        max_possession = (frames[i]['possession']['team0'] +
+                          frames[i]['possession']['team1'])
+
+        if max_pressure > 0:
+            frames[i]['pressure']['team0'] = (frames[i]['pressure']['team0'] /
+                                              max_pressure)
+            frames[i]['pressure']['team1'] = (frames[i]['pressure']['team1'] /
+                                              max_pressure)
+        else:
+            frames[i]['pressure']['team0'] = .5
+            frames[i]['pressure']['team1'] = .5
+
+        if max_possession > 0:
+            frames[i]['possession']['team0'] = (
+                    frames[i]['possession']['team0'] /
+                    max_possession)
+            frames[i]['possession']['team1'] = (
+                    frames[i]['possession']['team1'] /
+                    max_possession)
+        else:
+            frames[i]['possession']['team0'] = .5
+            frames[i]['possession']['team1'] = .5
+
+
 def parse_pressure():
     from rocketleaguereplayanalysis.parser.frames import get_frames
-    from rocketleaguereplayanalysis.data.object_numbers import team0, \
-        team1
 
     field_dimensions = get_field_dimensions()
     frames = get_frames()
 
-    frames[0]['pressure'] = {team0: 0, team1: 0}
+    frames[0]['pressure'] = {'team0': 0, 'team1': 0}
 
     for i, frame in enumerate(frames):
         if field_dimensions['ball_loc']['y'][i] > \
                 field_dimensions['center_y']:
             frame['pressure'] = {
-                team0: (frames[i - 1]['pressure'][team0] +
-                        frame['time']['real_replay_delta']),
-                team1: frames[i - 1]['pressure'][team1]
+                'team0': (frames[i - 1]['pressure']['team0'] +
+                          frame['time']['real_replay_delta']),
+                'team1': frames[i - 1]['pressure']['team1']
             }
 
         elif field_dimensions['ball_loc']['y'][i] < \
                 field_dimensions['center_y']:
             frame['pressure'] = {
-                team0: frames[i - 1]['pressure'][team0],
-                team1: (frames[i - 1]['pressure'][team1] +
-                        frame['time']['real_replay_delta'])
+                'team0': frames[i - 1]['pressure']['team0'],
+                'team1': (frames[i - 1]['pressure']['team1'] +
+                          frame['time']['real_replay_delta'])
             }
 
         else:
             if i > 0:
                 frame['pressure'] = {
-                    team0: frames[i - 1]['pressure'][team0],
-                    team1: frames[i - 1]['pressure'][team1]
+                    'team0': frames[i - 1]['pressure']['team0'],
+                    'team1': frames[i - 1]['pressure']['team1']
                 }
             else:
                 frame['pressure'] = {
-                    team0: 0,
-                    team1: 0
+                    'team0': 0,
+                    'team1': 0
                 }
 
 
@@ -80,26 +111,26 @@ def parse_possession():
 
     frames = get_frames()
 
-    frames[0]['possession'] = {team0: 0, team1: 0}
+    frames[0]['possession'] = {'team0': 0, 'team1': 0}
 
     for i, frame in enumerate(frames):
-        if frame['ball']['last_hit'] == team0:
+        if frame['ball']['last_hit'] == 0:
             frame['possession'] = {
-                team0: (frames[i - 1]['possession'][team0] +
-                        frame['time']['real_replay_delta']),
-                team1: frames[i - 1]['possession'][team1]}
+                'team0': (frames[i - 1]['possession']['team0'] +
+                          frame['time']['real_replay_delta']),
+                'team1': frames[i - 1]['possession']['team1']}
 
-        elif frame['ball']['last_hit'] == team1:
+        elif frame['ball']['last_hit'] == 1:
             frame['possession'] = {
-                team0: frames[i - 1]['possession'][team0],
-                team1: (frames[i - 1]['possession'][team1] +
-                        frame['time']['real_replay_delta'])
+                'team0': frames[i - 1]['possession']['team0'],
+                'team1': (frames[i - 1]['possession']['team1'] +
+                          frame['time']['real_replay_delta'])
             }
         else:
             if i > 0:
                 frame['possession'] = {
-                    team0: frames[i - 1]['possession'][team0],
-                    team1: frames[i - 1]['possession'][team1]
+                    'team0': frames[i - 1]['possession']['team0'],
+                    'team1': frames[i - 1]['possession']['team1']
                 }
             else:
-                frame['possession'] = {team0: 0, team1: 0}
+                frame['possession'] = {'team0': 0, 'team1': 0}

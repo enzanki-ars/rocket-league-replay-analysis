@@ -13,7 +13,7 @@ def load_frames():
 
     from rocketleaguereplayanalysis.data.data_loader import get_data
     from rocketleaguereplayanalysis.data.object_numbers import \
-        get_player_info, get_game_event_num
+        get_player_info, get_game_event_num, team0, team1
     from rocketleaguereplayanalysis.parser.frame_data import \
         update_game_data, update_car_data, update_player_data, update_ball_data
 
@@ -30,10 +30,16 @@ def load_frames():
             'replay_time': data['Frames'][0]['Delta'],
             'server_time': data['Frames'][0]['Time'],
             'game_time': 300,
+            'game_minutes': int(300 / 60),
+            'game_seconds': 300 % 60,
             'replay_delta': data['Frames'][0]['Delta'],
             'server_delta': data['Frames'][0]['Delta'],
             'real_replay_time': 0,
             'real_replay_delta': data['Frames'][0]['Delta']
+        },
+        'scoreboard': {
+            'team0': 0,
+            'team1': 0
         },
         'ball': {'loc': {'x': 0, 'y': 0, 'z': 0},
                  'rot': {'x': 0, 'y': 0, 'z': 0},
@@ -93,6 +99,8 @@ def load_frames():
             'replay_time': replay_time,
             'server_time': server_time,
             'game_time': game_time,
+            'game_minutes': int(game_time / 60),
+            'game_seconds': game_time % 60,
             'replay_delta': replay_delta,
             'server_delta': server_delta,
             'real_replay_time': real_replay_time,
@@ -116,6 +124,14 @@ def load_frames():
                 update_player_data(update, frames, i, actor_id)
             elif actor_id == game_event_num:
                 update_game_data(update, frames, i)
+            elif actor_id == team0:
+                if 'Engine.TeamInfo:Score' in update:
+                    frames[i]['scoreboard']['team0'] = \
+                        update['Engine.TeamInfo:Score']
+            elif actor_id == team1:
+                if 'Engine.TeamInfo:Score' in update:
+                    frames[i]['scoreboard']['team1'] = \
+                        update['Engine.TeamInfo:Score']
             else:
                 for player_id in current_car_objects:
                     if actor_id == current_car_objects[player_id]:

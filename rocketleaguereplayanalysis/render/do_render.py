@@ -20,7 +20,8 @@ def render(filename):
     from rocketleaguereplayanalysis.render.ffmpeg_cmd import \
         create_ffmpeg_cmd_files_from_path, replace_in_array
     from rocketleaguereplayanalysis.data.object_numbers import \
-        get_player_info, get_player_team_color
+        get_player_info, get_player_team_name, get_player_team_color, \
+        get_team_name, get_team_color
     from rocketleaguereplayanalysis.util.transcode import \
         render_video
 
@@ -33,10 +34,10 @@ def render(filename):
         if 'modify' in render_cmd:
             if 'reinit' in render_cmd:
                 create_ffmpeg_cmd_files_from_path(
-                    path=render_cmd['variable_path'],
-                    filter_type=render_cmd['filter'],
-                    reinit=render_cmd['reinit'],
-                    modify=render_cmd['modify'])
+                        path=render_cmd['variable_path'],
+                        filter_type=render_cmd['filter'],
+                        reinit=render_cmd['reinit'],
+                        modify=render_cmd['modify'])
             else:
                 create_ffmpeg_cmd_files_from_path(
                         path=render_cmd['variable_path'],
@@ -45,9 +46,9 @@ def render(filename):
         else:
             if 'reinit' in render_cmd:
                 create_ffmpeg_cmd_files_from_path(
-                    path=render_cmd['variable_path'],
-                    filter_type=render_cmd['filter'],
-                    reinit=render_cmd['reinit'])
+                        path=render_cmd['variable_path'],
+                        filter_type=render_cmd['filter'],
+                        reinit=render_cmd['reinit'])
             else:
                 create_ffmpeg_cmd_files_from_path(
                         path=render_cmd['variable_path'],
@@ -73,6 +74,9 @@ def render(filename):
                                         os.path.join(assets_path_builtin,
                                                      'OpenSans.ttf').replace(
                                                 '\\', '\\\\') + '\\\''
+                    if 'set_team_name' in render_cmd:
+                        extra_cmd_filter += ':text=' + \
+                                            get_player_team_name(player)
                     if 'options' in render_cmd:
                         extra_cmd_filter += ':'
                 elif render_cmd['filter'] == 'drawbox':
@@ -109,7 +113,7 @@ def render(filename):
             name = '-'.join(str(x) for x in render_cmd['variable_path'])
 
             extra_cmd_filter += 'sendcmd=f=' + name + '.txt,' + \
-                                render_cmd['filter'] + '@' + name + '='
+                                render_cmd['filter'] + '@' + name
 
             if render_cmd['filter'] == 'drawtext':
                 extra_cmd_filter += '=fontfile=\\\'' + \
@@ -117,6 +121,17 @@ def render(filename):
                                                  'OpenSans.ttf').replace(
                                             '\\',
                                             '\\\\') + '\\\''
+                if 'set_team_name' in render_cmd:
+                    extra_cmd_filter += ':text=' + \
+                                        get_team_name(
+                                                render_cmd['set_team_name'])
+                if 'options' in render_cmd:
+                    extra_cmd_filter += ':'
+            elif render_cmd['filter'] == 'drawbox':
+                if 'set_team_color' in render_cmd:
+                    extra_cmd_filter += '=color=' + \
+                                        get_team_color(
+                                                render_cmd['set_team_color'])
                 if 'options' in render_cmd:
                     extra_cmd_filter += ':'
             else:

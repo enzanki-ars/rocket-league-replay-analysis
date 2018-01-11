@@ -11,7 +11,7 @@ def load_data(filename):
         parse_player_info, parse_game_event_num
     from rocketleaguereplayanalysis.parser.frames import load_frames
     from rocketleaguereplayanalysis.util.extra_info import parse_pressure, \
-        parse_possession
+        parse_possession, fix_pressure_possession_values
 
     global data
 
@@ -26,6 +26,8 @@ def load_data(filename):
 
     parse_pressure()
     parse_possession()
+
+    fix_pressure_possession_values()
 
 
 def get_data():
