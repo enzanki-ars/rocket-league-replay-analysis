@@ -11,14 +11,33 @@
 
 ## Installation
 
+* A replay from Rocket League
+  * Windows: `Documents\My Games\Rocket League\TAGame\Demos`
+  * macOS: `Library/Application Support/Rocket League/TAGame/Demos`
+  * Linux: `$HOME/.local/share/Rocket League/TAGame/Demos`
 * Ensure [FFMPEG](http://ffmpeg.org/download.html) is installed and on the `PATH`
-
+  * Windows: Make sure to add it to the path.
+    1. Copy the path of the folder you installed FFmpeg to in explorer while in the "bin" pat
+    2. Open the start menu (or Cortana…) and search for "Environment Variables"
+    3. Select "Edit the system environment variables"
+    4. Select "Environment Variables…" at the bottom of the window.
+    5. In the "User Variables" section, click on "Path" and select "Edit"
+    6. Click "New" and paste the FFmpeg path. Make sure it ends with bin, otherwise reread line 1.
+* Download [RocketLeagueReplayParser](https://github.com/jjbott/RocketLeagueReplayParser/releases)
+  * Linux/Mac Only: I am not certain this tool works on this platform. The
+  README claims that it does not, but I doubt this... I will update this
+  with more information soon.  If it does work, you will need to install
+  [Mono](http://www.mono-project.com/).
 * Download a precompiled version or download the sourcecode.
+  * Currently, I only compile builds for Windows. Linux/Mac users can use
+  the `Source code (zip)` option.
 
 ## Usage Instructions
 
 1. Run RocketLeagueReplayParser on your replay file.
-    * Instructions coming soon for using RocketLeagueReplayParser.
+    * Note for Mac/Linux users: Add `mono` to the beginning of all of the 
+    commands for RocketLeagueReplayParser.
+    * Run `RocketLeagueReplayParser.exe example.replay --fileoutput`
 2. Run `python -m rocketleaguereplayanalysis.main [args]` replacing 
 `[args]` with the program arguments you wish to use.  Leave empty to see help.
     * If you are running a precompiled version, run that 
