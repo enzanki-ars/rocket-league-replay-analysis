@@ -16,7 +16,7 @@ def set_video_prefix(prefix):
 def render(filename):
     import json
     import os
-    from rocketleaguereplayanalysis.main import assets_path_builtin
+    from rocketleaguereplayanalysis.main import assets_path
     from rocketleaguereplayanalysis.render.ffmpeg_cmd import \
         create_ffmpeg_cmd_files_from_path, replace_in_array
     from rocketleaguereplayanalysis.data.object_numbers import \
@@ -25,7 +25,7 @@ def render(filename):
     from rocketleaguereplayanalysis.util.transcode import \
         render_video
 
-    with open(os.path.join(assets_path_builtin, filename + '.json')) as f:
+    with open(os.path.join(assets_path, filename + '.json')) as f:
         render_paths = json.load(f)
 
     is_player_render = False
@@ -71,7 +71,7 @@ def render(filename):
 
                 if render_cmd['filter'] == 'drawtext':
                     extra_cmd_filter += '=fontfile=\\\'' + \
-                                        os.path.join(assets_path_builtin,
+                                        os.path.join(assets_path,
                                                      'OpenSans.ttf').replace(
                                                 '\\', '\\\\') + '\\\''
                     if 'set_team_name' in render_cmd:
@@ -104,7 +104,7 @@ def render(filename):
                     extra_cmd_filter += ','
 
             render_video(str(player) + '-' + filename,
-                         overlay=os.path.join(assets_path_builtin, filename),
+                         overlay=os.path.join(assets_path, filename),
                          extra_cmd=['-vf', extra_cmd_filter])
     else:
         extra_cmd_filter = ''
@@ -117,7 +117,7 @@ def render(filename):
 
             if render_cmd['filter'] == 'drawtext':
                 extra_cmd_filter += '=fontfile=\\\'' + \
-                                    os.path.join(assets_path_builtin,
+                                    os.path.join(assets_path,
                                                  'OpenSans.ttf').replace(
                                             '\\',
                                             '\\\\') + '\\\''
@@ -151,5 +151,5 @@ def render(filename):
                 extra_cmd_filter += ','
 
         render_video(filename,
-                     overlay=os.path.join(assets_path_builtin, filename),
+                     overlay=os.path.join(assets_path, filename),
                      extra_cmd=['-vf', extra_cmd_filter])

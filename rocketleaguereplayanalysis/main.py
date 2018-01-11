@@ -1,5 +1,6 @@
 import argparse
 import os
+import sys
 from pprint import pprint
 
 import rocketleaguereplayanalysis.assets
@@ -14,10 +15,12 @@ version = 'v1.4.0-dev'
 
 frame_num_format = '{0:05d}'
 
-assets_path_builtin = rocketleaguereplayanalysis.assets.__path__[0]
+assets_path = None
 
 
 def main():
+    global assets_path
+
     parser = argparse.ArgumentParser(prog='rocketleaguereplayanalysis')
 
     # Required args
@@ -25,7 +28,12 @@ def main():
 
     available_assets_builtin = []
 
-    for file in os.listdir(assets_path_builtin):
+    if sys._MEIPASS:
+        assets_path = os.path.join(sys._MEIPASS, 'assets')
+    else:
+        assets_path = rocketleaguereplayanalysis.assets.__path__[0]
+
+    for file in os.listdir(assets_path):
         if file.endswith('.json'):
             available_assets_builtin.append(file[:-1 * len('.json')])
 
