@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
         name='rocketleaguereplayanalysis',
-        version='1.3.1-dev',
+        version='1.4.0-alpha1',
         url='https://enzanki-ars.github.io/rocket-league-replay-analysis',
         license='GNU AGPLv3',
         author='Alex Shafer',

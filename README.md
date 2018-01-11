@@ -1,6 +1,6 @@
 # Rocket League Replay Analysis
 
-**Version:** v1.3.1-dev
+**Version:** v1.4.0-alpha1
 
 ## Licences
 
@@ -13,16 +13,7 @@
 
 * Ensure [FFMPEG](http://ffmpeg.org/download.html) is installed and on the `PATH`
 
-* `pip install -r requirements.txt --upgrade`
-(A virtualenv type setup may be of value.)
-**OR** download a precompiled version.
-
-* **_Highly Suggested:_** A [RAM disk](https://sourceforge.net/projects/imdisk-toolkit/) 
-is suggested to run the program much faster.  This program can take up about 
-.1 GB per minimap render, with player data renders taking up about .2 GB per 
-render.  A RAM Disk does not necessarily increase the program's speed, but it 
-will help reduce the stress on the hard drive.  Copy the program to the RAM 
-disk and run it from there.
+* Download a precompiled version or download the sourcecode.
 
 ## Usage Instructions
 
@@ -31,18 +22,24 @@ disk and run it from there.
 2. Run `python -m rocketleaguereplayanalysis.main [args]` replacing 
 `[args]` with the program arguments you wish to use.  Leave empty to see help.
     * If you are running a precompiled version, run that 
-    executable name instead.
+    executable name instead, for example `rocketleaguereplayanalysis.exe`
 
 ```
-usage: rocketleaguereplayanalysis [-h]
-                                  [--process_type {video_minimap,
-                                                   video_pressure,
-                                                   video_possession,
-                                                   video_player_data_drive,
-                                                   video_player_data_scoreboard,
-                                                   video_all,
-                                                   data_explorer}]
+usage: rocketleaguereplayanalysis 
+                                  [-h]
+                                  [--render {player-data-drive,
+                                             player-data-scoreboard,
+                                             possession,
+                                             pressure,
+                                             scoreboard} 
+                                       [{player-data-drive,
+                                         player-data-scoreboard,
+                                         possession,
+                                         pressure,
+                                         scoreboard} ...]]
+                                  [--data_explorer] 
                                   [--export_parsed_data]
+                                  [--show_field_size] 
                                   [--version]
                                   game_json
 
@@ -51,11 +48,22 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  --process_type        {video_minimap,video_pressure,video_possession,
-                         video_player_data_drive,video_player_data_scoreboard,
-                         video_all,data_explorer}
+  --render {player-data-drive,
+            player-data-scoreboard,
+            possession,
+            pressure,
+            scoreboard} 
+            [{player-data-drive,
+              player-data-scoreboard,
+              possession,
+              pressure,
+              scoreboard} ...]
+                        Select which renders are created. 
+                        Multiple renders can be separated by a space.
+  --data_explorer       Explore the given data.
   --export_parsed_data  Export the parsed data.
-  --version             Print version and exit
+  --show_field_size     Show the calculated field size.
+  --version             Print version and exit (v1.4.0-alpha1)
 ```
 
 ## Known Issues

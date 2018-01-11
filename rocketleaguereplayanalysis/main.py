@@ -11,7 +11,7 @@ from rocketleaguereplayanalysis.util.data_explorer import data_explorer_cli
 from rocketleaguereplayanalysis.util.export import export_parsed_data
 from rocketleaguereplayanalysis.util.extra_info import get_field_dimensions
 
-version = 'v1.4.0-dev'
+version = 'v1.4.0-alpha1'
 
 frame_num_format = '{0:05d}'
 
@@ -28,7 +28,7 @@ def main():
 
     available_assets_builtin = []
 
-    if sys._MEIPASS:
+    if getattr(sys, 'frozen', False):
         assets_path = os.path.join(sys._MEIPASS, 'assets')
     else:
         assets_path = rocketleaguereplayanalysis.assets.__path__[0]
@@ -40,6 +40,8 @@ def main():
     parser.add_argument('--render',
                         choices=available_assets_builtin,
                         nargs='+',
+                        help='Select which renders are created. '
+                             'Multiple renders can be separated by a space.',
                         default=None)
 
     parser.add_argument('--data_explorer',
