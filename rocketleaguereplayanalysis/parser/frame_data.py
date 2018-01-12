@@ -31,7 +31,7 @@ def update_car_data(update, frames, i, player_id):
             update['TAGame.CarComponent_Boost_TA:ReplicatedBoostAmount'] / 255
     if 'TAGame.Vehicle_TA:ReplicatedThrottle' in update.keys():
         frames[i]['cars'][player_id]['throttle'] = \
-            update['TAGame.Vehicle_TA:ReplicatedThrottle'] / 255
+            (update['TAGame.Vehicle_TA:ReplicatedThrottle'] / 255) * 2 - 1
     if 'TAGame.Vehicle_TA:ReplicatedSteer' in update.keys():
         frames[i]['cars'][player_id]['steer'] = \
             update['TAGame.Vehicle_TA:ReplicatedSteer'] / 255
