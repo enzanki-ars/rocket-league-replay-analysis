@@ -60,56 +60,58 @@ def parse_player_info():
                     print('Weird Team:                   ', update['Id'])
 
 
+def get_player_team_id(player_id):
+    if get_player_info()[player_id]['team'] == team0:
+        return 'team0'
+    elif get_player_info()[player_id]['team'] == team1:
+        return 'team1'
+    else:
+        return None
+
+
 def get_player_team_name(player_id):
     if get_player_info()[player_id]['team'] == team0:
-        team_name = 'Blue'
+        return 'Blue'
     elif get_player_info()[player_id]['team'] == team1:
-        team_name = 'Orange'
+        return 'Orange'
     else:
-        team_name = 'Unknown'
-
-    return team_name
+        return 'Unknown'
 
 
 def get_player_team_color(player_id):
     if get_player_info()[player_id]['team'] == team0:
-        team_color = '0x7f7fff'
+        return '0x7f7fff'
     elif get_player_info()[player_id]['team'] == team1:
-        team_color = '0xffb27f'
+        return '0xffb27f'
     else:
-        team_color = '0xc0c0c0'
+        return '0xc0c0c0'
 
-    return team_color
 
 
 def get_team_name(team):
     if team == team0:
-        team_name = 'Blue'
+        return 'Blue'
     elif team == team1:
-        team_name = 'Orange'
+        return 'Orange'
     elif team == 'team0':
-        team_name = 'Blue'
+        return 'Blue'
     elif team == 'team1':
-        team_name = 'Orange'
+        return 'Orange'
     else:
-        team_name = 'Unknown'
-
-    return team_name
+        return 'Unknown'
 
 
 def get_team_color(team):
     if team == team0:
-        team_color = '0x7f7fff'
+        return '0x7f7fff'
     elif team == team1:
-        team_color = '0xffb27f'
+        return '0xffb27f'
     elif team == 'team0':
-        team_color = '0x7f7fff'
+        return '0x7f7fff'
     elif team == 'team1':
-        team_color = '0xffb27f'
+        return '0xffb27f'
     else:
-        team_color = '0xc0c0c0'
-
-    return team_color
+        return '0xc0c0c0'
 
 
 def get_player_info():

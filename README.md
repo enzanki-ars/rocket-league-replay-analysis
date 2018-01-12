@@ -50,12 +50,14 @@ usage: rocketleaguereplayanalysis
                                              player-data-scoreboard,
                                              possession,
                                              pressure,
-                                             scoreboard} 
+                                             scoreboard,
+                                             total-boost} 
                                        [{player-data-drive,
                                          player-data-scoreboard,
                                          possession,
                                          pressure,
-                                         scoreboard} ...]]
+                                         scoreboard,
+                                         total-boost} ...]]
                                   [--data_explorer] 
                                   [--export_parsed_data]
                                   [--show_field_size] 
@@ -71,12 +73,14 @@ optional arguments:
             player-data-scoreboard,
             possession,
             pressure,
-            scoreboard} 
+            scoreboard,
+            total-boost} 
             [{player-data-drive,
               player-data-scoreboard,
               possession,
               pressure,
-              scoreboard} ...]
+              scoreboard,
+              total-boost} ...]
                         Select which renders are created. 
                         Multiple renders can be separated by a space.
   --data_explorer       Explore the given data.

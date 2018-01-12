@@ -106,8 +106,6 @@ def parse_pressure():
 
 def parse_possession():
     from rocketleaguereplayanalysis.parser.frames import get_frames
-    from rocketleaguereplayanalysis.data.object_numbers import team0, \
-        team1
 
     frames = get_frames()
 
@@ -134,3 +132,33 @@ def parse_possession():
                 }
             else:
                 frame['possession'] = {'team0': 0, 'team1': 0}
+
+
+def parse_total_boost():
+    from rocketleaguereplayanalysis.parser.frames import get_frames
+    from rocketleaguereplayanalysis.data.object_numbers import \
+        get_player_team_id, get_player_info
+
+    frames = get_frames()
+    team0_mod = 0
+    team1_mod = 0
+
+    for player_id in get_player_info():
+        if get_player_team_id(player_id) == 'team0':
+            team0_mod += 1
+        elif get_player_team_id(player_id) == 'team1':
+            team1_mod += 1
+
+    for i, frame in enumerate(frames):
+        frame['total_boost'] = {'team0': 0, 'team1': 0}
+        for player_id in frame['cars']:
+            if get_player_team_id(player_id):
+                frame['total_boost'][get_player_team_id(player_id)] += \
+                    frame['cars'][player_id]['boost']
+
+        if team0_mod:
+            frame['total_boost']['team0'] = frame['total_boost'][
+                                                'team0'] / team0_mod
+        if team1_mod:
+            frame['total_boost']['team1'] = frame['total_boost'][
+                                                'team1'] / team1_mod

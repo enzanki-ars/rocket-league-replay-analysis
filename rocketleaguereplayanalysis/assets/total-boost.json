@@ -1,0 +1,41 @@
+[
+  {
+    "variable_path": [
+      "frames",
+      "frame_num",
+      "total_boost",
+      "team0"
+    ],
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 24,
+      "fontcolor": "black",
+      "x": 10,
+      "y": 100,
+      "text": "0%",
+      "expansion": "none"
+    },
+    "reinit": {
+      "text": "{0:.0%}"
+    }
+  },{
+    "variable_path": [
+      "frames",
+      "frame_num",
+      "total_boost",
+      "team1"
+    ],
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 24,
+      "fontcolor": "black",
+      "x": 80,
+      "y": 100,
+      "text": "0%",
+      "expansion": "none"
+    },
+    "reinit": {
+      "text": "{0:.0%}"
+    }
+  }
+]
