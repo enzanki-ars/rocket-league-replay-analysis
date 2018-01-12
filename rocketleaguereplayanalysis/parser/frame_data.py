@@ -31,7 +31,7 @@ def update_car_data(update, frames, i, player_id):
             update['TAGame.CarComponent_Boost_TA:ReplicatedBoostAmount'] / 255
     if 'TAGame.Vehicle_TA:ReplicatedThrottle' in update.keys():
         frames[i]['cars'][player_id]['throttle'] = \
-            update['TAGame.Vehicle_TA:ReplicatedThrottle'] / 255
+            (update['TAGame.Vehicle_TA:ReplicatedThrottle'] / 255) * 2 - 1
     if 'TAGame.Vehicle_TA:ReplicatedSteer' in update.keys():
         frames[i]['cars'][player_id]['steer'] = \
             update['TAGame.Vehicle_TA:ReplicatedSteer'] / 255
@@ -87,3 +87,29 @@ def update_ball_data(update, frames, i):
             frames[i]['ball']['rot'].update(rot)
         if sleep:
             frames[i]['ball']['sleep'] = sleep
+
+
+def update_boost_data(update, frames, current_car_objects,
+                      current_boost_objects, i):
+    actor_id = update['Id']
+
+    # Find updated boost values
+    if 'TAGame.CarComponent_TA:Vehicle' in update:
+        car_id = update['TAGame.CarComponent_TA:Vehicle']['ActorId']
+        for player_id in current_car_objects:
+            if current_car_objects[player_id] == car_id:
+                current_boost_objects[player_id] = update['Id']
+
+    if 'TAGame.CarComponent_Boost_TA:ReplicatedBoostAmount' in update:
+        for player_id in current_boost_objects:
+            if update['Id'] == current_boost_objects[player_id]:
+                frames[i]['cars'][player_id]['boost'] = \
+                    update['TAGame.CarComponent_Boost_TA:'
+                           'ReplicatedBoostAmount'] / 255
+
+    if 'TAGame.CarComponent_TA:Active' in update:
+        for player_id in current_car_objects:
+            if player_id in current_boost_objects and \
+                    actor_id == current_boost_objects[player_id]:
+                frames[i]['cars'][player_id]['boosting'] = update[
+                    'TAGame.CarComponent_TA:Active']

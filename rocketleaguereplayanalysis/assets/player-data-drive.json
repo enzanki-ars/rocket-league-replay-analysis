@@ -1,0 +1,148 @@
+[
+  {
+    "variable_path": [
+      "player_info",
+      "player_num",
+      "name"
+    ],
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 32,
+      "fontcolor": "black",
+      "x": 10,
+      "y": 10,
+      "text": "No Name"
+    },
+    "reinit": {
+      "text": "{0}"
+    }
+  },
+  {
+    "variable_path": [
+      "player_info",
+      "player_num",
+      "team"
+    ],
+    "set_team_color": true,
+    "filter": "drawbox",
+    "options": {
+      "x": 2,
+      "y": 49,
+      "h": 19,
+      "w": 358,
+      "thickness": "fill"
+    }
+  },
+  {
+    "variable_path": [
+      "frames",
+      "frame_num",
+      "cars",
+      "player_num",
+      "throttle"
+    ],
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 18,
+      "fontcolor": "black",
+      "x": 10,
+      "y": 105,
+      "text": "0%",
+      "expansion": "none"
+    },
+    "reinit": {
+      "text": "{0:.0%}"
+    }
+  },
+  {
+    "variable_path": [
+      "frames",
+      "frame_num",
+      "cars",
+      "player_num",
+      "steer"
+    ],
+    "modify": {
+      "multiply": 180,
+      "subtract": 90
+    },
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 18,
+      "fontcolor": "black",
+      "x": 80,
+      "y": 105,
+      "text": "0°"
+    },
+    "reinit": {
+      "text": "{0:.0f}°"
+    }
+  },
+  {
+    "variable_path": [
+      "frames",
+      "frame_num",
+      "cars",
+      "player_num",
+      "boost"
+    ],
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 18,
+      "fontcolor": "black",
+      "x": 155,
+      "y": 105,
+      "text": "33%",
+      "expansion": "none"
+    },
+    "reinit": {
+      "text": "{0:2.0%}"
+    }
+  },
+  {
+    "variable_path": [
+      "frames",
+      "frame_num",
+      "cars",
+      "player_num",
+      "drift"
+    ],
+    "modify": {
+      "replace": {
+        "True": "Yes",
+        "False": "No"
+      }
+    },
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 18,
+      "fontcolor": "black",
+      "x": 225,
+      "y": 105,
+      "text": "No"
+    },
+    "reinit": {
+      "text": "{0}"
+    }
+  },
+  {
+    "variable_path": [
+      "frames",
+      "frame_num",
+      "cars",
+      "player_num",
+      "ping"
+    ],
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 18,
+      "fontcolor": "black",
+      "x": 300,
+      "y": 105,
+      "text": " "
+    },
+    "reinit": {
+      "text": "{0:d}"
+    }
+  }
+]

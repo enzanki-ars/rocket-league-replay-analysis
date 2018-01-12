@@ -1,0 +1,41 @@
+[
+  {
+    "variable_path": [
+      "frames",
+      "frame_num",
+      "pressure",
+      "team0"
+    ],
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 24,
+      "fontcolor": "black",
+      "x": 10,
+      "y": 100,
+      "text": "50%",
+      "expansion": "none"
+    },
+    "reinit": {
+      "text": "{0:.0%}"
+    }
+  },{
+    "variable_path": [
+      "frames",
+      "frame_num",
+      "pressure",
+      "team1"
+    ],
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 24,
+      "fontcolor": "black",
+      "x": 80,
+      "y": 100,
+      "text": "50%",
+      "expansion": "none"
+    },
+    "reinit": {
+      "text": "{0:.0%}"
+    }
+  }
+]

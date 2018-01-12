@@ -1,6 +1,7 @@
 # Project Specific Ignores
 /renders/
-*.json
+/*.json
+/*.replay
 *.exe
 *.zip
 

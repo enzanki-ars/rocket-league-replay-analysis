@@ -3,7 +3,7 @@ def data_explorer_cli():
     from rocketleaguereplayanalysis.data.data_loader import get_data
     from rocketleaguereplayanalysis.data.actor_data import get_actor_data
     from rocketleaguereplayanalysis.data.object_numbers import \
-        get_player_info, team_blue, team_orange
+        get_player_info, team0, team1
     from rocketleaguereplayanalysis.parser.frames import get_frames
 
     print()
@@ -64,11 +64,11 @@ def data_explorer_cli():
         elif parsed_input[0] == 'player_info':
             pprint(get_player_info())
         elif parsed_input[0] == 'pressure_info':
-            print('Blue:\t', get_frames()[-1]['pressure'][team_blue])
-            print('Orange:\t', get_frames()[-1]['pressue'][team_orange])
+            print('Blue:\t', get_frames()[-1]['pressure'][team0])
+            print('Orange:\t', get_frames()[-1]['pressue'][team1])
         elif parsed_input[0] == 'possession_info':
-            print('Blue:\t', get_frames()[-1]['possession'][team_blue])
-            print('Orange:\t', get_frames()[-1]['possession'][team_orange])
+            print('Blue:\t', get_frames()[-1]['possession'][team0])
+            print('Orange:\t', get_frames()[-1]['possession'][team1])
         elif parsed_input[0] == 'source_loop_mode':
             source_loop_mode()
         elif parsed_input[0] == 'data_loop_mode':

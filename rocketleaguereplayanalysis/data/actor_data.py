@@ -7,9 +7,9 @@ def get_actor_data():
 
 def parse_actor_data():
     global actor_data
-    from rocketleaguereplayanalysis.data.data_loader import get_data, get_data_end
+    from rocketleaguereplayanalysis.data.data_loader import get_data
 
-    for frame in get_data()['Frames'][:get_data_end()]:
+    for frame in get_data()['Frames']:
         for update in frame['ActorUpdates']:
 
             actor_id = update['Id']

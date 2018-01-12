@@ -1,0 +1,146 @@
+[
+  {
+    "variable_path": [
+      "frames",
+      "frame_num",
+      "time",
+      "game_minutes"
+    ],
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 24,
+      "fontcolor": "black",
+      "x": 6,
+      "y": 45,
+      "text": "00",
+      "expansion": "none"
+    },
+    "reinit": {
+      "text": "{0:02d}"
+    }
+  },
+  {
+    "variable_path": [
+      "frames",
+      "frame_num",
+      "time",
+      "game_seconds"
+    ],
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 24,
+      "fontcolor": "black",
+      "x": 41,
+      "y": 45,
+      "text": "00",
+      "expansion": "none"
+    },
+    "reinit": {
+      "text": "{0:02d}"
+    }
+  },
+  {
+    "variable_path": [
+      "team_info",
+      "color",
+      "team0"
+    ],
+    "set_team_color": "team0",
+    "filter": "drawbox",
+    "options": {
+      "x": 74,
+      "y": 2,
+      "h": 34,
+      "w": 142,
+      "thickness": "fill"
+    }
+  },
+  {
+    "variable_path": [
+      "team_info",
+      "color",
+      "team1"
+    ],
+    "set_team_color": "team1",
+    "filter": "drawbox",
+    "options": {
+      "x": 74,
+      "y": 38,
+      "h": 34,
+      "w": 142,
+      "thickness": "fill"
+    }
+  },
+  {
+    "variable_path": [
+      "team_info",
+      "name",
+      "team0"
+    ],
+    "set_team_name": "team0",
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 24,
+      "fontcolor": "black",
+      "x": 80,
+      "y": 10,
+      "expansion": "none"
+    }
+  },
+  {
+    "variable_path": [
+      "team_info",
+      "name",
+      "team1"
+    ],
+    "set_team_name": "team1",
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 24,
+      "fontcolor": "black",
+      "x": 80,
+      "y": 45,
+      "expansion": "none"
+    }
+  },
+  {
+    "variable_path": [
+      "frames",
+      "frame_num",
+      "scoreboard",
+      "team0"
+    ],
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 24,
+      "fontcolor": "black",
+      "x": 225,
+      "y": 10,
+      "expansion": "none",
+      "text": "0"
+    },
+    "reinit": {
+      "text": "{0:d}"
+    }
+  },
+  {
+    "variable_path": [
+      "frames",
+      "frame_num",
+      "scoreboard",
+      "team1"
+    ],
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 24,
+      "fontcolor": "black",
+      "x": 225,
+      "y": 45,
+      "expansion": "none",
+      "text": "0"
+    },
+    "reinit": {
+      "text": "{0:d}"
+    }
+  }
+]

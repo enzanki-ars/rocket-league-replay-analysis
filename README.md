@@ -1,44 +1,67 @@
 # Rocket League Replay Analysis
 
-**Version:** v1.3.1-dev
+**Version:** v1.4.0-alpha1
+
+## Licences
+
+- This project is licensed under the GNU Affero General Public License v3.0
+  - See `LICENSE.md` for more info.
+- Open Sans by Google Fonts licensed under Apache License Version 2.0
+  - See `assets/Google-Fonts-OpenSans-LICENSE.txt` for more info.
 
 ## Installation
 
+* A replay from Rocket League
+  * Windows: `Documents\My Games\Rocket League\TAGame\Demos`
+  * macOS: `Library/Application Support/Rocket League/TAGame/Demos`
+  * Linux: `$HOME/.local/share/Rocket League/TAGame/Demos`
 * Ensure [FFMPEG](http://ffmpeg.org/download.html) is installed and on the `PATH`
-
-* `pip install -r requirements.txt --upgrade`
-(A virtualenv type setup may be of value.)
-**OR** download a precompiled version.
-
-* **_Highly Suggested:_** A [RAM disk](https://sourceforge.net/projects/imdisk-toolkit/) 
-is suggested to run the program much faster.  This program can take up about 
-.1 GB per minimap render, with player data renders taking up about .2 GB per 
-render.  A RAM Disk does not necessarily increase the program's speed, but it 
-will help reduce the stress on the hard drive.  Copy the program to the RAM 
-disk and run it from there.
+  * Windows: Make sure to add it to the path.
+    1. Copy the path of the folder you installed FFmpeg to in explorer while in the "bin" pat
+    2. Open the start menu (or Cortana…) and search for "Environment Variables"
+    3. Select "Edit the system environment variables"
+    4. Select "Environment Variables…" at the bottom of the window.
+    5. In the "User Variables" section, click on "Path" and select "Edit"
+    6. Click "New" and paste the FFmpeg path. Make sure it ends with bin, otherwise reread line 1.
+* Download [RocketLeagueReplayParser](https://github.com/jjbott/RocketLeagueReplayParser/releases)
+  * Linux/Mac Only: I am not certain this tool works on this platform. The
+  README claims that it does not, but I doubt this... I will update this
+  with more information soon.  If it does work, you will need to install
+  [Mono](http://www.mono-project.com/).
+* Download a precompiled version or download the sourcecode.
+  * Currently, I only compile builds for Windows. Linux/Mac users can use
+  the `Source code (zip)` option.
 
 ## Usage Instructions
 
 1. Run RocketLeagueReplayParser on your replay file.
-    * Instructions coming soon for using RocketLeagueReplayParser.
+    * Note for Mac/Linux users: Add `mono` to the beginning of all of the 
+    commands for RocketLeagueReplayParser.
+    * Run `RocketLeagueReplayParser.exe example.replay --fileoutput`
 2. Run `python -m rocketleaguereplayanalysis.main [args]` replacing 
 `[args]` with the program arguments you wish to use.  Leave empty to see help.
     * If you are running a precompiled version, run that 
-    executable name instead.
+    executable name instead, for example `rocketleaguereplayanalysis.exe`
 
 ```
-usage: rocketleaguereplayanalysis [-h]
-                                  [--process_type {video_minimap,
-                                                   video_pressure,
-                                                   video_possession,
-                                                   video_player_data_drive,
-                                                   video_player_data_scoreboard,
-                                                   video_player_data_scoreboard_with_drive,
-                                                   video_all,
-                                                   data_explorer}]
-                                  [--data_start DATA_START]
-                                  [--data_end DATA_END] 
+usage: rocketleaguereplayanalysis 
+                                  [-h]
+                                  [--render {player-data-drive,
+                                             player-data-scoreboard,
+                                             possession,
+                                             pressure,
+                                             scoreboard,
+                                             total-boost} 
+                                       [{player-data-drive,
+                                         player-data-scoreboard,
+                                         possession,
+                                         pressure,
+                                         scoreboard,
+                                         total-boost} ...]]
+                                  [--data_explorer] 
                                   [--export_parsed_data]
+                                  [--show_field_size] 
+                                  [--sync_to_live_recording]
                                   [--version]
                                   game_json
 
@@ -47,15 +70,32 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  --process_type        {video_minimap,video_pressure,video_possession,
-                         video_player_data_drive,video_player_data_scoreboard,
-                         video_player_data_scoreboard_with_drive,
-                         video_all,data_explorer}
-  --data_start DATA_START
-                        Number of frames to render (start).
-  --data_end DATA_END   Number of frames to render (end).
+  --render {player-data-drive,
+            player-data-scoreboard,
+            possession,
+            pressure,
+            scoreboard,
+            total-boost} 
+            [{player-data-drive,
+              player-data-scoreboard,
+              possession,
+              pressure,
+              scoreboard,
+              total-boost} ...]
+                        Select which renders are created. 
+                        Multiple renders can be separated by a space.
+  --data_explorer       Explore the given data.
   --export_parsed_data  Export the parsed data.
-  --version             Print version and exit
+  --show_field_size     Show the calculated field size.
+  --sync_to_live_recording
+                        Instead of syncing to a recording of the in-game
+                        replay, sync to a recording of the game played live.
+                        In other words, if you have recorded the game as you
+                        were playing it, set this argument to sync to that
+                        recording. If you recorded the replay after the game
+                        ended, do not add this argument to sync to that
+                        recording.
+  --version             Print version and exit (v1.4.0-alpha1)
 ```
 
 ## Known Issues
