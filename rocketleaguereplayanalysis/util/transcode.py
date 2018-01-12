@@ -18,6 +18,8 @@ def render_video(render_type,
 
     cmd += ['-r', str(out_frame_rate),
             '-crf', '18',
+            '-pix_fmt', 'yuv420p',
+            '-movflags', '+faststart',
             render_type + '.mp4', '-y']
 
     print('FFmpeg Command:', cmd)
