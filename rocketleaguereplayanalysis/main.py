@@ -10,7 +10,8 @@ from rocketleaguereplayanalysis.data.data_loader import load_data
 from rocketleaguereplayanalysis.render.do_render import set_video_prefix, \
     render
 from rocketleaguereplayanalysis.util.data_explorer import data_explorer_cli
-from rocketleaguereplayanalysis.util.export import export_parsed_data
+from rocketleaguereplayanalysis.util.export import export_parsed_data_json, \
+    export_parsed_data_csv
 from rocketleaguereplayanalysis.util.extra_info import get_field_dimensions
 from rocketleaguereplayanalysis.util.sync import set_sync_delta_type, \
     set_sync_time_type
@@ -47,8 +48,11 @@ def main():
     parser.add_argument('--data_explorer',
                         help='Explore the given data.',
                         action='store_true')
-    parser.add_argument('--export_parsed_data',
-                        help='Export the parsed data.',
+    parser.add_argument('--export_parsed_data_json',
+                        help='Export the parsed data as JSON.',
+                        action='store_true')
+    parser.add_argument('--export_parsed_data_csv',
+                        help='Export the parsed data as CSV.',
                         action='store_true')
     parser.add_argument('--show_field_size',
                         help='Show the calculated field size.',
@@ -88,16 +92,21 @@ def main():
     if not args.render \
             and not args.data_explorer \
             and not args.show_field_size \
-            and not args.export_parsed_data:
+            and not args.export_parsed_data_json \
+            and not args.export_parsed_data_csv:
         print('No action selected. Exiting. (See --help for more info '
               'if you expected a video renders or the ability to easily '
               'explore the data.)')
     else:
         if args.show_field_size:
             pprint(get_field_dimensions())
-        if args.export_parsed_data:
+        if args.export_parsed_data_json:
             print('Exporting data...')
-            export_parsed_data()
+            export_parsed_data_json()
+            print('Export successful.')
+        if args.export_parsed_data_csv:
+            print('Exporting data...')
+            export_parsed_data_csv()
             print('Export successful.')
         if args.data_explorer:
             data_explorer_cli()

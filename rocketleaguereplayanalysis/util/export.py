@@ -29,7 +29,7 @@ def get_all_data():
     }
 
 
-def export_parsed_data():
+def export_parsed_data_json():
     import json
     import os
 
@@ -40,3 +40,34 @@ def export_parsed_data():
     with open(os.path.join(video_prefix + '-export-parsed-data.json'),
               'w') as export_file:
         json.dump(get_all_data(), export_file)
+
+
+def flatten(d, parent_key='', sep='_'):
+    import collections
+
+    items = []
+    for k, v in d.items():
+        new_key = parent_key + sep + str(k) if parent_key else str(k)
+        if isinstance(v, collections.MutableMapping):
+            items.extend(flatten(v, new_key, sep=sep).items())
+        else:
+            items.append((new_key, v))
+    return dict(items)
+
+
+def export_parsed_data_csv():
+    import csv
+    import os
+
+    from rocketleaguereplayanalysis.render.do_render import get_video_prefix
+
+    video_prefix = get_video_prefix()
+
+    with open(os.path.join(video_prefix + '-export-parsed-data.csv'),
+              'w', newline='') as csvfile:
+        fieldnames = flatten(get_all_data()['frames'][0]).keys()
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, dialect='excel')
+
+        writer.writeheader()
+        for frame in get_all_data()['frames']:
+            writer.writerow(flatten(frame))

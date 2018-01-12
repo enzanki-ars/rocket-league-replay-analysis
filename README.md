@@ -59,7 +59,8 @@ usage: rocketleaguereplayanalysis
                                          scoreboard,
                                          total-boost} ...]]
                                   [--data_explorer] 
-                                  [--export_parsed_data]
+                                  [--export_parsed_data_json]
+                                  [--export_parsed_data_csv]
                                   [--show_field_size] 
                                   [--sync_to_live_recording]
                                   [--version]
@@ -85,7 +86,10 @@ optional arguments:
                         Select which renders are created. 
                         Multiple renders can be separated by a space.
   --data_explorer       Explore the given data.
-  --export_parsed_data  Export the parsed data.
+  --export_parsed_data_json
+                        Export the parsed data as JSON.
+  --export_parsed_data_csv
+                        Export the parsed data as CSV.
   --show_field_size     Show the calculated field size.
   --sync_to_live_recording
                         Instead of syncing to a recording of the in-game
