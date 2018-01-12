@@ -46,13 +46,15 @@
 ```
 usage: rocketleaguereplayanalysis 
                                   [-h]
-                                  [--render {player-data-drive,
+                                  [--render {player-data-boost,
+                                             player-data-drive,
                                              player-data-scoreboard,
                                              possession,
                                              pressure,
                                              scoreboard,
                                              total-boost} 
-                                       [{player-data-drive,
+                                       [{player-data-boost,
+                                         player-data-drive,
                                          player-data-scoreboard,
                                          possession,
                                          pressure,
@@ -71,13 +73,15 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  --render {player-data-drive,
+  --render {player-data-boost,
+            player-data-drive,
             player-data-scoreboard,
             possession,
             pressure,
             scoreboard,
             total-boost} 
-            [{player-data-drive,
+            [{player-data-boost,
+              player-data-drive,
               player-data-scoreboard,
               possession,
               pressure,

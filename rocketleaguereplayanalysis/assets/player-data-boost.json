@@ -1,0 +1,57 @@
+[
+  {
+    "variable_path": [
+      "player_info",
+      "player_num",
+      "team"
+    ],
+    "set_team_color": true,
+    "filter": "drawbox",
+    "options": {
+      "x": 2,
+      "y": 2,
+      "h": 34,
+      "w": 214,
+      "thickness": "fill"
+    }
+  },
+  {
+    "variable_path": [
+      "player_info",
+      "player_num",
+      "name"
+    ],
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 24,
+      "fontcolor": "black",
+      "x": 10,
+      "y": 10,
+      "text": "No Name"
+    },
+    "reinit": {
+      "text": "{0}"
+    }
+  },
+  {
+    "variable_path": [
+      "frames",
+      "frame_num",
+      "cars",
+      "player_num",
+      "boost"
+    ],
+    "filter": "drawtext",
+    "options": {
+      "fontsize": 24,
+      "fontcolor": "black",
+      "x": 222,
+      "y": 10,
+      "text": "33%",
+      "expansion": "none"
+    },
+    "reinit": {
+      "text": "{0:2.0%}"
+    }
+  }
+]
