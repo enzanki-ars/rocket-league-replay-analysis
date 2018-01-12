@@ -92,10 +92,11 @@
       "fontcolor": "black",
       "x": 155,
       "y": 105,
-      "text": "???"
+      "text": "33%",
+      "expansion": "none"
     },
     "reinit": {
-      "text": "{0:0.0f}"
+      "text": "{0:2.0%}"
     }
   },
   {
