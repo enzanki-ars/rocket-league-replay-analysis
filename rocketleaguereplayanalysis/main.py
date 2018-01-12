@@ -12,6 +12,8 @@ from rocketleaguereplayanalysis.render.do_render import set_video_prefix, \
 from rocketleaguereplayanalysis.util.data_explorer import data_explorer_cli
 from rocketleaguereplayanalysis.util.export import export_parsed_data
 from rocketleaguereplayanalysis.util.extra_info import get_field_dimensions
+from rocketleaguereplayanalysis.util.sync import set_sync_delta_type, \
+    set_sync_time_type
 
 version = 'v1.4.0-alpha1'
 
@@ -51,6 +53,16 @@ def main():
     parser.add_argument('--show_field_size',
                         help='Show the calculated field size.',
                         action='store_true')
+    parser.add_argument('--sync_to_live_recording',
+                        help='Instead of syncing to a recording of the '
+                             'in-game replay, sync to a recording of the '
+                             'game played live.  In other words, if you have '
+                             'recorded the game as you were playing it, set '
+                             'this argument to sync to that recording. If '
+                             'you recorded the replay after the game ended, '
+                             'do not add this argument to sync to that '
+                             'recording.',
+                        action='store_true')
     parser.add_argument('--version',
                         action='version',
                         help='Print version and exit (' + version + ')',
@@ -60,13 +72,21 @@ def main():
 
     out_prefix = os.path.basename(args.game_json)
 
+    if args.sync_to_live_recording:
+        set_sync_delta_type('server_delta')
+        set_sync_time_type('server_time')
+    else:
+        set_sync_delta_type('real_replay_delta')
+        set_sync_time_type('real_replay_time')
+
     print('Parsing data...')
     load_data(args.game_json)
     print('Data successfully parsed.')
 
     set_video_prefix(os.path.join('renders', out_prefix.split('.')[0]))
 
-    if not args.render and not args.data_explorer \
+    if not args.render \
+            and not args.data_explorer \
             and not args.show_field_size \
             and not args.export_parsed_data:
         print('No action selected. Exiting. (See --help for more info '

@@ -61,6 +61,7 @@ usage: rocketleaguereplayanalysis
                                   [--data_explorer] 
                                   [--export_parsed_data]
                                   [--show_field_size] 
+                                  [--sync_to_live_recording]
                                   [--version]
                                   game_json
 
@@ -86,6 +87,14 @@ optional arguments:
   --data_explorer       Explore the given data.
   --export_parsed_data  Export the parsed data.
   --show_field_size     Show the calculated field size.
+  --sync_to_live_recording
+                        Instead of syncing to a recording of the in-game
+                        replay, sync to a recording of the game played live.
+                        In other words, if you have recorded the game as you
+                        were playing it, set this argument to sync to that
+                        recording. If you recorded the replay after the game
+                        ended, do not add this argument to sync to that
+                        recording.
   --version             Print version and exit (v1.4.0-alpha1)
 ```
 

@@ -68,6 +68,8 @@ def fix_pressure_possession_values():
 
 def parse_pressure():
     from rocketleaguereplayanalysis.parser.frames import get_frames
+    from rocketleaguereplayanalysis.util.sync import \
+        get_sync_delta_type
 
     field_dimensions = get_field_dimensions()
     frames = get_frames()
@@ -77,9 +79,10 @@ def parse_pressure():
     for i, frame in enumerate(frames):
         if field_dimensions['ball_loc']['y'][i] > \
                 field_dimensions['center_y']:
+
             frame['pressure'] = {
                 'team0': (frames[i - 1]['pressure']['team0'] +
-                          frame['time']['real_replay_delta']),
+                          frame['time'][get_sync_delta_type()]),
                 'team1': frames[i - 1]['pressure']['team1']
             }
 
@@ -88,7 +91,7 @@ def parse_pressure():
             frame['pressure'] = {
                 'team0': frames[i - 1]['pressure']['team0'],
                 'team1': (frames[i - 1]['pressure']['team1'] +
-                          frame['time']['real_replay_delta'])
+                          frame['time'][get_sync_delta_type()])
             }
 
         else:
@@ -106,6 +109,8 @@ def parse_pressure():
 
 def parse_possession():
     from rocketleaguereplayanalysis.parser.frames import get_frames
+    from rocketleaguereplayanalysis.util.sync import \
+        get_sync_delta_type
 
     frames = get_frames()
 
@@ -115,14 +120,14 @@ def parse_possession():
         if frame['ball']['last_hit'] == 0:
             frame['possession'] = {
                 'team0': (frames[i - 1]['possession']['team0'] +
-                          frame['time']['real_replay_delta']),
+                          frame['time'][get_sync_delta_type()]),
                 'team1': frames[i - 1]['possession']['team1']}
 
         elif frame['ball']['last_hit'] == 1:
             frame['possession'] = {
                 'team0': frames[i - 1]['possession']['team0'],
                 'team1': (frames[i - 1]['possession']['team1'] +
-                          frame['time']['real_replay_delta'])
+                          frame['time'][get_sync_delta_type()])
             }
         else:
             if i > 0:

@@ -5,13 +5,14 @@ def render_video(render_type,
 
     from rocketleaguereplayanalysis.render.do_render import get_video_prefix
     from rocketleaguereplayanalysis.parser.frames import get_frames
+    from rocketleaguereplayanalysis.util.sync import get_sync_time_type
 
     video_prefix = get_video_prefix()
 
     cmd = ['ffmpeg',
            '-loop', '1',
            '-i', os.path.join('assets', overlay + '.png'),
-           '-t', str(get_frames()[-1]['time']['real_replay_time'])]
+           '-t', str(get_frames()[-1]['time'][get_sync_time_type()])]
 
     cmd += extra_cmd
 

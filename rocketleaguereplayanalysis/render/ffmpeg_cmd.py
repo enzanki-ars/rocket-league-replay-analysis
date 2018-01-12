@@ -85,8 +85,9 @@ def write_to_file(file, name, frame_num, filter_type, reinit, value,
     from rocketleaguereplayanalysis.parser.frames import get_frames
     from rocketleaguereplayanalysis.data.object_numbers import \
         get_team_color
+    from rocketleaguereplayanalysis.util.sync import get_sync_time_type
 
-    file.write(str(get_frames()[frame_num]['time']['real_replay_time']) +
+    file.write(str(get_frames()[frame_num]['time'][get_sync_time_type()]) +
                " " + filter_type + "@" + name +
                " reinit '")
 
@@ -113,8 +114,8 @@ def write_to_file(file, name, frame_num, filter_type, reinit, value,
                     elif modify_style == 'replace_color':
                         mod_value = get_team_color(mod_value)
 
-            file.write(
-                reinit_what + '=' + reinit[reinit_what].format(mod_value))
+            file.write(reinit_what + '=' +
+                       reinit[reinit_what].format(mod_value))
             if i != len(reinit):
                 file.write(":")
             else:
