@@ -32,7 +32,8 @@ def main():
     if getattr(sys, 'frozen', False):
         set_assets_path(os.path.join(sys._MEIPASS, 'assets'))
     else:
-        set_assets_path(os.path.join(rocketleaguereplayanalysis.assets.__path__[0]))
+        set_assets_path(
+            os.path.join(rocketleaguereplayanalysis.assets.__path__[0]))
 
     for file in os.listdir(get_assets_path()):
         if file.endswith('.json'):
@@ -42,8 +43,10 @@ def main():
                         choices=available_assets_builtin,
                         nargs='+',
                         help='Select which renders are created. '
-                             'Multiple renders can be separated by a space.',
-                        default=None)
+                             'Multiple renders can be separated by a space.')
+    parser.add_argument('--render_all',
+                        help='Render all possible videos.',
+                        action='store_true')
 
     parser.add_argument('--data_explorer',
                         help='Explore the given data.',
@@ -89,7 +92,7 @@ def main():
 
     set_video_prefix(os.path.join('renders', out_prefix.split('.')[0]))
 
-    if not args.render \
+    if not args.render and not args.render_all \
             and not args.data_explorer \
             and not args.show_field_size \
             and not args.export_parsed_data_json \
@@ -114,6 +117,11 @@ def main():
         if args.render:
             print('Rendering video...')
             for render_type in args.render:
+                render(render_type)
+            print('Render completed.')
+        if args.render_all:
+            print('Rendering video...')
+            for render_type in available_assets_builtin:
                 render(render_type)
             print('Render completed.')
 

@@ -60,6 +60,7 @@ usage: rocketleaguereplayanalysis
                                          pressure,
                                          scoreboard,
                                          total-boost} ...]]
+                                  [--render_all]
                                   [--data_explorer] 
                                   [--export_parsed_data_json]
                                   [--export_parsed_data_csv]
@@ -89,6 +90,7 @@ optional arguments:
               total-boost} ...]
                         Select which renders are created. 
                         Multiple renders can be separated by a space.
+  --render_all          Render all possible videos.
   --data_explorer       Explore the given data.
   --export_parsed_data_json
                         Export the parsed data as JSON.
