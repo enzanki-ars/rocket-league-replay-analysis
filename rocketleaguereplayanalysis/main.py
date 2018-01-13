@@ -16,7 +16,7 @@ from rocketleaguereplayanalysis.util.extra_info import get_field_dimensions
 from rocketleaguereplayanalysis.util.sync import set_sync_delta_type, \
     set_sync_time_type
 
-version = 'v1.4.0-alpha1'
+version = 'v1.4.0-alpha3'
 
 frame_num_format = '{0:05d}'
 
