@@ -96,20 +96,21 @@ def update_boost_data(update, frames, current_car_objects,
     # Find updated boost values
     if 'TAGame.CarComponent_TA:Vehicle' in update:
         car_id = update['TAGame.CarComponent_TA:Vehicle']['ActorId']
-        for player_id in current_car_objects:
-            if current_car_objects[player_id] == car_id:
-                current_boost_objects[player_id] = update['Id']
+
+        for player_id in current_boost_objects:
+            if car_id == current_car_objects[player_id] and \
+                    car_id not in current_boost_objects[player_id]:
+                current_boost_objects[player_id].append(update['Id'])
 
     if 'TAGame.CarComponent_Boost_TA:ReplicatedBoostAmount' in update:
         for player_id in current_boost_objects:
-            if update['Id'] == current_boost_objects[player_id]:
+            if actor_id in current_boost_objects[player_id]:
                 frames[i]['cars'][player_id]['boost'] = \
                     update['TAGame.CarComponent_Boost_TA:'
                            'ReplicatedBoostAmount'] / 255
 
     if 'TAGame.CarComponent_TA:Active' in update:
-        for player_id in current_car_objects:
-            if player_id in current_boost_objects and \
-                    actor_id == current_boost_objects[player_id]:
+        for player_id in current_boost_objects:
+            if actor_id in current_boost_objects[player_id]:
                 frames[i]['cars'][player_id]['boosting'] = update[
                     'TAGame.CarComponent_TA:Active']

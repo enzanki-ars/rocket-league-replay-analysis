@@ -52,15 +52,16 @@ def load_frames():
 
     for player_id in player_info.keys():
         current_car_objects[player_id] = None
+        current_boost_objects[player_id] = []
         frames[0]['cars'][player_id] = {
             'loc': {'x': None, 'y': None, 'z': None},
             'rot': {'x': 0, 'y': 0, 'z': 0},
             'ang_vel': {'x': 0, 'y': 0, 'z': 0},
             'lin_vel': {'x': 0, 'y': 0, 'z': 0},
-            'throttle': .5,
+            'throttle': 0,
             'steer': .5,
             'ping': 0,
-            'boost': 0,
+            'boost': 85 / 255,
             'boosting': False,
             'sleep': True,
             'drift': False,
@@ -116,6 +117,39 @@ def load_frames():
             'real_replay_delta': real_replay_delta
         }
 
+        # Check for deleted actors
+        for actor_id in data['Frames'][i]['DeletedActorIds']:
+            if actor_id == current_ball_object:
+                frames[i]['ball'] = {'loc': {'x': 0, 'y': 0, 'z': 0},
+                                     'rot': {'x': 0, 'y': 0, 'z': 0},
+                                     'sleep': True,
+                                     'last_hit': None}
+            else:
+                for player_id in current_boost_objects:
+                    if actor_id in current_boost_objects[player_id]:
+                        current_boost_objects[player_id].remove(actor_id)
+                for player_id in current_car_objects:
+                    if actor_id == current_car_objects[player_id]:
+                        current_car_objects[player_id] = None
+                        current_boost_objects[player_id] = []
+                        frames[i]['cars'][player_id]['loc'] = \
+                            {'x': None, 'y': None, 'z': None}
+                        frames[i]['cars'][player_id]['rot'] = \
+                            {'x': 0, 'y': 0, 'z': 0}
+                        frames[i]['cars'][player_id]['ang_vel'] = \
+                            {'x': 0, 'y': 0, 'z': 0}
+                        frames[i]['cars'][player_id]['lin_vel'] = \
+                            {'x': 0, 'y': 0, 'z': 0}
+                        frames[i]['cars'][player_id]['throttle'] = 0
+                        frames[i]['cars'][player_id]['steer'] = .5
+                        frames[i]['cars'][player_id]['ping'] = 0
+                        frames[i]['cars'][player_id]['boost'] = 85 / 255
+                        frames[i]['cars'][player_id]['boosting'] = False
+                        frames[i]['cars'][player_id]['sleep'] = True
+                        frames[i]['cars'][player_id]['drift'] = False
+                        frames[i]['cars'][player_id]['2nd_cam'] = False
+                        frames[i]['cars'][player_id]['driving'] = False
+
         for update in data['Frames'][i]['ActorUpdates']:
             actor_id = update['Id']
 
@@ -157,38 +191,6 @@ def load_frames():
                 for player_id in current_car_objects:
                     if actor_id == current_car_objects[player_id]:
                         update_car_data(update, frames, i, player_id)
-
-        # Check for deleted actors
-        for actor_id in data['Frames'][i]['DeletedActorIds']:
-            if actor_id == current_ball_object:
-                frames[i]['ball'] = {'loc': {'x': 0, 'y': 0, 'z': 0},
-                                     'rot': {'x': 0, 'y': 0, 'z': 0},
-                                     'sleep': True}
-            else:
-                for player_id in current_car_objects:
-                    if actor_id == current_car_objects[player_id]:
-                        current_car_objects[player_id] = None
-                        frames[i]['cars'][player_id]['loc'] = {'x': None,
-                                                               'y': None,
-                                                               'z': None}
-                        frames[i]['cars'][player_id]['rot'] = {'x': 0,
-                                                               'y': 0,
-                                                               'z': 0}
-                        frames[i]['cars'][player_id]['ang_vel'] = {'x': 0,
-                                                                   'y': 0,
-                                                                   'z': 0}
-                        frames[i]['cars'][player_id]['lin_vel'] = {'x': 0,
-                                                                   'y': 0,
-                                                                   'z': 0}
-                        frames[i]['cars'][player_id]['throttle'] = .5
-                        frames[i]['cars'][player_id]['steer'] = .5
-                        frames[i]['cars'][player_id]['ping'] = 0
-                        frames[i]['cars'][player_id]['boost'] = 0
-                        frames[i]['cars'][player_id]['boosting'] = False
-                        frames[i]['cars'][player_id]['sleep'] = True
-                        frames[i]['cars'][player_id]['drift'] = False
-                        frames[i]['cars'][player_id]['2nd_cam'] = False
-                        frames[i]['cars'][player_id]['driving'] = False
 
         # Deplete Boost
         for player_id in current_car_objects:
