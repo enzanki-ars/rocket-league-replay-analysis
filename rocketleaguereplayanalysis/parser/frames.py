@@ -80,13 +80,19 @@ def load_frames():
         if i > 0:
             frames.append(copy.deepcopy(frames[i - 1]))
 
-        server_time = data['Frames'][i]['Time']
-        replay_time = frames[i - 1]['time']['replay_time'] + \
-                      data['Frames'][i]['Delta']
-        game_time = frames[i - 1]['time']['game_time']
-        server_delta = data['Frames'][i]['Time'] - \
-                       data['Frames'][i - 1]['Time']
-        replay_delta = data['Frames'][i]['Delta']
+            server_time = data['Frames'][i]['Time']
+            replay_time = (frames[i - 1]['time']['replay_time'] +
+                           data['Frames'][i]['Delta'])
+            game_time = frames[i - 1]['time']['game_time']
+            server_delta = (data['Frames'][i]['Time'] -
+                            data['Frames'][i - 1]['Time'])
+            replay_delta = data['Frames'][i]['Delta']
+        else:
+            server_time = data['Frames'][0]['Time']
+            replay_time = data['Frames'][0]['Delta']
+            game_time = 300
+            server_delta = data['Frames'][0]['Delta']
+            replay_delta = data['Frames'][0]['Delta']
 
         if replay_delta == 0:
             # There seems to have been a goal here.
