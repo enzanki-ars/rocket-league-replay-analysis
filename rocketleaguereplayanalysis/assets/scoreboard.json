@@ -45,7 +45,7 @@
       "color",
       "team0"
     ],
-    "set_team_color": "team0",
+    "set_team_color": 0,
     "filter": "drawbox",
     "options": {
       "x": 74,
@@ -61,7 +61,7 @@
       "color",
       "team1"
     ],
-    "set_team_color": "team1",
+    "set_team_color": 1,
     "filter": "drawbox",
     "options": {
       "x": 74,
@@ -77,7 +77,7 @@
       "name",
       "team0"
     ],
-    "set_team_name": "team0",
+    "set_team_name": 0,
     "filter": "drawtext",
     "options": {
       "fontsize": 24,
@@ -93,7 +93,7 @@
       "name",
       "team1"
     ],
-    "set_team_name": "team1",
+    "set_team_name": 1,
     "filter": "drawtext",
     "options": {
       "fontsize": 24,
