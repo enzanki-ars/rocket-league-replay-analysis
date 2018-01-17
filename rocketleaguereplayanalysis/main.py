@@ -96,7 +96,16 @@ def main():
                   'explore the data.)')
         else:
             if args.show_field_size:
-                pprint(get_field_dimensions(frames))
+                field_dimensions = get_field_dimensions(frames)
+                print('Field Name:', data['Properties']['MapName'])
+                print('Center X:  ', field_dimensions['center_x'])
+                print('Center Y:  ', field_dimensions['center_y'])
+                print('Max X:     ', field_dimensions['max_x'])
+                print('Max Y:     ', field_dimensions['max_y'])
+                print('Min X:     ', field_dimensions['min_x'])
+                print('Min Y:     ', field_dimensions['min_y'])
+                print('X Size:    ', field_dimensions['x_size'])
+                print('Y Size:    ', field_dimensions['y_size'])
             if args.export_parsed_data_json:
                 print('Exporting data...')
                 export_parsed_data_json(video_prefix, frames, player_info,
