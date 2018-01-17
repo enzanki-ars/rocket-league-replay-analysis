@@ -1,6 +1,5 @@
 import argparse
 import os
-from pprint import pprint
 
 from rocketleaguereplayanalysis.data.data_loader import load_data
 from rocketleaguereplayanalysis.render.do_render import render

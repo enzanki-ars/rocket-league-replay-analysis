@@ -17,7 +17,6 @@ def get_field_dimensions(frames):
     y_w = max(max_y - center_y, center_y - min_y) * 2
 
     return {
-        'ball_loc': ball_loc,
         'center_x': center_x,
         'center_y': center_y,
         'min_x': min_x,
@@ -67,7 +66,7 @@ def parse_pressure(frames):
     frames[0]['pressure'] = {0: 0, 1: 0}
 
     for i, frame in enumerate(frames):
-        if field_dimensions['ball_loc']['y'][i] > \
+        if frame['ball']['loc']['y'] > \
                 field_dimensions['center_y']:
 
             frame['pressure'] = {
@@ -76,7 +75,7 @@ def parse_pressure(frames):
                 1: frames[i - 1]['pressure'][1]
             }
 
-        elif field_dimensions['ball_loc']['y'][i] < \
+        elif frame['ball']['loc']['y'] < \
                 field_dimensions['center_y']:
             frame['pressure'] = {
                 0: frames[i - 1]['pressure'][0],
