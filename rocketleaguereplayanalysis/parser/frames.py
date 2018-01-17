@@ -1,30 +1,12 @@
-frames = None
-
-
-def get_frames():
-    global frames
-    return frames
-
-
-def load_frames():
-    global frames
-
+def load_frames(data, player_info, team_info, game_event_num):
     import copy
-
-    from rocketleaguereplayanalysis.data.data_loader import get_data
-    from rocketleaguereplayanalysis.data.object_numbers import \
-        get_player_info, get_game_event_num, team0, team1
     from rocketleaguereplayanalysis.parser.frame_data import \
         update_game_data, update_car_data, update_player_data, \
         update_ball_data, update_boost_data
 
-    data = get_data()
-
     current_ball_object = None
     current_car_objects = {}
     current_boost_objects = {}
-    player_info = get_player_info()
-    game_event_num = get_game_event_num()
 
     frames = [len(data['Frames'])]
     frames[0] = {
@@ -177,12 +159,12 @@ def load_frames():
             elif actor_id == game_event_num:
                 update_game_data(update, frames, i)
             # Update team 0 score
-            elif actor_id == team0:
+            elif actor_id == team_info[0]['id']:
                 if 'Engine.TeamInfo:Score' in update:
                     frames[i]['scoreboard']['team0'] = \
                         update['Engine.TeamInfo:Score']
             # Update team 1 score
-            elif actor_id == team1:
+            elif actor_id == team_info[1]['id']:
                 if 'Engine.TeamInfo:Score' in update:
                     frames[i]['scoreboard']['team1'] = \
                         update['Engine.TeamInfo:Score']
@@ -199,3 +181,5 @@ def load_frames():
                     real_replay_delta * 85 / 255
                 frames[i]['cars'][player_id]['boost'] = \
                     max(0, frames[i]['cars'][player_id]['boost'])
+
+    return frames
