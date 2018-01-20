@@ -1,8 +1,15 @@
+from rocketleaguereplayanalysis.parser.type.boost import deplete_boost
+from rocketleaguereplayanalysis.parser.type.deleted_objects import \
+    parse_deleted_objects
+
+
 def load_frames(data, player_info, team_info, game_event_num):
     import copy
-    from rocketleaguereplayanalysis.parser.frame_data import \
-        update_game_data, update_car_data, update_player_data, \
-        update_ball_data, update_boost_data
+    from rocketleaguereplayanalysis.parser.type.boost import update_boost_data
+    from rocketleaguereplayanalysis.parser.type.ball import update_ball_data
+    from rocketleaguereplayanalysis.parser.type.player import update_player_data
+    from rocketleaguereplayanalysis.parser.type.car import update_car_data
+    from rocketleaguereplayanalysis.parser.type.game import update_game_data
 
     current_ball_object = None
     current_car_objects = {}
@@ -99,38 +106,9 @@ def load_frames(data, player_info, team_info, game_event_num):
             'real_replay_delta': real_replay_delta
         }
 
-        # Check for deleted actors
-        for actor_id in data['Frames'][i]['DeletedActorIds']:
-            if actor_id == current_ball_object:
-                frames[i]['ball'] = {'loc': {'x': 0, 'y': 0, 'z': 0},
-                                     'rot': {'x': 0, 'y': 0, 'z': 0},
-                                     'sleep': True,
-                                     'last_hit': None}
-            else:
-                for player_id in current_boost_objects:
-                    if actor_id in current_boost_objects[player_id]:
-                        current_boost_objects[player_id].remove(actor_id)
-                for player_id in current_car_objects:
-                    if actor_id == current_car_objects[player_id]:
-                        current_car_objects[player_id] = None
-                        current_boost_objects[player_id] = []
-                        frames[i]['cars'][player_id]['loc'] = \
-                            {'x': None, 'y': None, 'z': None}
-                        frames[i]['cars'][player_id]['rot'] = \
-                            {'x': 0, 'y': 0, 'z': 0}
-                        frames[i]['cars'][player_id]['ang_vel'] = \
-                            {'x': 0, 'y': 0, 'z': 0}
-                        frames[i]['cars'][player_id]['lin_vel'] = \
-                            {'x': 0, 'y': 0, 'z': 0}
-                        frames[i]['cars'][player_id]['throttle'] = 0
-                        frames[i]['cars'][player_id]['steer'] = .5
-                        frames[i]['cars'][player_id]['ping'] = 0
-                        frames[i]['cars'][player_id]['boost'] = 85 / 255
-                        frames[i]['cars'][player_id]['boosting'] = False
-                        frames[i]['cars'][player_id]['sleep'] = True
-                        frames[i]['cars'][player_id]['drift'] = False
-                        frames[i]['cars'][player_id]['2nd_cam'] = False
-                        frames[i]['cars'][player_id]['driving'] = False
+        parse_deleted_objects(current_ball_object, current_boost_objects,
+                              current_car_objects, data, frames, i,
+                              player_info)
 
         for update in data['Frames'][i]['ActorUpdates']:
             actor_id = update['Id']
@@ -143,8 +121,10 @@ def load_frames(data, player_info, team_info, game_event_num):
             # Update car numbers
             if 'ClassName' in update and \
                     ('TAGame.Car_TA' in update['ClassName']):
-                player = update['Engine.Pawn:PlayerReplicationInfo']['ActorId']
-                current_car_objects[player] = update['Id']
+                if 'Engine.Pawn:PlayerReplicationInfo' in update:
+                    player = update['Engine.Pawn:PlayerReplicationInfo'][
+                        'ActorId']
+                    current_car_objects[player] = update['Id']
 
             update_boost_data(update, frames, current_car_objects,
                               current_boost_objects, i)
@@ -153,7 +133,7 @@ def load_frames(data, player_info, team_info, game_event_num):
             if actor_id == current_ball_object:
                 update_ball_data(update, frames, i)
             # Update player info
-            elif actor_id in player_info.keys():
+            elif actor_id in player_info:
                 update_player_data(update, frames, i, actor_id)
             # Update game data
             elif actor_id == game_event_num:
@@ -171,15 +151,12 @@ def load_frames(data, player_info, team_info, game_event_num):
             else:
                 # update car data
                 for player_id in current_car_objects:
-                    if actor_id == current_car_objects[player_id]:
+                    if player_id in player_info and \
+                            actor_id == current_car_objects[player_id]:
                         update_car_data(update, frames, i, player_id)
 
         # Deplete Boost
-        for player_id in current_car_objects:
-            if frames[i]['cars'][player_id]['boosting']:
-                frames[i]['cars'][player_id]['boost'] -= \
-                    real_replay_delta * 85 / 255
-                frames[i]['cars'][player_id]['boost'] = \
-                    max(0, frames[i]['cars'][player_id]['boost'])
+        deplete_boost(current_car_objects, frames, i, player_info,
+                      real_replay_delta)
 
     return frames

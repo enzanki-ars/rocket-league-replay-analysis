@@ -1,5 +1,4 @@
-def load_data(filename):
-    import json
+def parse_data(data):
 
     from rocketleaguereplayanalysis.data.actor_data import parse_actor_data
     from rocketleaguereplayanalysis.data.object_numbers import \
@@ -7,9 +6,6 @@ def load_data(filename):
     from rocketleaguereplayanalysis.parser.frames import load_frames
     from rocketleaguereplayanalysis.util.extra_info import parse_pressure, \
         parse_possession, fix_pressure_possession_values, parse_total_boost
-
-    with open(filename) as data_file:
-        data = json.load(data_file)
 
     actor_data = parse_actor_data(data)
     player_info, team_info = parse_player_info(data)
@@ -23,4 +19,4 @@ def load_data(filename):
 
     fix_pressure_possession_values(frames)
 
-    return data, frames, actor_data, player_info, team_info, game_event_num
+    return frames, actor_data, player_info, team_info, game_event_num

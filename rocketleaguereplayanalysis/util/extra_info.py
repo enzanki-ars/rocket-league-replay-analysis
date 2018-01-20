@@ -138,8 +138,9 @@ def parse_total_boost(frames, player_info):
 
     for i, frame in enumerate(frames):
         frame['total_boost'] = {0: 0, 1: 0}
-        for player_id in frame['cars']:
-            if player_info[player_id]['team']:
+        for player_id in player_info:
+            if 'team' in player_info[player_id] and \
+                    player_info[player_id]['team']:
                 frame['total_boost'][player_info[player_id]['team']] += \
                     frame['cars'][player_id]['boost']
 

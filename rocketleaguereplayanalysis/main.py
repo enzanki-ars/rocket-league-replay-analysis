@@ -1,7 +1,9 @@
 import argparse
+import json
 import os
+from datetime import datetime
 
-from rocketleaguereplayanalysis.data.data_loader import load_data
+from rocketleaguereplayanalysis.data.data_loader import parse_data
 from rocketleaguereplayanalysis.render.do_render import render
 from rocketleaguereplayanalysis.util.asset_loc import get_assets_path
 from rocketleaguereplayanalysis.util.data_explorer import data_explorer_cli
@@ -21,7 +23,8 @@ def main():
 
     # Required args
     parser.add_argument('game_json',
-                        help='The name of the game json.',
+                        help='The name of the game json. '
+                             'This can be a folder.',
                         nargs='+')
 
     assets_path, available_assets = get_assets_path()
@@ -71,8 +74,30 @@ def main():
         set_sync_delta_type('real_replay_delta')
         set_sync_time_type('real_replay_time')
 
+    replays_to_parse = []
+
     for game_json in args.game_json:
-        out_prefix = os.path.basename(game_json)
+        if os.path.isdir(game_json):
+            for file in os.listdir(game_json):
+                if file.endswith('.json'):
+                    replays_to_parse.append(os.path.join(game_json, file))
+
+                    print(os.path.join(game_json, file),
+                          'does not end with .json. '
+                          'File was not added.')
+        elif os.path.isfile(game_json):
+            if game_json.endswith('.json'):
+                replays_to_parse.append(game_json)
+            else:
+                print(game_json, 'does not end with .json. '
+                                 'File was not added.')
+        else:
+            print(game_json, 'was not added as it does not '
+                             'seem to be a file or directory.')
+
+    for replay in replays_to_parse:
+
+        out_prefix = os.path.basename(replay)
 
         game_name = out_prefix.split('.')[0]
 
@@ -80,9 +105,18 @@ def main():
 
         print('=====', game_name, '=====')
 
+        print('Loading data...')
+        with open(replay) as data_file:
+            data = json.load(data_file)
+        print('Data successfully loaded.')
+
+        print('In-Game Replay Name:', data['Properties']['ReplayName'])
+        print('Date:', datetime.strptime(data['Properties']['Date'],
+                                         '%Y-%m-%d %H-%M-%S'))
+
         print('Parsing data...')
-        data, frames, actor_data, player_info, team_info, game_event_num = \
-            load_data(game_json)
+        frames, actor_data, player_info, team_info, game_event_num = \
+            parse_data(data)
         print('Data successfully parsed.')
 
         if not args.render and not args.render_all \
