@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+import statistics
 from datetime import datetime
 
 from rocketleaguereplayanalysis.data.data_loader import parse_data
@@ -14,8 +15,6 @@ from rocketleaguereplayanalysis.util.sync import set_sync_delta_type, \
     set_sync_time_type
 
 version = 'v1.4.0-alpha3'
-
-frame_num_format = '{0:05d}'
 
 
 def main():
@@ -79,14 +78,14 @@ def main():
     for game_json in args.game_json:
         if os.path.isdir(game_json):
             for file in os.listdir(game_json):
-                if file.endswith('.json'):
+                if os.path.splitext(file)[1] == '.json':
                     replays_to_parse.append(os.path.join(game_json, file))
-
+                else:
                     print(os.path.join(game_json, file),
                           'does not end with .json. '
                           'File was not added.')
         elif os.path.isfile(game_json):
-            if game_json.endswith('.json'):
+            if os.path.splitext(game_json)[1] == '.json':
                 replays_to_parse.append(game_json)
             else:
                 print(game_json, 'does not end with .json. '
@@ -95,15 +94,18 @@ def main():
             print(game_json, 'was not added as it does not '
                              'seem to be a file or directory.')
 
+    x_sizes = []
+    y_sizes = []
+
     for replay in replays_to_parse:
 
         out_prefix = os.path.basename(replay)
 
-        game_name = out_prefix.split('.')[0]
+        game_name = os.path.splitext(out_prefix)[0]
 
         video_prefix = os.path.join('renders', game_name)
 
-        print('=====', game_name, '=====')
+        print('=====', game_name, '(at', replay, ')', '=====')
 
         print('Loading data...')
         with open(replay) as data_file:
@@ -139,6 +141,12 @@ def main():
                 print('Min Y:     ', field_dimensions['min_y'])
                 print('X Size:    ', field_dimensions['x_size'])
                 print('Y Size:    ', field_dimensions['y_size'])
+
+                if field_dimensions['x_size']:
+                    x_sizes.append(field_dimensions['x_size'])
+                if field_dimensions['y_size']:
+                    y_sizes.append(field_dimensions['y_size'])
+
             if args.export_parsed_data_json:
                 print('Exporting data...')
                 export_parsed_data_json(video_prefix, frames, player_info,
@@ -165,6 +173,11 @@ def main():
                     render(render_type, assets_path, frames, player_info,
                            team_info, video_prefix)
                 print('Render completed.')
+
+    if args.show_field_size:
+        print('===== Overall Data =====')
+        print('X:', statistics.mean(x_sizes))
+        print('Y:', statistics.mean(y_sizes))
 
 
 if __name__ == "__main__":
