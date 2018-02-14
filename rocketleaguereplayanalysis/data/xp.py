@@ -75,9 +75,15 @@ def get_xp_level(xp):
               (10049750, 74),
               (10462750, 75)]
 
-    for xp_limit, xp_level in levels:
-        if xp <= xp_limit:
-            return xp_level
+    max_xp = max([x[0] for x in levels])
+    max_level = max([x[1] for x in levels])
+
+    if xp > max_xp:
+        return max_level
+    else:
+        for xp_limit, xp_level in levels:
+            if xp <= xp_limit:
+                return xp_level
 
 
 def get_xp_title(xp_level):
