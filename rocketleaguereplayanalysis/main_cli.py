@@ -6,7 +6,7 @@ from datetime import datetime
 
 from rocketleaguereplayanalysis.data.data_loader import parse_data
 from rocketleaguereplayanalysis.render.do_render import render
-from rocketleaguereplayanalysis.util.asset_loc import get_assets_path
+from rocketleaguereplayanalysis.util.asset_loc import get_avalible_assets
 from rocketleaguereplayanalysis.util.data_explorer import data_explorer_cli
 from rocketleaguereplayanalysis.util.export import export_parsed_data_json, \
     export_parsed_data_csv
@@ -26,7 +26,7 @@ def main():
                              'This can be a folder.',
                         nargs='+')
 
-    assets_path, available_assets = get_assets_path()
+    assets_path, available_assets = get_avalible_assets()
 
     parser.add_argument('--render',
                         choices=available_assets,
