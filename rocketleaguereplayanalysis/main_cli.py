@@ -164,12 +164,14 @@ def main():
             if args.render:
                 print('Rendering video...')
                 for render_type in args.render:
+                    print('=====', 'Rendering', render_type, '=====')
                     render(render_type, assets_path, frames, player_info,
                            team_info, video_prefix)
                 print('Render completed.')
             if args.render_all:
                 print('Rendering video...')
                 for render_type in available_assets:
+                    print('=====', 'Rendering', render_type, '=====')
                     render(render_type, assets_path, frames, player_info,
                            team_info, video_prefix)
                 print('Render completed.')
