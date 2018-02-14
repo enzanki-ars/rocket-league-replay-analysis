@@ -132,7 +132,7 @@ def render(filename, assets_path, frames, player_info, team_info,
             elif render_cmd['filter'] == 'drawbox':
                 if 'set_team_color' in render_cmd:
                     extra_cmd_filter += '=color=' + \
-                                        team_info[render_cmd['set_team_name']][
+                                        team_info[render_cmd['set_team_color']][
                                             'color']
                 if 'options' in render_cmd:
                     extra_cmd_filter += ':'
