@@ -1,3 +1,17 @@
+PROJECT HAS BEEN MOVED TO GITLAB - https://gitlab.com/enzanki_ars/rocket-league-replay-analysis
+
+This project has been moved to GitLab to make development and testing easier.  GitHub does not 
+have integrated testing features, while GitLab has testing features built in that makes running 
+customized tests easier to run. 
+
+## Project Status
+
+This project was not maintained for a long stretch of time.  Recently, maintenance has resumed. 
+In this time though, the project does not work anymore for recent replays for newer versions. 
+Work has resumed on restoring the project to a working state, but it will result in some major 
+changes to how the program will be installed/run.  I will update this page and post on Reddit 
+when the program is back to a working state.  
+
 # Rocket League Replay Analysis
 
 **Version:** v1.4.0-alpha3
